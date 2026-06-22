@@ -111,10 +111,20 @@ const Contact = () => {
                 <div>
                   <h3 className="font-semibold mb-3">Follow Us</h3>
                   <div className="flex gap-3">
-                    {["LinkedIn", "Twitter", "GitHub"].map((s) => (
-                      <span key={s} className="glass-pill cursor-pointer text-muted-foreground hover:text-foreground">
-                        {s}
-                      </span>
+                    {[
+                      { name: "LinkedIn", href: "" },
+                      { name: "X (Twitter)", href: "https://x.com/allspirehq" },
+                      { name: "GitHub", href: "https://github.com/Allspire-Technologies" },
+                    ].map((s) => (
+                      <a
+                        key={s.name}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="glass-pill cursor-pointer text-muted-foreground hover:text-foreground"
+                      >
+                        {s.name}
+                      </a>
                     ))}
                   </div>
                 </div>

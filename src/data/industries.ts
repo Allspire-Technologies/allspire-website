@@ -24,10 +24,6 @@ export const industriesData = {
       { icon: Users, title: "Tenant Experience Portals", desc: "Self-service portals for rent payments, maintenance requests, and communication." },
       { icon: Globe, title: "Virtual Tours & Listings", desc: "Immersive 3D tours and intelligent listing platforms that convert visitors into leads." },
     ],
-    caseStudy: {
-      title: "PropFlow — Portfolio Management Suite",
-      desc: "Built a unified property management platform for a 200+ unit portfolio, reducing vacancy rates by 25% and automating lease renewals.",
-    },
   },
   finance: {
     title: "Finance",
@@ -48,10 +44,6 @@ export const industriesData = {
       { icon: Cpu, title: "Payment Infrastructure", desc: "PCI-compliant payment gateways, digital wallets, and settlement engines." },
       { icon: Workflow, title: "Risk Management Systems", desc: "ML-powered fraud detection and portfolio risk assessment platforms." },
     ],
-    caseStudy: {
-      title: "FinEdge — Investment Dashboard",
-      desc: "Designed a real-time investment analytics dashboard for a mid-size asset manager, improving portfolio visibility and reducing reporting cycles by 80%.",
-    },
   },
   retail: {
     title: "Retail",
@@ -73,8 +65,8 @@ export const industriesData = {
       { icon: Clock, title: "Omnichannel Solutions", desc: "Unified experiences across web, mobile, in-store kiosks, and social commerce." },
     ],
     caseStudy: {
-      title: "ShopSmart — E-commerce Platform",
-      desc: "Launched a headless e-commerce platform for a fashion brand that doubled mobile conversions and cut page load times by 60%.",
+      title: "iTrova — Business Management Platform",
+      desc: "Built iTrova, an end-to-end platform for retailers and distributors that unifies inventory, point of sale, suppliers, invoicing and reporting — with automatic stock deduction on every sale and role-based access for the whole team.",
     },
   },
   logistics: {
@@ -96,10 +88,6 @@ export const industriesData = {
       { icon: LineChart, title: "Demand Forecasting", desc: "ML-powered forecasting models that optimize inventory levels across the supply chain." },
       { icon: CheckCircle, title: "Last-Mile Delivery", desc: "Customer-facing tracking, delivery scheduling, and proof-of-delivery solutions." },
     ],
-    caseStudy: {
-      title: "LogiTrack — Fleet Intelligence",
-      desc: "Deployed an AI-powered fleet management platform that reduced fuel costs by 20% and improved on-time delivery rates to 95%.",
-    },
   },
   education: {
     title: "Education",
@@ -120,10 +108,6 @@ export const industriesData = {
       { icon: Cpu, title: "Adaptive Learning Engines", desc: "AI-powered personalized learning paths that adapt to each student's pace and style." },
       { icon: BarChart3, title: "Analytics & Reporting", desc: "Data dashboards for educators and administrators to track outcomes and identify at-risk students." },
     ],
-    caseStudy: {
-      title: "EduSpark — Online Learning Platform",
-      desc: "Built a scalable online learning marketplace serving 500K+ students with live classes, quizzes, and AI-generated study plans.",
-    },
   },
 } as const;
 

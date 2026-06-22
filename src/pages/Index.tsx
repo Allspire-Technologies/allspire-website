@@ -32,8 +32,8 @@ const whyUs = [
 ];
 
 const heroStats = [
-  { value: "150+", label: "Projects Delivered" },
-  { value: "50+", label: "Engineers & Designers" },
+  { value: "iTrova", label: "Flagship Product" },
+  { value: "10+", label: "Engineers & Designers" },
   { value: "98%", label: "Client Satisfaction" },
 ];
 
