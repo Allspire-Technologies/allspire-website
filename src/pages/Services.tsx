@@ -8,7 +8,7 @@ const services = [
   {
     icon: Rocket,
     title: "Product Development",
-    desc: "We take your idea from concept to a fully realized product. Our process covers discovery, design, engineering, QA, and launch — giving you a product that's ready to compete.",
+    desc: "We take your idea from concept to a fully realized product. Our process covers discovery, design, engineering, QA, and launch, giving you a product that's ready to compete.",
     features: ["Product strategy & roadmapping", "UI/UX design", "Full-stack engineering", "Launch & iteration support"],
   },
   {
