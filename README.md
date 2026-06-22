@@ -50,3 +50,4 @@ src/
   lib/           utilities
   pages/         route components (Index, Projects, Services, Contact, ...)
 ```
+# Welcome to Allspire
