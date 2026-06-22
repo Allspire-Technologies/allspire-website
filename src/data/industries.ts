@@ -12,7 +12,7 @@ export const industriesData = {
     color: "from-blue-500 to-cyan-400",
     headline: "Digitizing the future of property",
     description:
-      "We help real estate companies modernize operations — from property management platforms to AI-powered valuation engines — so they can close deals faster and deliver exceptional tenant experiences.",
+      "We help real estate companies modernize operations, from property management platforms to AI-powered valuation engines, so they can close deals faster and deliver exceptional tenant experiences.",
     stats: [
       { value: "40%", label: "Faster deal closings" },
       { value: "3x", label: "Lead conversion improvement" },
@@ -52,7 +52,7 @@ export const industriesData = {
     color: "from-purple-500 to-pink-400",
     headline: "Commerce, reimagined",
     description:
-      "We empower retailers with technology that bridges online and offline — from headless e-commerce to AI-personalized shopping experiences that maximize revenue per visitor.",
+      "We empower retailers with technology that bridges online and offline, from headless e-commerce to AI-personalized shopping experiences that maximize revenue per visitor.",
     stats: [
       { value: "35%", label: "Increase in AOV" },
       { value: "2x", label: "Faster page load times" },
@@ -66,7 +66,7 @@ export const industriesData = {
     ],
     caseStudy: {
       title: "iTrova — Business Management Platform",
-      desc: "Built iTrova, an end-to-end platform for retailers and distributors that unifies inventory, point of sale, suppliers, invoicing and reporting — with automatic stock deduction on every sale and role-based access for the whole team.",
+      desc: "Built iTrova, an end-to-end platform for retailers and distributors that unifies inventory, point of sale, suppliers, invoicing and reporting; with automatic stock deduction on every sale and role-based access for the whole team.",
     },
   },
   logistics: {
@@ -76,7 +76,7 @@ export const industriesData = {
     color: "from-violet-500 to-indigo-400",
     headline: "Intelligent supply chains",
     description:
-      "We build logistics technology that brings visibility, automation, and intelligence to every mile — helping companies move goods faster, cheaper, and more sustainably.",
+      "We build logistics technology that brings visibility, automation, and intelligence to every mile; helping companies move goods faster, cheaper, and more sustainably.",
     stats: [
       { value: "30%", label: "Reduction in delivery times" },
       { value: "20%", label: "Fuel cost savings" },
@@ -96,7 +96,7 @@ export const industriesData = {
     color: "from-emerald-500 to-teal-400",
     headline: "Empowering the next generation of learners",
     description:
-      "We build edtech platforms that make learning more accessible, engaging, and effective — from K-12 school management to enterprise training and online course marketplaces.",
+      "We build edtech platforms that make learning more accessible, engaging, and effective; from K-12 school management to enterprise training and online course marketplaces.",
     stats: [
       { value: "3x", label: "Student engagement increase" },
       { value: "50%", label: "Administrative time saved" },

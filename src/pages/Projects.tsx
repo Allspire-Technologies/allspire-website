@@ -60,7 +60,7 @@ const Projects = () => (
             Work that <span className="gradient-text">speaks</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We pour everything we know into the products we build. Here's the one we built end-to-end — live in production today.
+            We pour everything we know into the products we build. Here's the one we built end-to-end, live in production today.
           </p>
         </AnimatedSection>
 
@@ -92,8 +92,8 @@ const Projects = () => (
               <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">iTrova</h2>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
                 A comprehensive business management platform purpose-built for small and medium-sized
-                businesses across Nigeria and Africa. iTrova connects every part of a business — from the
-                raw materials coming in to the finished products going out — bringing inventory, point of
+                businesses across Nigeria and Africa. iTrova connects every part of a business, from the
+                raw materials coming in to the finished products going out; bringing inventory, point of
                 sale, suppliers, invoicing, team management and reporting into one seamless platform.
               </p>
               <a
