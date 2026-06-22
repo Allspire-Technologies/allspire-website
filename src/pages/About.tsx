@@ -30,13 +30,13 @@ const About = () => (
             <h2 className="text-3xl font-bold mb-6">Our Story</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Founded in 2020, Allspire emerged from the frustration of watching businesses struggle with outdated technology and disconnected systems. Our founders — seasoned engineers and product leaders — set out to create a technology partner that truly understands business.
+                Founded in 2025, Allspire emerged from the frustration of watching businesses struggle with outdated technology and disconnected systems. Our founders — seasoned engineers and product leaders — set out to create a technology partner that truly understands business.
               </p>
               <p>
                 Today, we work with organizations across real estate, finance, retail, logistics, and education, delivering intelligent digital products that drive measurable outcomes. From startups to enterprises, our clients trust us to turn complex challenges into elegant solutions.
               </p>
               <p>
-                We're a team of 50+ engineers, designers, and strategists distributed across three continents, united by a shared commitment to craftsmanship and impact.
+                We're a team of 10+ engineers, designers, and strategists distributed across three continents, united by a shared commitment to craftsmanship and impact.
               </p>
             </div>
           </AnimatedSection>

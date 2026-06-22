@@ -46,8 +46,9 @@ const Footer = () => (
           <div className="flex flex-col gap-3">
             <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
             <a href="mailto:hello@allspire.tech" className="text-sm text-muted-foreground hover:text-foreground transition-colors">hello@allspire.tech</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Twitter</a>
+            <a href="" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a>
+            <a href="https://x.com/allspirehq" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">X (Twitter)</a>
+            <a href="https://github.com/Allspire-Technologies" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
           </div>
         </div>
       </div>

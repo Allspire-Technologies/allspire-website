@@ -96,29 +96,31 @@ const IndustryDetail = () => {
       </section>
 
       {/* Case Study */}
-      <section className="section-padding surface-elevated">
-        <div className="container-tight">
-          <AnimatedSection>
-            <div className="max-w-3xl mx-auto glass-card p-10 md:p-14">
-              <span className="text-sm font-medium text-primary mb-4 block">
-                Case Study
-              </span>
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                {industry.caseStudy.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                {industry.caseStudy.desc}
-              </p>
-              <Link
-                to="/projects"
-                className="inline-flex items-center gap-2 text-primary font-medium hover:underline group"
-              >
-                View all projects <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      {"caseStudy" in industry && (
+        <section className="section-padding surface-elevated">
+          <div className="container-tight">
+            <AnimatedSection>
+              <div className="max-w-3xl mx-auto glass-card p-10 md:p-14">
+                <span className="text-sm font-medium text-primary mb-4 block">
+                  Case Study
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold mb-4">
+                  {industry.caseStudy.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  {industry.caseStudy.desc}
+                </p>
+                <Link
+                  to="/projects"
+                  className="inline-flex items-center gap-2 text-primary font-medium hover:underline group"
+                >
+                  View all projects <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="section-padding">
