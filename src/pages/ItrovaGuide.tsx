@@ -2,23 +2,25 @@ import { useEffect, useMemo, useState } from "react";
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { userGuide, ALL_ROLES, type Role, type GuideSection, type GuideShot } from "@/data/userGuide";
-import { Search, X, Monitor, Smartphone, Lightbulb } from "lucide-react";
+import { Search, X, Monitor, Smartphone, Lightbulb, Maximize2 } from "lucide-react";
 
 const ROLE_FILTERS: ("All" | Role)[] = ["All", ...ALL_ROLES];
 
-const RoleChips = ({ value, onChange }: { value: "All" | Role; onChange: (r: "All" | Role) => void }) => (
-  <div className="flex flex-wrap gap-2">
-    {ROLE_FILTERS.map((r) => (
-      <button
-        key={r}
-        onClick={() => onChange(r)}
-        className={`glass-pill ${value === r ? "border-primary/50 bg-primary/10 text-primary" : ""}`}
-      >
-        {r}
-      </button>
-    ))}
-  </div>
+const RoleSelect = ({ value, onChange }: { value: "All" | Role; onChange: (r: "All" | Role) => void }) => (
+  <Select value={value} onValueChange={(v) => onChange(v as "All" | Role)}>
+    <SelectTrigger className="w-full">
+      <SelectValue placeholder="All roles" />
+    </SelectTrigger>
+    <SelectContent>
+      {ROLE_FILTERS.map((r) => (
+        <SelectItem key={r} value={r}>
+          {r === "All" ? "All roles" : r}
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
 );
 
 function SectionBlock({ section, onShot }: { section: GuideSection; onShot: (s: GuideShot) => void }) {
@@ -56,21 +58,21 @@ function SectionBlock({ section, onShot }: { section: GuideSection; onShot: (s: 
           ))}
         </ol>
 
-        <div className="grid sm:grid-cols-2 gap-5 items-start mb-6">
+        <div className="space-y-6 mb-6">
           {section.shots.map((shot, idx) => (
-            <figure key={idx} className={`group ${shot.device === "mobile" ? "mx-auto w-full max-w-[260px]" : ""}`}>
-              <button
-                onClick={() => onShot(shot)}
-                className="block w-full overflow-hidden rounded-xl border border-border shadow-sm hover:shadow-lg transition-shadow"
-                aria-label={`Enlarge: ${shot.alt}`}
-              >
-                <img
-                  src={shot.src}
-                  alt={shot.alt}
-                  loading="lazy"
-                  className="w-full transition-transform duration-300 group-hover:scale-[1.02]"
-                />
-              </button>
+            <figure key={idx} className={shot.device === "mobile" ? "mx-auto w-full max-w-[320px]" : ""}>
+              <div className="relative rounded-xl border border-border bg-card shadow-sm overflow-hidden">
+                <div className={`overflow-y-auto ${shot.device === "mobile" ? "max-h-[640px]" : "max-h-[520px]"}`}>
+                  <img src={shot.src} alt={shot.alt} loading="lazy" className="block w-full" />
+                </div>
+                <button
+                  onClick={() => onShot(shot)}
+                  aria-label={`Enlarge: ${shot.alt}`}
+                  className="absolute top-2.5 right-2.5 h-8 w-8 grid place-items-center rounded-lg bg-background/80 backdrop-blur border border-border text-muted-foreground hover:text-foreground hover:bg-background transition-colors"
+                >
+                  <Maximize2 className="h-4 w-4" />
+                </button>
+              </div>
               {shot.caption && (
                 <figcaption className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
                   {shot.device === "mobile" ? <Smartphone className="h-3.5 w-3.5" /> : <Monitor className="h-3.5 w-3.5" />}
@@ -167,7 +169,7 @@ const ItrovaGuide = () => {
             <div className="sticky top-28 space-y-6">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Show steps for</p>
-                <RoleChips value={role} onChange={setRole} />
+                <RoleSelect value={role} onChange={setRole} />
               </div>
               <nav className="border-l border-border">
                 {sections.map((s) => (
@@ -192,7 +194,7 @@ const ItrovaGuide = () => {
           <div className="min-w-0">
             <div className="lg:hidden mb-10">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Show steps for</p>
-              <RoleChips value={role} onChange={setRole} />
+              <RoleSelect value={role} onChange={setRole} />
             </div>
 
             {sections.length === 0 ? (
