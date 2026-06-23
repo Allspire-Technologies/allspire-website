@@ -4,7 +4,8 @@ import AnimatedSection from "@/components/AnimatedSection";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { userGuide, ALL_ROLES, type Role, type GuideSection, type GuideShot } from "@/data/userGuide";
-import { Search, X, Monitor, Smartphone, Lightbulb, Maximize2 } from "lucide-react";
+import { changelog } from "@/data/changelog";
+import { Search, X, Monitor, Smartphone, Lightbulb, Maximize2, Sparkles } from "lucide-react";
 
 const ROLE_FILTERS: ("All" | Role)[] = ["All", ...ALL_ROLES];
 
@@ -94,6 +95,46 @@ function SectionBlock({ section, onShot }: { section: GuideSection; onShot: (s: 
   );
 }
 
+function WhatsNew() {
+  return (
+    <div id="whats-new" className="scroll-mt-28">
+      <AnimatedSection>
+        <div className="flex items-center gap-3 mb-3">
+          <div className="h-11 w-11 rounded-xl gradient-bg grid place-items-center text-primary-foreground shrink-0">
+            <Sparkles className="h-5 w-5" />
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold">What's new</h2>
+        </div>
+        <p className="text-muted-foreground mb-6">The latest improvements to iTrova.</p>
+        <ol className="relative ml-3 space-y-8 border-l border-border">
+          {changelog.map((entry, i) => (
+            <li key={i} className="ml-6">
+              <span className="absolute -left-[7px] mt-1.5 h-3.5 w-3.5 rounded-full gradient-bg ring-4 ring-background" />
+              <div className="flex flex-wrap items-center gap-3 mb-2">
+                <h3 className="font-semibold text-lg">{entry.title}</h3>
+                {entry.tag && (
+                  <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                    {entry.tag}
+                  </span>
+                )}
+                <time className="text-sm text-muted-foreground">{entry.date}</time>
+              </div>
+              <ul className="space-y-1.5">
+                {entry.items.map((it, j) => (
+                  <li key={j} className="flex gap-2 text-sm">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary/60 shrink-0" />
+                    <span className="text-muted-foreground leading-relaxed">{it}</span>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </AnimatedSection>
+    </div>
+  );
+}
+
 const ItrovaGuide = () => {
   const [query, setQuery] = useState("");
   const [role, setRole] = useState<"All" | Role>("All");
@@ -110,6 +151,8 @@ const ItrovaGuide = () => {
     });
   }, [query, role]);
 
+  const showChangelog = query.trim() === "";
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -120,12 +163,13 @@ const ItrovaGuide = () => {
       },
       { rootMargin: "-25% 0px -65% 0px", threshold: 0 },
     );
-    sections.forEach((s) => {
-      const el = document.getElementById(s.id);
+    const ids = [...(showChangelog ? ["whats-new"] : []), ...sections.map((s) => s.id)];
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, [sections]);
+  }, [sections, showChangelog]);
 
   return (
     <PageLayout>
@@ -172,6 +216,19 @@ const ItrovaGuide = () => {
                 <RoleSelect value={role} onChange={setRole} />
               </div>
               <nav className="border-l border-border">
+                {showChangelog && (
+                  <a
+                    href="#whats-new"
+                    className={`flex items-center gap-2 -ml-px border-l-2 pl-4 py-2 text-sm transition-colors ${
+                      active === "whats-new"
+                        ? "border-primary text-primary font-medium"
+                        : "border-transparent text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Sparkles className="h-4 w-4 shrink-0" />
+                    What's new
+                  </a>
+                )}
                 {sections.map((s) => (
                   <a
                     key={s.id}
@@ -196,6 +253,12 @@ const ItrovaGuide = () => {
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Show steps for</p>
               <RoleSelect value={role} onChange={setRole} />
             </div>
+
+            {showChangelog && (
+              <div className="mb-16">
+                <WhatsNew />
+              </div>
+            )}
 
             {sections.length === 0 ? (
               <p className="text-muted-foreground">
