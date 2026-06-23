@@ -30,7 +30,7 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/itrova-guide" element={<ItrovaGuide />} />
+          <Route path="/docs/itrova" element={<ItrovaGuide />} />
           <Route path="/industries/:slug" element={<IndustryDetail />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
