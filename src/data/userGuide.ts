@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Rocket, LayoutDashboard, Package, ShoppingCart, FileText } from "lucide-react";
+import { Rocket, LayoutDashboard, Package, ShoppingCart, FileText, Truck, Boxes, ClipboardList, BarChart3, Users, Settings } from "lucide-react";
 
 import login from "@/assets/guide/01-getting-started-login.png";
 import signup from "@/assets/guide/01-getting-started-signup.png";
@@ -12,6 +12,16 @@ import posCart from "@/assets/guide/04-pos-cart.png";
 import posHeld from "@/assets/guide/04-pos-held-sales.png";
 import posMobile from "@/assets/guide/04-pos-mobile.png";
 import invoices from "@/assets/guide/05-invoices.png";
+import suppliersImg from "@/assets/guide/06-suppliers.png";
+import suppliersAdd from "@/assets/guide/06-suppliers-add.png";
+import rawMaterialsImg from "@/assets/guide/07-raw-materials.png";
+import rawMaterialsDeliveries from "@/assets/guide/07-raw-materials-deliveries.png";
+import purchaseOrdersImg from "@/assets/guide/08-purchase-orders.png";
+import purchaseOrdersNew from "@/assets/guide/08-purchase-orders-new.png";
+import reportsImg from "@/assets/guide/09-reports.png";
+import teamImg from "@/assets/guide/10-team.png";
+import teamInvite from "@/assets/guide/10-team-invite.png";
+import settingsImg from "@/assets/guide/11-settings.png";
 
 export type Role = "Owner" | "Manager" | "Cashier";
 export const ALL_ROLES: Role[] = ["Owner", "Manager", "Cashier"];
@@ -133,5 +143,107 @@ export const userGuide: GuideSection[] = [
       { src: invoices, alt: "iTrova invoices list", caption: "All your invoices" },
     ],
     tip: "Voiding an invoice puts the items back in stock and reverses the revenue, so your reports stay correct.",
+  },
+  {
+    id: "suppliers",
+    title: "Suppliers",
+    icon: Truck,
+    summary: "Keep a directory of who supplies your stock and materials.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Open Suppliers and click Add supplier." },
+      { text: "Enter the business name, contact person, phone, email and address." },
+      { text: "Save. You can rate suppliers and see how much you've spent with each one over time." },
+      { text: "Export your supplier list to CSV whenever you need it." },
+    ],
+    shots: [
+      { src: suppliersImg, alt: "Suppliers list", caption: "Your suppliers" },
+      { src: suppliersAdd, alt: "Add supplier form", caption: "Adding a supplier" },
+    ],
+    tip: "Suppliers you add here become selectable when you create purchase orders and record raw-material deliveries.",
+  },
+  {
+    id: "raw-materials",
+    title: "Raw materials",
+    icon: Boxes,
+    summary: "Track production inputs and log deliveries as they arrive.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Open Raw Materials and click Add material — set the name, SKU, unit, stock, reorder level and cost per unit." },
+      { text: "When a delivery arrives, use Record purchase on a material to add the quantity to stock and log the cost." },
+      { text: "Switch to the Deliveries tab to see the full delivery history." },
+      { text: "Materials at or below their reorder level are flagged as low, just like products." },
+    ],
+    shots: [
+      { src: rawMaterialsImg, alt: "Raw materials list", caption: "Materials" },
+      { src: rawMaterialsDeliveries, alt: "Deliveries history", caption: "Deliveries history" },
+    ],
+    tip: "Recording a delivery (or receiving a purchase order) is what increases material stock, keeping your numbers reliable.",
+  },
+  {
+    id: "purchase-orders",
+    title: "Purchase orders",
+    icon: ClipboardList,
+    summary: "Order stock and materials from suppliers, then receive them into inventory.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Open Purchase Orders and click New PO." },
+      { text: "Pick a supplier, set the expected date, and add line items — choose a product or raw material, or type a custom item." },
+      { text: "Create the PO. You can send it to your supplier and track its status." },
+      { text: "When the goods arrive, change the status to Received — this adds the quantities to your stock automatically." },
+    ],
+    shots: [
+      { src: purchaseOrdersImg, alt: "Purchase orders list", caption: "Your purchase orders" },
+      { src: purchaseOrdersNew, alt: "New purchase order form", caption: "Creating a purchase order" },
+    ],
+    tip: "Marking a PO Received is final and updates stock, so you'll be asked to confirm before it's locked.",
+  },
+  {
+    id: "reports",
+    title: "Reports",
+    icon: BarChart3,
+    summary: "See revenue, profit, best-sellers and stock health for any period.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Open Reports and pick a date range (it defaults to the last 30 days)." },
+      { text: "Review the headline metrics — revenue, gross profit, units sold and supplier spend — each with the change vs the previous period." },
+      { text: "Dig into the revenue trend, top products, sales by staff, supplier spend and inventory turnover." },
+      { text: "Click Export PDF to download a shareable report." },
+    ],
+    shots: [{ src: reportsImg, alt: "Reports dashboard", caption: "The reports dashboard" }],
+    tip: "Gross profit uses each product's cost price, so keep cost prices up to date in Inventory for accurate margins.",
+  },
+  {
+    id: "team",
+    title: "Team & roles",
+    icon: Users,
+    summary: "Invite staff and control what each person can do.",
+    roles: ["Owner"],
+    steps: [
+      { text: "Open Team (owners only) and click Invite teammate." },
+      { text: "Enter their email and choose a role — Manager or Cashier — then send the invite." },
+      { text: "They get a link to join with their own login; pending invites show until they're accepted." },
+      { text: "You can change a member's role or remove them at any time." },
+    ],
+    shots: [
+      { src: teamImg, alt: "Team members", caption: "Your team" },
+      { src: teamInvite, alt: "Invite teammate form", caption: "Inviting a teammate" },
+    ],
+    tip: "Cashiers handle sales and receipts; managers also manage inventory, suppliers and reports; only owners manage the team.",
+  },
+  {
+    id: "settings",
+    title: "Settings",
+    icon: Settings,
+    summary: "Set up your business details, currency, notifications and plan.",
+    roles: ALL_ROLES,
+    steps: [
+      { text: "Update your Business Profile — your business name and your own name." },
+      { text: "Set your Currency & Region so money and dates display correctly everywhere in the app." },
+      { text: "Choose your Notification Preferences for low-stock and overdue-invoice alerts." },
+      { text: "Check your Subscription Plan to see what your current tier includes, and manage Account Security including your password." },
+    ],
+    shots: [{ src: settingsImg, alt: "Settings page", caption: "Settings" }],
+    tip: "Currency and timezone flow through the whole app — receipts, reports and overdue calculations all follow what you set here.",
   },
 ];
