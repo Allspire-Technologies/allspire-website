@@ -18,6 +18,7 @@ const navLinks = [
   { label: "Services", path: "/services" },
   { label: "Industries", path: "/industries", isDropdown: true },
   { label: "Projects", path: "/projects" },
+  { label: "iTrova Guide", path: "/itrova-guide" },
   { label: "Contact", path: "/contact" },
 ];
 
