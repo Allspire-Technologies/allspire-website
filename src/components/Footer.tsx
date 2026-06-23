@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/allspire-logo.png";
+import { docsProducts } from "@/data/docs";
 
 const industries = [
   { name: "Real Estate", slug: "real-estate" },
@@ -12,7 +13,7 @@ const industries = [
 const Footer = () => (
   <footer className="border-t border-border/50 bg-secondary/30 backdrop-blur-sm">
     <div className="container-tight section-padding">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
         <div className="col-span-2 md:col-span-1">
           <img src={logo} alt="Allspire" className="h-8 w-auto mb-3" />
           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -37,6 +38,20 @@ const Footer = () => (
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {i.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 className="font-semibold text-sm mb-4">Docs</h4>
+          <div className="flex flex-col gap-3">
+            {docsProducts.map((p) => (
+              <Link
+                key={p.slug}
+                to={`/docs/${p.slug}`}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {p.title}
               </Link>
             ))}
           </div>

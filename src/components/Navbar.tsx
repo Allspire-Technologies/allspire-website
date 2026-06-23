@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, type LucideIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/allspire-logo.png";
 import ThemeToggle from "@/components/ThemeToggle";
 import { industriesData } from "@/data/industries";
+import { docsProducts } from "@/data/docs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,12 +13,28 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const navLinks = [
+type DropdownItem = { label: string; path: string; icon: LucideIcon };
+type NavItem = { label: string; path: string; isDropdown?: boolean; items?: DropdownItem[] };
+
+const industryItems: DropdownItem[] = Object.values(industriesData).map((i) => ({
+  label: i.title,
+  path: `/industries/${i.slug}`,
+  icon: i.icon,
+}));
+
+const docsItems: DropdownItem[] = docsProducts.map((p) => ({
+  label: p.title,
+  path: `/docs/${p.slug}`,
+  icon: p.icon,
+}));
+
+const navLinks: NavItem[] = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Services", path: "/services" },
-  { label: "Industries", path: "/industries", isDropdown: true },
+  { label: "Industries", path: "/industries", isDropdown: true, items: industryItems },
   { label: "Projects", path: "/projects" },
+  { label: "Docs", path: "/docs", isDropdown: true, items: docsItems },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -40,14 +57,14 @@ const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <button
                     className={`relative text-sm font-medium transition-colors hover:text-primary flex items-center gap-1 outline-none ${
-                      location.pathname.startsWith("/industries")
+                      location.pathname.startsWith(link.path)
                         ? "text-primary"
                         : "text-muted-foreground"
                     }`}
                   >
                     {link.label}
                     <ChevronDown className="h-3.5 w-3.5" />
-                    {location.pathname.startsWith("/industries") && (
+                    {location.pathname.startsWith(link.path) && (
                       <motion.div
                         layoutId="nav-indicator"
                         className="absolute -bottom-1 left-0 right-0 h-0.5 gradient-bg rounded-full"
@@ -57,14 +74,11 @@ const Navbar = () => {
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="center" className="w-48">
-                  {Object.values(industriesData).map((industry) => (
-                    <DropdownMenuItem key={industry.slug} asChild>
-                      <Link
-                        to={`/industries/${industry.slug}`}
-                        className="flex items-center gap-2 cursor-pointer"
-                      >
-                        <industry.icon className="h-4 w-4" />
-                        {industry.title}
+                  {link.items?.map((item) => (
+                    <DropdownMenuItem key={item.path} asChild>
+                      <Link to={item.path} className="flex items-center gap-2 cursor-pointer">
+                        <item.icon className="h-4 w-4" />
+                        {item.label}
                       </Link>
                     </DropdownMenuItem>
                   ))}
@@ -128,26 +142,26 @@ const Navbar = () => {
                   {link.isDropdown ? (
                     <>
                       <span className={`block py-3 text-sm font-medium ${
-                        location.pathname.startsWith("/industries")
+                        location.pathname.startsWith(link.path)
                           ? "text-primary"
                           : "text-muted-foreground"
                       }`}>
                         {link.label}
                       </span>
                       <div className="pl-4 space-y-1">
-                        {Object.values(industriesData).map((industry) => (
+                        {link.items?.map((item) => (
                           <Link
-                            key={industry.slug}
-                            to={`/industries/${industry.slug}`}
+                            key={item.path}
+                            to={item.path}
                             onClick={() => setOpen(false)}
                             className={`flex items-center gap-2 py-2 text-sm ${
-                              location.pathname === `/industries/${industry.slug}`
+                              location.pathname === item.path
                                 ? "text-primary"
                                 : "text-muted-foreground"
                             }`}
                           >
-                            <industry.icon className="h-4 w-4" />
-                            {industry.title}
+                            <item.icon className="h-4 w-4" />
+                            {item.label}
                           </Link>
                         ))}
                       </div>
