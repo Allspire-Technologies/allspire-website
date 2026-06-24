@@ -184,7 +184,7 @@ const ItrovaGuide = () => {
           <AnimatedSection className="max-w-3xl">
             <p className="text-sm font-medium text-primary mb-3">iTrova · User Guide</p>
             <h1 className="text-4xl md:text-6xl font-bold mb-5">
-              Everything you need to <span className="gradient-text">run your shop</span>
+              Everything you need to <span className="gradient-text">run your business</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
               A step-by-step guide to selling, tracking stock and getting paid with iTrova — illustrated with
