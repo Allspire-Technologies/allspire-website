@@ -102,7 +102,7 @@ const Projects = () => (
                 rel="noopener noreferrer"
                 className="btn-glass-primary group mt-8 inline-flex"
               >
-                Get started
+                Get iTrova
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
