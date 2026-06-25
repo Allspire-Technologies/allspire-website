@@ -13,6 +13,7 @@ import IndustryDetail from "./pages/IndustryDetail";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import DataProcessingAgreement from "./pages/DataProcessingAgreement";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/industries/:slug" element={<IndustryDetail />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/dpa" element={<DataProcessingAgreement />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
