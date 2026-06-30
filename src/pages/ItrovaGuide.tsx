@@ -59,6 +59,7 @@ function SectionBlock({ section, onShot }: { section: GuideSection; onShot: (s: 
           ))}
         </ol>
 
+        {section.shots.length > 0 && (
         <div className="space-y-6 mb-6">
           {section.shots.map((shot, idx) => (
             <figure key={idx} className={shot.device === "mobile" ? "mx-auto w-full max-w-[320px]" : ""}>
@@ -88,6 +89,7 @@ function SectionBlock({ section, onShot }: { section: GuideSection; onShot: (s: 
             </figure>
           ))}
         </div>
+        )}
 
         {section.tip && (
           <div className="flex gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4">

@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Rocket, LayoutDashboard, Package, ShoppingCart, FileText, Truck, Boxes, ClipboardList, BarChart3, Users, Settings } from "lucide-react";
+import { Rocket, LayoutDashboard, Package, ShoppingCart, FileText, Truck, Boxes, ClipboardList, BarChart3, Users, Settings, WifiOff } from "lucide-react";
 
 import login from "@/assets/guide/01-getting-started-login.png";
 import signup from "@/assets/guide/01-getting-started-signup.png";
@@ -112,7 +112,7 @@ export const userGuide: GuideSection[] = [
     summary: "Ring up sales, hold carts, take payment and print receipts.",
     roles: ALL_ROLES,
     steps: [
-      { text: "Tap a product to add it to the cart, or scan / type a SKU and press Enter." },
+      { text: "Tap a product to add it to the cart, or scan / type a SKU and press Enter.", note: "Out-of-stock products are hidden from the sales screen, so you can only sell what's actually in stock." },
       { text: "Adjust quantities, add a discount if needed, and pick the payment method — Cash, Transfer or POS Terminal." },
       { text: "Serving someone else mid-sale? Tap Hold sale to park the cart, then bring it back later from Held sales.", note: "Held sales are saved on the device, so they survive a page refresh." },
       { text: "Tap Complete sale — stock is reduced and a paid receipt is created automatically." },
@@ -131,18 +131,35 @@ export const userGuide: GuideSection[] = [
     id: "invoices",
     title: "Invoices & receipts",
     icon: FileText,
-    summary: "Find any sale, print receipts, and manage invoice status.",
+    summary: "Find any sale, print receipts, take deposits, and manage invoice status.",
     roles: ALL_ROLES,
     steps: [
       { text: "Open Invoices to see every receipt and customer invoice. Sales made at the till appear here tagged POS." },
       { text: "Filter by status, creator or date, or search by number or customer name." },
       { text: "Use the eye to view, the printer to print a receipt, or download a PDF — available to everyone, including cashiers." },
       { text: "Owners and managers can create invoices, change the status (for example mark one Paid) and void mistakes." },
+      { text: "Taking payment in instalments? Use Record payment on a manual invoice to log a deposit, then keep adding payments as they come in.", note: "When the running total reaches the invoice amount, it's marked Paid automatically. Part-paid invoices show as Partial, with the balance left to pay." },
     ],
     shots: [
       { src: invoices, alt: "iTrova invoices list", caption: "All your invoices" },
     ],
     tip: "Voiding an invoice puts the items back in stock and reverses the revenue, so your reports stay correct.",
+  },
+  {
+    id: "working-offline",
+    title: "Working offline",
+    icon: WifiOff,
+    summary: "Keep selling when the internet drops — sales and invoices save on the device and sync when you're back.",
+    roles: ALL_ROLES,
+    steps: [
+      { text: "iTrova checks your connection in the background. If the internet drops, a banner appears and Point of Sale keeps working — other modules pause until you're back online." },
+      { text: "Sell as normal: add to the cart, take payment and print the receipt. Each sale is saved on the device and counted under Pending sync.", note: "Stock shown offline is your last-synced count, as a guide — you can still complete a sale even if it dips below that." },
+      { text: "Invoices work offline too: view, print and download saved invoices, create a new manual invoice, and record deposits — all from the device." },
+      { text: "Back online, tap Sync now to upload everything that's queued. Anything the server can't accept (for example, stock ran out) is held in a Needs review list to sort out.", note: "You can't sign out while sales or invoices are still waiting to sync — connect, Sync now, then sign out." },
+      { text: "After you sign in, iTrova quietly prepares your data for offline use (you'll see a slim progress bar), so each module works offline even before you open it." },
+    ],
+    shots: [],
+    tip: "Offline mode needs no setup — it switches on by itself the moment your connection drops, and back off when it returns.",
   },
   {
     id: "suppliers",
@@ -222,14 +239,14 @@ export const userGuide: GuideSection[] = [
     steps: [
       { text: "Open Team (owners only) and click Invite teammate." },
       { text: "Enter their email and choose a role — Manager or Cashier — then send the invite." },
-      { text: "They get a link to join with their own login; pending invites show until they're accepted." },
-      { text: "You can change a member's role or remove them at any time." },
+      { text: "They open the link, set a password and join with their own login. When they accept, they land on a confirmation that they've joined; pending invites show until then.", note: "If a link has already been used or has expired, the person is told clearly and pointed to sign in or reset their password instead of hitting a dead end." },
+      { text: "You can change a member's role or remove them at any time.", note: "Removing someone takes effect immediately — they lose access to the business straight away." },
     ],
     shots: [
       { src: teamImg, alt: "Team members", caption: "Your team" },
       { src: teamInvite, alt: "Invite teammate form", caption: "Inviting a teammate" },
     ],
-    tip: "Cashiers handle sales and receipts; managers also manage inventory, suppliers and reports; only owners manage the team.",
+    tip: "Each login belongs to one business. If you invite someone who already uses iTrova for another business, they'll join with a different email.",
   },
   {
     id: "settings",
