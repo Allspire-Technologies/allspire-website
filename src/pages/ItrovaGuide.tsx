@@ -64,12 +64,12 @@ function SectionBlock({ section, onShot }: { section: GuideSection; onShot: (s: 
           {section.shots.map((shot, idx) => (
             <figure key={idx} className={shot.device === "mobile" ? "mx-auto w-full max-w-[320px]" : ""}>
               <div className="relative rounded-xl border border-border bg-card shadow-sm overflow-hidden">
-                <div className={`overflow-auto overscroll-contain ${shot.device === "mobile" ? "max-h-[640px]" : "max-h-[420px] sm:max-h-[520px]"}`}>
+                <div className={`overflow-hidden ${shot.device === "mobile" ? "max-h-[640px]" : "max-h-[420px] sm:max-h-[520px]"}`}>
                   <img
                     src={shot.src}
                     alt={shot.alt}
                     loading="lazy"
-                    className={`block w-full ${shot.device === "mobile" ? "" : "min-w-[760px] lg:min-w-0"}`}
+                    className="block w-full h-auto"
                   />
                 </div>
                 <button
