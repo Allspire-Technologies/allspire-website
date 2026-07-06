@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import {
   Calendar, Clock, MapPin, Mic, ArrowRight, ExternalLink,
   CheckCircle2, XCircle, Gift, Sparkles,
-  Store, Shirt, Pill, UtensilsCrossed, Wand2, Briefcase, Truck, Rocket,
+  Store, Shirt, UtensilsCrossed, Wand2, Briefcase, Truck, Rocket,
 } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -36,7 +36,6 @@ const learnings = [
 const audiences = [
   { icon: Store, title: "Retail Stores" },
   { icon: Shirt, title: "Fashion Businesses" },
-  { icon: Pill, title: "Pharmacies" },
   { icon: UtensilsCrossed, title: "Restaurants" },
   { icon: Wand2, title: "Beauty Businesses" },
   { icon: Briefcase, title: "Service Businesses" },
