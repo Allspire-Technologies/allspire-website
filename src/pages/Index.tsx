@@ -45,6 +45,24 @@ const trustedPoints = [
 
 const Index = () => (
   <PageLayout>
+    {/* Webinar announcement */}
+    <Link to="/webinar" className="block gradient-bg group">
+      <motion.div
+        className="container-tight flex flex-wrap items-center justify-center gap-x-3 gap-y-1 py-3 text-center text-sm text-primary-foreground"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <span className="font-semibold">🎙 Free SME Masterclass:</span>
+        <span className="text-primary-foreground/90">
+          From Notebook to Smart Business · 11 July 2026, 7PM WAT
+        </span>
+        <span className="font-semibold inline-flex items-center gap-1 underline underline-offset-4">
+          Register free <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        </span>
+      </motion.div>
+    </Link>
+
     {/* Hero */}
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Animated gradient orbs */}

@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
+import Webinar from "./pages/Webinar";
 import ItrovaGuide from "./pages/ItrovaGuide";
 import IndustryDetail from "./pages/IndustryDetail";
 import NotFound from "./pages/NotFound";
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/webinar" element={<Webinar />} />
           <Route path="/docs/itrova" element={<ItrovaGuide />} />
           <Route path="/industries/:slug" element={<IndustryDetail />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
