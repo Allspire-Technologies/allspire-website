@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
+import facilitatorPhoto from "@/assets/samuel-tosinpaul.jpeg";
 
 const REGISTRATION_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSexyMzM0NcME3yncE96mhcOOdYAW_H01BJ4SzbnR2gMUm25HA/viewform";
@@ -169,12 +170,16 @@ const Webinar = () => (
               <Mic className="w-3.5 h-3.5" />
               Facilitator
             </div>
-            <div className="w-20 h-20 rounded-2xl gradient-bg flex items-center justify-center mx-auto mb-5">
-              <span className="text-2xl font-bold text-primary-foreground">TP</span>
-            </div>
-            <h3 className="text-2xl font-bold mb-1">Tosin Paul</h3>
+            <img
+              src={facilitatorPhoto}
+              alt="Samuel TosinPaul"
+              className="w-24 h-24 rounded-2xl object-cover object-top mx-auto mb-5 ring-1 ring-border"
+            />
+            <h3 className="text-2xl font-bold mb-1">Samuel TosinPaul</h3>
             <p className="text-sm text-muted-foreground">
-              Digital Transformation Strategist · Co-Founder, Allspire Technologies
+              Digital Transformation Strategist<span className="hidden sm:inline"> · </span>
+              <br className="sm:hidden" />
+              Co-Founder, Allspire Technologies
             </p>
           </div>
         </AnimatedSection>
