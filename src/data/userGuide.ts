@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Rocket, LayoutDashboard, Package, ShoppingCart, FileText, Truck, Boxes, ClipboardList, BarChart3, Users, Settings, WifiOff } from "lucide-react";
+import { Rocket, LayoutDashboard, Package, ShoppingCart, FileText, Truck, Boxes, ClipboardList, BarChart3, Users, Settings, WifiOff, Ship, Factory, Warehouse } from "lucide-react";
 
 import login from "@/assets/guide/01-getting-started-login.png";
 import signup from "@/assets/guide/01-getting-started-signup.png";
@@ -23,6 +23,13 @@ import teamInvite from "@/assets/guide/10-team-invite.png";
 import settingsImg from "@/assets/guide/11-settings.png";
 import offlinePos from "@/assets/guide/12-offline-pos.png";
 import offlineInvoices from "@/assets/guide/12-offline-invoices.png";
+import rawMaterialsRequests from "@/assets/guide/07-raw-materials-requests.png";
+import productionRequests from "@/assets/guide/13-production-requests.png";
+import productionRuns from "@/assets/guide/13-production-runs.png";
+import permissionsImg from "@/assets/guide/14-permissions.png";
+import generalStoreImg from "@/assets/guide/15-general-store.png";
+import generalStoreRecords from "@/assets/guide/15-general-store-records.png";
+import exportInvoicesImg from "@/assets/guide/16-export-invoices.png";
 
 export type Role = "Owner" | "Manager" | "Cashier";
 export const ALL_ROLES: Role[] = ["Owner", "Manager", "Cashier"];
@@ -146,6 +153,23 @@ export const userGuide: GuideSection[] = [
     tip: "Voiding an invoice puts the items back in stock and reverses the revenue, so your reports stay correct.",
   },
   {
+    id: "export-invoices",
+    title: "Export invoices",
+    icon: Ship,
+    summary: "Raise international commercial invoices and download them as PDF or Word.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Open Export Invoice and click New export invoice." },
+      { text: "Fill in the exporter and buyer details, shipping and bank information, then add each product line — size, units per box, boxes and unit price. Totals, cartons and the amount in words are worked out for you." },
+      { text: "Save — iTrova assigns the next invoice number, and where a line is linked to a product it reduces that product's stock automatically." },
+      { text: "From the list, View any invoice or download it as PDF or Word to send to your buyer." },
+    ],
+    shots: [
+      { src: exportInvoicesImg, alt: "Export invoices list", caption: "Your export invoices" },
+    ],
+    tip: "Set your exporter profile — address, RC number, bank details — once in Settings, and every export invoice is pre-filled with it. Export invoices are a separate module; ask us to switch it on if you don't see it.",
+  },
+  {
     id: "working-offline",
     title: "Working offline",
     icon: WifiOff,
@@ -193,12 +217,32 @@ export const userGuide: GuideSection[] = [
       { text: "When a delivery arrives, use Record purchase on a material to add the quantity to stock and log the cost." },
       { text: "Switch to the Deliveries tab to see the full delivery history." },
       { text: "Materials at or below their reorder level are flagged as low, just like products." },
+      { text: "If you use the Production module, the Requests tab is where you approve or reject the production team's material requests — you can reduce a requested quantity before issuing it, and the stock comes off here.", note: "Link a material to the products it goes into with Link to product in the ⋯ menu." },
     ],
     shots: [
       { src: rawMaterialsImg, alt: "Raw materials list", caption: "Materials" },
       { src: rawMaterialsDeliveries, alt: "Deliveries history", caption: "Deliveries history" },
+      { src: rawMaterialsRequests, alt: "Material requests to approve", caption: "Approving material requests" },
     ],
     tip: "Recording a delivery (or receiving a purchase order) is what increases material stock, keeping your numbers reliable.",
+  },
+  {
+    id: "production",
+    title: "Production",
+    icon: Factory,
+    summary: "Request raw materials, get them approved, and turn them into finished-product stock.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "On the Production page, click Request materials and list the raw materials and quantities you need for a batch." },
+      { text: "Whoever looks after raw-material stock reviews the request on Raw Materials → Requests and approves it — trimming a quantity first if needed. The materials come off stock there and then." },
+      { text: "Back on Production, use Record production against an approved request: enter the products you made and how much of each material you actually used." },
+      { text: "The finished products are added to your inventory, any unused materials go back to raw-material stock, and the request keeps a trail of exactly what was used." },
+    ],
+    shots: [
+      { src: productionRequests, alt: "Production material requests", caption: "Material requests" },
+      { src: productionRuns, alt: "Recorded production runs", caption: "Production runs" },
+    ],
+    tip: "Production is a separate module, and approving requests belongs to the person with your Raw Materials permissions — so a storekeeper can approve without touching anything else. Ask us to switch it on for your plan.",
   },
   {
     id: "purchase-orders",
@@ -217,6 +261,24 @@ export const userGuide: GuideSection[] = [
       { src: purchaseOrdersNew, alt: "New purchase order form", caption: "Creating a purchase order" },
     ],
     tip: "Marking a PO Received is final and updates stock, so you'll be asked to confirm before it's locked.",
+  },
+  {
+    id: "general-store",
+    title: "General store",
+    icon: Warehouse,
+    summary: "Track tools and supplies your staff borrow or take internally.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Add what you keep in your store on the Items tab — mark each as Borrowable (comes back) or Consumable (used up)." },
+      { text: "Add the people who take items on the Staff tab." },
+      { text: "Use Lend or Give to hand an item to a member of staff, with a due date for anything borrowed." },
+      { text: "Record returns as items come back. The Records tab shows the full history and flags anything overdue." },
+    ],
+    shots: [
+      { src: generalStoreImg, alt: "General store items", caption: "Store items" },
+      { src: generalStoreRecords, alt: "General store checkout and return records", caption: "Checkout & return records" },
+    ],
+    tip: "The bell alerts owners and managers when a borrowed item is overdue or a store item runs low. General store is a separate module — ask us to switch it on.",
   },
   {
     id: "reports",
@@ -244,10 +306,12 @@ export const userGuide: GuideSection[] = [
       { text: "Enter their email and choose a role — Manager or Cashier — then send the invite." },
       { text: "They open the link, set a password and join with their own login. When they accept, they land on a confirmation that they've joined; pending invites show until then.", note: "If a link has already been used or has expired, the person is told clearly and pointed to sign in or reset their password instead of hitting a dead end." },
       { text: "You can change a member's role or remove them at any time.", note: "Removing someone takes effect immediately — they lose access to the business straight away." },
+      { text: "For finer control, open Settings → Permissions & Access: switch individual actions on or off for each person — who can print, download, import, export, approve requests and more — or create your own custom roles.", note: "People only see the sections and buttons they're allowed to use, so the app stays simple for each role." },
     ],
     shots: [
       { src: teamImg, alt: "Team members", caption: "Your team" },
       { src: teamInvite, alt: "Invite teammate form", caption: "Inviting a teammate" },
+      { src: permissionsImg, alt: "Permissions & Access settings", caption: "Roles & per-person permissions" },
     ],
     tip: "Each login belongs to one business. If you invite someone who already uses iTrova for another business, they'll join with a different email.",
   },

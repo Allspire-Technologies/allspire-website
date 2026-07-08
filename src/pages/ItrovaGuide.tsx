@@ -217,7 +217,9 @@ const ItrovaGuide = () => {
       <section className="container-tight py-14 md:py-20">
         <div className="lg:grid lg:grid-cols-[240px_1fr] lg:gap-14">
           <aside className="hidden lg:block">
-            <div className="sticky top-28 space-y-6">
+            {/* Cap to the viewport and scroll within, so a long section list stays fully reachable
+                on shorter screens instead of the bottom links being stranded below the sticky fold. */}
+            <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto space-y-6 pr-2 -mr-2">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Show steps for</p>
                 <RoleSelect value={role} onChange={setRole} />
