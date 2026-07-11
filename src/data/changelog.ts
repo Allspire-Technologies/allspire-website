@@ -8,6 +8,17 @@ export interface ChangelogEntry {
 // Newest first. Dates are illustrative — edit freely as you ship.
 export const changelog: ChangelogEntry[] = [
   {
+    date: "11 July 2026",
+    title: "Accounting, expenditure & payroll, and fixed assets",
+    tag: "New",
+    items: [
+      "New Accounting module: proper double-entry books — Profit & Loss, Balance Sheet, Cash Flow, Journal and Trial Balance — that build themselves from your sales, invoices, payments, expenses, payroll, purchases and depreciation, so the statements always tie.",
+      "New Expenditure module with Payroll: record what you spend and track bills to pay, run staff pay runs with deductions and payslips, and see it all flow into your reports and books.",
+      "New Assets module: keep a register of your equipment and fixed assets, and depreciate them into your accounts with one click.",
+      "Automatic product costing from production, VAT handling across sales and purchases, landed costs on deliveries, and a cleaner date picker with one consistent date format everywhere.",
+    ],
+  },
+  {
     date: "8 July 2026",
     title: "Production, guided setup & finer permissions",
     tag: "New",
