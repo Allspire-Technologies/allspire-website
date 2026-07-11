@@ -39,17 +39,4 @@ export const changelog: ChangelogEntry[] = [
       "Point of Sale marks products already in your cart with an 'Added' badge.",
     ],
   },
-  {
-    date: "30 June 2026",
-    title: "Work offline, deposits & smoother invites",
-    tag: "New",
-    items: [
-      "Point of Sale keeps working with no internet — sales save on the device and sync when you're back, with a Needs review list for anything that needs a second look.",
-      "Invoices work offline too: view, print, create and take deposits, all from the device.",
-      "Take part-payments on an invoice with Record payment — it's marked Paid automatically once the balance is cleared.",
-      "iTrova prepares your data for offline use in the background after you sign in.",
-      "Out-of-stock products are now hidden from the sales screen.",
-      "Clearer team invites — a confirmation when you join and guidance if a link was already used — and removing a teammate now revokes their access immediately.",
-    ],
-  },
 ];
