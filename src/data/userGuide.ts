@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Rocket, LayoutDashboard, Package, ShoppingCart, FileText, Truck, Boxes, ClipboardList, BarChart3, Users, Settings, WifiOff, Ship, Factory, Warehouse } from "lucide-react";
+import { Rocket, LayoutDashboard, Package, ShoppingCart, FileText, Truck, Boxes, ClipboardList, BarChart3, Users, Settings, WifiOff, Ship, Factory, Warehouse, Wallet, Calculator, Building2 } from "lucide-react";
 
 import login from "@/assets/guide/01-getting-started-login.png";
 import signup from "@/assets/guide/01-getting-started-signup.png";
@@ -30,6 +30,12 @@ import permissionsImg from "@/assets/guide/14-permissions.png";
 import generalStoreImg from "@/assets/guide/15-general-store.png";
 import generalStoreRecords from "@/assets/guide/15-general-store-records.png";
 import exportInvoicesImg from "@/assets/guide/16-export-invoices.png";
+import expenditureImg from "@/assets/guide/17-expenditure.png";
+import expenditurePayroll from "@/assets/guide/17-expenditure-payroll.png";
+import accountingPnl from "@/assets/guide/18-accounting-pnl.png";
+import accountingBalanceSheet from "@/assets/guide/18-accounting-balance-sheet.png";
+import accountingJournal from "@/assets/guide/18-accounting-journal.png";
+import assetsImg from "@/assets/guide/19-assets.png";
 
 export type Role = "Owner" | "Manager" | "Cashier";
 export const ALL_ROLES: Role[] = ["Owner", "Manager", "Cashier"];
@@ -279,6 +285,62 @@ export const userGuide: GuideSection[] = [
       { src: generalStoreRecords, alt: "General store checkout and return records", caption: "Checkout & return records" },
     ],
     tip: "The bell alerts owners and managers when a borrowed item is overdue or a store item runs low. General store is a separate module — ask us to switch it on.",
+  },
+  {
+    id: "expenditure",
+    title: "Expenditure & payroll",
+    icon: Wallet,
+    summary: "Record what you spend, run staff payroll, and stay on top of bills to pay.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Open Expenditure and click Add expense — pick a category, enter the amount, who you paid and how, and whether it's already Paid or a Pending bill with a due date." },
+      { text: "Spend-by-category chips and a running total update as you go; filter by date, status or search to find anything fast.", note: "A pending bill past its due date is flagged Overdue, and the bell reminds owners and managers." },
+      { text: "Switch to the Payroll tab to run staff pay. Enrol employees — from your General Store staff, your team, or by hand — each with a pay type (monthly, daily or hourly) and a rate." },
+      { text: "Create a New pay run for a period: everyone's gross pay is pre-filled. Add any deductions (PAYE, pension, advances) and watch the live gross, deductions and net totals. Save a draft or Post it.", note: "Posting records one Salaries expense for the total gross, so payroll flows into your reports and books with no double entry." },
+      { text: "Download a per-employee payslip PDF from any pay run. Export your expenses to PDF or CSV, or import them in bulk." },
+    ],
+    shots: [
+      { src: expenditureImg, alt: "Expenditure list with categories, statuses and bills to pay", caption: "Tracking what you spend" },
+      { src: expenditurePayroll, alt: "Payroll pay runs", caption: "Staff payroll" },
+    ],
+    tip: "Expenditure (with Payroll) is a separate module — ask us to switch it on for your plan. Salaries you post here appear in Reports and Accounting automatically.",
+  },
+  {
+    id: "accounting",
+    title: "Accounting",
+    icon: Calculator,
+    summary: "Proper double-entry books — Profit & Loss, Balance Sheet, Cash Flow, Journal and Trial Balance — built from your everyday activity.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Open Accounting. The first time, iTrova sets up a ready-made chart of accounts for you (rename or add accounts on the Journal tab)." },
+      { text: "On the Balance Sheet tab, set your Opening balances — starting cash, bank and owner's capital as of a date — so your books begin from the right place." },
+      { text: "Profit & Loss shows revenue, cost of goods sold, gross profit, expenses by category and net profit for any period, next to the previous period for comparison." },
+      { text: "The Balance Sheet is a snapshot that always balances (Assets = Liabilities + Equity), and Cash Flow shows money in vs out grouped by cause." },
+      { text: "It all posts itself — POS sales, invoices, payments, expenses, payroll, purchases and depreciation each create balanced journal entries behind the scenes, so the Journal and Trial Balance always tie. Post manual entries when you need to.", note: "Export any statement to PDF or CSV." },
+    ],
+    shots: [
+      { src: accountingPnl, alt: "Profit and Loss statement", caption: "Profit & Loss" },
+      { src: accountingBalanceSheet, alt: "Balance Sheet that ties", caption: "Balance Sheet" },
+      { src: accountingJournal, alt: "General journal entries", caption: "The general journal" },
+    ],
+    tip: "Accounting is a separate module — ask us to switch it on. Because the statements read your ledger, they're only as accurate as your product cost prices and opening balances, so keep those up to date.",
+  },
+  {
+    id: "assets",
+    title: "Assets & depreciation",
+    icon: Building2,
+    summary: "Keep a register of your equipment and other fixed assets, and depreciate them into your accounts.",
+    roles: ["Owner", "Manager"],
+    steps: [
+      { text: "Open Assets and click Add asset — enter its name, category, cost, the year you bought it, and a depreciation rate (20% a year by default)." },
+      { text: "iTrova shows each asset's current value using straight-line depreciation — it loses the same share of its original cost every year, reaching zero at the end of its life." },
+      { text: "Click Run depreciation to post the depreciation to date into your accounts. It's safe to run again any time — it never double-counts.", note: "This needs your Accounting chart set up, so open Accounting once first." },
+      { text: "Because Accounting reads the ledger, your Balance Sheet then shows fixed assets at their written-down value and your Profit & Loss shows the depreciation — automatically." },
+    ],
+    shots: [
+      { src: assetsImg, alt: "Fixed assets register with current values", caption: "Your asset register" },
+    ],
+    tip: "Assets is a separate module that links into Accounting — ask us to switch it on. Adding an asset also records its purchase against cash in your books.",
   },
   {
     id: "reports",
