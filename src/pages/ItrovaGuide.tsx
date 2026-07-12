@@ -258,6 +258,43 @@ const ItrovaGuide = () => {
           </aside>
 
           <div className="min-w-0">
+            {/* Mobile section navigator — a sticky "jump to" dropdown so phone/tablet readers can
+                skip straight to a section instead of scrolling past the whole guide. Hidden on lg,
+                where the left sidebar handles this. Sticks just under the fixed navbar. */}
+            {(showChangelog || sections.length > 0) && (
+              <div className="lg:hidden sticky top-16 md:top-20 z-30 -mx-6 md:-mx-8 mb-8 px-6 md:px-8 py-3 bg-background/90 backdrop-blur-md border-b border-border/60">
+                <Select
+                  value={active}
+                  onValueChange={(id) => {
+                    setActive(id);
+                    // The guide's screenshots are lazy-loaded with no reserved height, so they collapse
+                    // until loaded and shift the page as they pop in — a single jump lands short. Re-pin
+                    // the target for a short window so it stays put while images settle, but yield the
+                    // moment the reader scrolls themselves.
+                    const el = document.getElementById(id);
+                    if (!el) return;
+                    let expected = 0, ticks = 0;
+                    const pin = () => { expected = Math.max(0, el.getBoundingClientRect().top + window.scrollY - 140); window.scrollTo({ top: expected }); };
+                    pin();
+                    const timer = window.setInterval(() => {
+                      if (Math.abs(window.scrollY - expected) > 4 || ++ticks > 12) return window.clearInterval(timer);
+                      pin();
+                    }, 60);
+                  }}
+                >
+                  <SelectTrigger className="w-full" aria-label="Jump to a section">
+                    <SelectValue placeholder="Jump to section…" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {showChangelog && <SelectItem value="whats-new">What's new</SelectItem>}
+                    {sections.map((s) => (
+                      <SelectItem key={s.id} value={s.id}>{s.title}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
             <div className="lg:hidden mb-10">
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">Show steps for</p>
               <RoleSelect value={role} onChange={setRole} />
