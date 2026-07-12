@@ -12,7 +12,7 @@ const REGISTRATION_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSexyMzM0NcME3yncE96mhcOOdYAW_H01BJ4SzbnR2gMUm25HA/viewform";
 
 const eventDetails = [
-  { icon: Calendar, label: "Date", value: "Saturday, 11 July 2026" },
+  { icon: Calendar, label: "Date", value: "Every Saturday in 2026" },
   { icon: Clock, label: "Time", value: "7:00 PM WAT" },
   { icon: MapPin, label: "Venue", value: "Online — exclusive to registered participants" },
 ];

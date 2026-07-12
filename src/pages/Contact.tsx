@@ -91,7 +91,7 @@ const Contact = () => {
                     <h3 className="font-semibold">Office</h3>
                   </div>
                   <p className="text-muted-foreground text-sm">
-                    Lagos, Nigeria
+                    No 15, Oladayo Alokan street, Ewu Elepe, Ikorodu, Lagos state.
                   </p>
                 </div>
                 <div>
@@ -112,8 +112,8 @@ const Contact = () => {
                   <h3 className="font-semibold mb-3">Follow Us</h3>
                   <div className="flex gap-3">
                     {[
-                      { name: "LinkedIn", href: "" },
-                      { name: "X (Twitter)", href: "https://x.com/allspirehq" },
+                      { name: "LinkedIn", href: "https://www.linkedin.com/company/allspiretech/" },
+                      { name: "Social Links", href: "https://linktr.ee/allspirehq" },
                       { name: "GitHub", href: "https://github.com/Allspire-Technologies" },
                     ].map((s) => (
                       <a
