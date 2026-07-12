@@ -55,7 +55,7 @@ const Index = () => (
       >
         <span className="font-semibold">🎙 Free SME Masterclass:</span>
         <span className="text-primary-foreground/90">
-          From Notebook to Smart Business · 11 July 2026, 7PM WAT
+          From Notebook to Smart Business · Every Saturday in 2026, 7PM WAT
         </span>
         <span className="font-semibold inline-flex items-center gap-1 underline underline-offset-4">
           Register free <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
