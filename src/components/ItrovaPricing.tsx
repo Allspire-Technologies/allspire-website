@@ -18,20 +18,46 @@ type Plan = {
   description: string;
   highlight?: boolean;
   cycles: Partial<Record<Cycle, PlanCycle>>;
-  features: string[];
-  caps: Cap[]; // resource limits — only listed where a tier is actually capped
+  modules: string[]; // the plan's real module keys (plans.modules) — the shown features derive from these
+  caps: Cap[]; // resource limits from plans.limits — listed only where a tier is actually capped
 };
 
-// Mirrors the iTrova plan catalogue (active shared plans; the inactive bi-annual cycles are
-// omitted). `list` is the gross list price and the shown price is list × (1 − discount%), exactly
-// like the app's cyclePrice(). Enterprise had no stored description — copy drafted here.
+// Display names for module keys, so a tier's features are driven by its actual modules (and can't
+// drift from what the plan really includes).
+const MODULE_LABELS: Record<string, string> = {
+  inventory: "Inventory",
+  pos: "Point of Sale",
+  invoices: "Invoices",
+  reports: "Reports",
+  team: "Team management",
+  csv_import: "CSV Import",
+  csv_export: "CSV Export",
+  suppliers: "Suppliers",
+  raw_materials: "Raw materials",
+  purchase_orders: "Purchase orders",
+  general_store: "General Store",
+  production: "Production",
+  insights: "AI Business Insights",
+  priority_support: "Priority support",
+  export_invoices: "Export invoices",
+  expenditure: "Expenditure",
+  accounting: "Accounting",
+  assets: "Assets",
+  advanced_analytics: "Advanced analytics",
+  dedicated_support: "Dedicated support",
+};
+
+// Mirrors the iTrova plan catalogue (active shared plans). `modules` + `caps` come straight from the
+// DB (plans.modules / plans.limits), so features and limits stay aligned per plan. Prices: `list` is
+// the gross list price, shown as list × (1 − discount%) like the app's cyclePrice(); inactive
+// bi-annual cycles are omitted. Enterprise had no stored description — copy drafted here.
 const PLANS: Plan[] = [
   {
     key: "free",
     name: "Free",
     description: "Everything to run a small business",
     cycles: { monthly: { list: 0, discount: 0 } },
-    features: ["Inventory", "Point of Sale", "Invoices", "Reports", "Team management", "CSV Import"],
+    modules: ["inventory", "pos", "invoices", "reports", "team", "csv_import"],
     caps: [{ value: 25, label: "products" }, { value: 50, label: "invoices" }, { value: 3, label: "team members" }],
   },
   {
@@ -39,7 +65,7 @@ const PLANS: Plan[] = [
     name: "Pro",
     description: "For growing businesses",
     cycles: { monthly: { list: 10000, discount: 0 }, quarterly: { list: 30000, discount: 25 }, annual: { list: 120000, discount: 25 } },
-    features: ["Inventory", "Point of Sale", "Suppliers", "Raw materials", "Invoices", "Purchase orders", "Reports", "Team management", "CSV Import", "CSV Export"],
+    modules: ["inventory", "pos", "suppliers", "raw_materials", "invoices", "purchase_orders", "reports", "team", "csv_import", "csv_export"],
     caps: [{ value: 1000, label: "products" }, { value: 10, label: "suppliers" }, { value: 7, label: "team members" }],
   },
   {
@@ -48,7 +74,7 @@ const PLANS: Plan[] = [
     description: "For multi-branch operations",
     highlight: true,
     cycles: { monthly: { list: 25000, discount: 0 }, quarterly: { list: 75000, discount: 20 }, annual: { list: 300000, discount: 20 } },
-    features: ["Inventory", "Point of Sale", "Suppliers", "Raw materials", "Invoices", "Purchase orders", "Reports", "Team management", "CSV Import", "CSV Export", "AI Business Insights", "Priority support", "General Store", "Production"],
+    modules: ["inventory", "pos", "suppliers", "raw_materials", "invoices", "purchase_orders", "reports", "team", "csv_import", "csv_export", "general_store", "production", "insights", "priority_support"],
     caps: [{ value: 10000, label: "products" }, { value: 25, label: "suppliers" }, { value: 15, label: "team members" }],
   },
   {
@@ -56,7 +82,7 @@ const PLANS: Plan[] = [
     name: "Enterprise",
     description: "For established businesses that need it all",
     cycles: { monthly: { list: 50000, discount: 0 }, quarterly: { list: 150000, discount: 20 }, annual: { list: 600000, discount: 20 } },
-    features: ["Inventory", "Point of Sale", "Suppliers", "Raw materials", "Invoices", "Purchase orders", "Reports", "Team management", "CSV Import", "CSV Export", "AI Business Insights", "Priority support", "General Store", "Production", "Advanced analytics", "Dedicated support", "Export invoices", "Expenditure", "Accounting", "Assets"],
+    modules: ["inventory", "pos", "suppliers", "raw_materials", "invoices", "purchase_orders", "reports", "team", "csv_import", "csv_export", "export_invoices", "general_store", "production", "expenditure", "accounting", "assets", "insights", "advanced_analytics", "priority_support", "dedicated_support"],
     caps: [], // unlimited
   },
 ];
@@ -99,7 +125,7 @@ const ItrovaPricing = () => {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {PLANS.map((plan, i) => {
             const prev = i > 0 ? PLANS[i - 1] : null;
-            const newFeatures = prev ? plan.features.filter((f) => !prev.features.includes(f)) : plan.features;
+            const newFeatures = (prev ? plan.modules.filter((m) => !prev.modules.includes(m)) : plan.modules).map((m) => MODULE_LABELS[m] ?? m);
             const pc = plan.cycles[cycle] ?? plan.cycles.monthly!;
             const isFree = plan.key === "free";
             const price = priceFor(pc);
