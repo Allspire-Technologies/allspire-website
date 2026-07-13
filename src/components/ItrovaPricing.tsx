@@ -11,6 +11,7 @@ const CYCLES: { key: Cycle; label: string; period: string; months: number }[] = 
 ];
 
 type PlanCycle = { list: number; discount: number };
+type Cap = { value: number; label: string };
 type Plan = {
   key: string;
   name: string;
@@ -18,6 +19,7 @@ type Plan = {
   highlight?: boolean;
   cycles: Partial<Record<Cycle, PlanCycle>>;
   features: string[];
+  caps: Cap[]; // resource limits — only listed where a tier is actually capped
 };
 
 // Mirrors the iTrova plan catalogue (active shared plans; the inactive bi-annual cycles are
@@ -30,6 +32,7 @@ const PLANS: Plan[] = [
     description: "Everything to run a small business",
     cycles: { monthly: { list: 0, discount: 0 } },
     features: ["Inventory", "Point of Sale", "Invoices", "Reports", "Team management", "CSV Import"],
+    caps: [{ value: 25, label: "products" }, { value: 50, label: "invoices" }, { value: 3, label: "team members" }],
   },
   {
     key: "pro",
@@ -37,6 +40,7 @@ const PLANS: Plan[] = [
     description: "For growing businesses",
     cycles: { monthly: { list: 10000, discount: 0 }, quarterly: { list: 30000, discount: 25 }, annual: { list: 120000, discount: 25 } },
     features: ["Inventory", "Point of Sale", "Suppliers", "Raw materials", "Invoices", "Purchase orders", "Reports", "Team management", "CSV Import", "CSV Export"],
+    caps: [{ value: 1000, label: "products" }, { value: 10, label: "suppliers" }, { value: 7, label: "team members" }],
   },
   {
     key: "business",
@@ -45,6 +49,7 @@ const PLANS: Plan[] = [
     highlight: true,
     cycles: { monthly: { list: 25000, discount: 0 }, quarterly: { list: 75000, discount: 20 }, annual: { list: 300000, discount: 20 } },
     features: ["Inventory", "Point of Sale", "Suppliers", "Raw materials", "Invoices", "Purchase orders", "Reports", "Team management", "CSV Import", "CSV Export", "AI Business Insights", "Priority support", "General Store", "Production"],
+    caps: [{ value: 10000, label: "products" }, { value: 25, label: "suppliers" }, { value: 15, label: "team members" }],
   },
   {
     key: "enterprise",
@@ -52,6 +57,7 @@ const PLANS: Plan[] = [
     description: "For established businesses that need it all",
     cycles: { monthly: { list: 50000, discount: 0 }, quarterly: { list: 150000, discount: 20 }, annual: { list: 600000, discount: 20 } },
     features: ["Inventory", "Point of Sale", "Suppliers", "Raw materials", "Invoices", "Purchase orders", "Reports", "Team management", "CSV Import", "CSV Export", "AI Business Insights", "Priority support", "General Store", "Production", "Advanced analytics", "Dedicated support", "Export invoices", "Expenditure", "Accounting", "Assets"],
+    caps: [], // unlimited
   },
 ];
 
@@ -121,6 +127,13 @@ const ItrovaPricing = () => {
                       {showSavings ? `Save ${pc.discount}% · ~${naira(perMonth)}/mo` : isFree ? "Free forever" : " "}
                     </div>
                   </div>
+
+                  {/* Usage limits — shown only where the plan is capped (Enterprise is unlimited). */}
+                  {plan.caps.length > 0 && (
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      Up to {plan.caps.map((c) => `${c.value.toLocaleString("en-NG")} ${c.label}`).join(" · ")}
+                    </p>
+                  )}
 
                   <a
                     href="https://itrova.allspire.tech"
