@@ -8,6 +8,16 @@ export interface ChangelogEntry {
 // Newest first. Dates are illustrative — edit freely as you ship.
 export const changelog: ChangelogEntry[] = [
   {
+    date: "13 July 2026",
+    title: "Split payments & payment methods everywhere",
+    tag: "New",
+    items: [
+      "Split a sale across payment methods at the till — part cash, part transfer — with a live Remaining check that keeps the amounts adding up to the total.",
+      "See how every sale was paid: the payment method now shows on receipts and on the invoice view, print and PDF, including split payments.",
+      "New Payment methods breakdown on Reports and the Dashboard — a donut chart showing how much came in by Cash, Transfer and POS Terminal.",
+    ],
+  },
+  {
     date: "11 July 2026",
     title: "Accounting, expenditure & payroll, and fixed assets",
     tag: "New",
@@ -26,17 +36,6 @@ export const changelog: ChangelogEntry[] = [
       "New Production module: request raw materials, have whoever manages raw-material stock approve them (adjusting the quantity if needed), then record a production run that turns those materials into finished-product stock — with a trail of exactly what was used.",
       "Finer permissions: give each teammate exactly the actions they need — view, create, edit, print, download, import, export, approve requests and more — and build your own custom roles.",
       "Guided setup for new businesses: tell iTrova what you'll use and how big you are, see the plan that fits, and start a 7-day free trial on the spot.",
-    ],
-  },
-  {
-    date: "4 July 2026",
-    title: "Export invoices, an internal store & a smoother phone experience",
-    tag: "New",
-    items: [
-      "Export Invoices: raise international commercial invoices and download them as PDF or Word.",
-      "General Store: track items your staff borrow or take internally, with checkouts, returns and overdue reminders.",
-      "On phones, forms now open full-screen and scroll on their own so the keyboard never hides what you're typing, and long tab bars scroll instead of pushing the page sideways.",
-      "Point of Sale marks products already in your cart with an 'Added' badge.",
     ],
   },
 ];

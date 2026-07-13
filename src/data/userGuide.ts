@@ -9,6 +9,7 @@ import inventory from "@/assets/guide/03-inventory.png";
 import inventoryAdd from "@/assets/guide/03-inventory-add-product.png";
 import pos from "@/assets/guide/04-pos.png";
 import posCart from "@/assets/guide/04-pos-cart.png";
+import posSplit from "@/assets/guide/04-pos-split.png";
 import posMobile from "@/assets/guide/04-pos-mobile.png";
 import invoices from "@/assets/guide/05-invoices.png";
 import suppliersImg from "@/assets/guide/06-suppliers.png";
@@ -18,6 +19,7 @@ import rawMaterialsDeliveries from "@/assets/guide/07-raw-materials-deliveries.p
 import purchaseOrdersImg from "@/assets/guide/08-purchase-orders.png";
 import purchaseOrdersNew from "@/assets/guide/08-purchase-orders-new.png";
 import reportsImg from "@/assets/guide/09-reports.png";
+import reportsPayments from "@/assets/guide/09-reports-payments.png";
 import teamImg from "@/assets/guide/10-team.png";
 import teamInvite from "@/assets/guide/10-team-invite.png";
 import settingsImg from "@/assets/guide/11-settings.png";
@@ -128,14 +130,16 @@ export const userGuide: GuideSection[] = [
     steps: [
       { text: "Tap a product to add it to the cart, or scan / type a SKU and press Enter.", note: "Out-of-stock products are hidden from the sales screen, so you can only sell what's actually in stock." },
       { text: "Adjust quantities, add a discount if needed, and pick the payment method — Cash, Transfer or POS Terminal." },
+      { text: "Paid part cash, part transfer? Tap Split payment and enter the amount for each method. A live Remaining shows what's left, and Complete sale unlocks once the amounts add up to the total.", note: "Single payment stays the default — you only see the split fields when you ask for them." },
       { text: "Serving someone else mid-sale? Tap Hold sale to park the cart, then bring it back later from Held sales.", note: "Held sales are saved on the device, so they survive a page refresh." },
-      { text: "Tap Complete sale — stock is reduced and a paid receipt is created automatically." },
+      { text: "Tap Complete sale — stock is reduced and a paid receipt is created automatically. The receipt shows how the customer paid, including a split like “Cash ₦25,000 · Transfer ₦18,500”." },
       { text: "Print the receipt for your customer — it's formatted for thermal receipt printers." },
-      { text: "Owners and managers can open End of Day for a summary of the day's takings." },
+      { text: "Owners and managers can open End of Day for a summary of the day's takings, with each payment method totalled separately." },
     ],
     shots: [
       { src: pos, alt: "Point of Sale screen", caption: "The sales screen" },
       { src: posCart, alt: "POS cart with items", caption: "Cart, discount & payment" },
+      { src: posSplit, alt: "POS split payment across cash and transfer", caption: "Splitting a payment across methods" },
       { src: posMobile, alt: "Point of Sale on a phone", caption: "On your phone", device: "mobile" },
     ],
     tip: "Use Clear all to empty a busy cart in one tap (it asks first), without touching your held sales.",
@@ -149,7 +153,7 @@ export const userGuide: GuideSection[] = [
     steps: [
       { text: "Open Invoices to see every receipt and customer invoice. Sales made at the till appear here tagged POS." },
       { text: "Filter by status, creator or date, or search by number or customer name." },
-      { text: "Use the eye to view, the printer to print a receipt, or download a PDF — available to everyone, including cashiers." },
+      { text: "Use the eye to view, the printer to print a receipt, or download a PDF — available to everyone, including cashiers. Each one shows how the sale was paid, including split payments." },
       { text: "Owners and managers can create invoices, change the status (for example mark one Paid) and void mistakes." },
       { text: "Taking payment in instalments? Use Record payment on a manual invoice to log a deposit, then keep adding payments as they come in.", note: "When the running total reaches the invoice amount, it's marked Paid automatically. Part-paid invoices show as Partial, with the balance left to pay." },
     ],
@@ -352,9 +356,13 @@ export const userGuide: GuideSection[] = [
       { text: "Open Reports and pick a date range (it defaults to the last 30 days)." },
       { text: "Review the headline metrics — revenue, gross profit, units sold and supplier spend — each with the change vs the previous period." },
       { text: "Dig into the revenue trend, top products, sales by staff, supplier spend and inventory turnover." },
-      { text: "Click Export PDF to download a shareable report." },
+      { text: "Check the Payment methods breakdown — a donut chart showing how much came in by Cash, Transfer and POS Terminal, with each method's share. Split sales are counted towards each method they used." },
+      { text: "Click Export PDF to download a shareable report — the payment breakdown is included." },
     ],
-    shots: [{ src: reportsImg, alt: "Reports dashboard", caption: "The reports dashboard" }],
+    shots: [
+      { src: reportsImg, alt: "Reports dashboard", caption: "The reports dashboard" },
+      { src: reportsPayments, alt: "Payment methods breakdown with a donut chart", caption: "How your money came in" },
+    ],
     tip: "Gross profit uses each product's cost price, so keep cost prices up to date in Inventory for accurate margins.",
   },
   {
