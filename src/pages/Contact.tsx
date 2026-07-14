@@ -7,12 +7,32 @@ import AnimatedSection from "@/components/AnimatedSection";
 
 const Contact = () => {
   const { toast } = useToast();
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", company: "" });
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    toast({ title: "Message sent!", description: "We'll be in touch shortly." });
-    setForm({ name: "", email: "", message: "" });
+    if (sending) return;
+    setSending(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Something went wrong.");
+      toast({ title: "Message sent!", description: "We'll be in touch shortly." });
+      setForm({ name: "", email: "", message: "", company: "" });
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Couldn't send your message",
+        description: err instanceof Error ? err.message : "Please try again, or email hello@allspire.tech.",
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -66,12 +86,26 @@ const Contact = () => {
                     placeholder="Tell us about your project..."
                   />
                 </div>
+                {/* Honeypot — hidden from people, tempting to bots. Filled = silently dropped. */}
+                <div className="absolute -left-[9999px]" aria-hidden="true">
+                  <label>
+                    Company
+                    <input
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={form.company}
+                      onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    />
+                  </label>
+                </div>
                 <motion.button
                   type="submit"
-                  className="btn-glass-primary w-full"
-                  whileTap={{ scale: 0.98 }}
+                  disabled={sending}
+                  className="btn-glass-primary w-full disabled:opacity-70 disabled:cursor-not-allowed"
+                  whileTap={{ scale: sending ? 1 : 0.98 }}
                 >
-                  Send Message <ArrowRight className="w-4 h-4" />
+                  {sending ? "Sending…" : <>Send Message <ArrowRight className="w-4 h-4" /></>}
                 </motion.button>
               </form>
             </AnimatedSection>
