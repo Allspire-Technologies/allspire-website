@@ -87,6 +87,20 @@ const PLANS: Plan[] = [
   },
 ];
 
+// Custom "contact us" tier — mirrors the iTrova app's Custom Pricing card (Settings billing).
+// Not a stored plan: it's a bespoke tier above Enterprise, so it has no price and links to sales.
+const CUSTOM_IDEAL = ["Enterprise deployments", "Sector-specific implementations"];
+const CUSTOM_PLUS = [
+  "Custom branding",
+  "Custom workflows",
+  "Custom reports",
+  "Dedicated infrastructure",
+  "Staff payroll management",
+  "SLA agreements",
+  "Custom onboarding and training",
+];
+const CONTACT_SALES = "mailto:hello@allspire.tech?subject=Custom%20Plan%20enquiry";
+
 const naira = (n: number) => `₦${Math.round(n).toLocaleString("en-NG")}`;
 const priceFor = (c: PlanCycle) => Math.round(c.list * (1 - c.discount / 100));
 
@@ -184,6 +198,52 @@ const ItrovaPricing = () => {
             );
           })}
         </div>
+
+        {/* Custom "contact us" tier — full-width beneath the priced plans. */}
+        <AnimatedSection delay={PLANS.length * 0.08} className="mt-8">
+          <div className="glass-card p-6 md:p-8 ring-1 ring-primary/20 flex flex-col lg:flex-row gap-6 lg:gap-8">
+            <div className="lg:w-1/4 lg:border-r lg:border-border/60 lg:pr-8 space-y-3">
+              <div>
+                <span className="inline-block rounded-full border border-primary/30 bg-primary/5 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
+                  Custom Plan
+                </span>
+                <h3 className="mt-2 text-2xl font-bold">Custom Pricing</h3>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Ideal for</p>
+                <ul className="mt-1.5 space-y-1">
+                  {CUSTOM_IDEAL.map((t) => (
+                    <li key={t} className="text-sm text-muted-foreground">{t}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex-1 space-y-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Includes</p>
+                <p className="mt-1.5 flex items-center gap-2 text-sm">
+                  <Check className="h-4 w-4 shrink-0 text-primary" />
+                  Everything in {PLANS[PLANS.length - 1].name}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Plus</p>
+                <ul className="mt-1.5 grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
+                  {CUSTOM_PLUS.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <a href={CONTACT_SALES} className="btn-glass-primary w-full sm:w-auto">
+                Contact Sales
+              </a>
+            </div>
+          </div>
+        </AnimatedSection>
 
         <p className="mt-10 text-center text-xs text-muted-foreground">
           Prices are per billing cycle and exclude any applicable taxes. All plans include free product updates.
