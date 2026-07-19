@@ -164,7 +164,7 @@ const ItrovaPricing = () => {
                       {!isFree && <span className="text-sm text-muted-foreground">{period.period}</span>}
                     </div>
                     <div className="mt-1 h-5 text-xs font-medium text-primary">
-                      {showSavings ? `Save ${pc.discount}% · ~${naira(perMonth)}/mo` : isFree ? "Free forever" : " "}
+                      {showSavings ? `Save ${pc.discount}% · ~${naira(perMonth)}/mo` : isFree ? "Free (Capped usage)" : " "}
                     </div>
                   </div>
 
