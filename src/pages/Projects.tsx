@@ -5,6 +5,7 @@ import {
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
 import ItrovaPricing from "@/components/ItrovaPricing";
+import AffiliateSignup from "@/components/AffiliateSignup";
 import itrovaDashboard from "@/assets/itrova-dashboard.png";
 import itrovaPos from "@/assets/itrova-pos.png";
 import itrovaInventory from "@/assets/itrova-inventory.png";
@@ -177,6 +178,9 @@ const Projects = () => (
 
     {/* Pricing */}
     <ItrovaPricing />
+
+    {/* Affiliate program */}
+    <AffiliateSignup />
   </PageLayout>
 );
 
