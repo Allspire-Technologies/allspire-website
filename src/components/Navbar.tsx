@@ -6,6 +6,7 @@ import logo from "@/assets/allspire-logo.png";
 import ThemeToggle from "@/components/ThemeToggle";
 import { industriesData } from "@/data/industries";
 import { docsProducts } from "@/data/docs";
+import { products } from "@/data/products";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,12 +29,18 @@ const docsItems: DropdownItem[] = docsProducts.map((p) => ({
   icon: p.icon,
 }));
 
+const productItems: DropdownItem[] = products.map((p) => ({
+  label: p.title,
+  path: p.path,
+  icon: p.icon,
+}));
+
 const navLinks: NavItem[] = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Services", path: "/services" },
   { label: "Industries", path: "/industries", isDropdown: true, items: industryItems },
-  { label: "Projects", path: "/projects" },
+  { label: "Products", path: "/products", isDropdown: true, items: productItems },
   { label: "Docs", path: "/docs", isDropdown: true, items: docsItems },
   { label: "Contact", path: "/contact" },
 ];

@@ -111,10 +111,10 @@ const IndustryDetail = () => {
                   {industry.caseStudy.desc}
                 </p>
                 <Link
-                  to="/projects"
+                  to="/products"
                   className="inline-flex items-center gap-2 text-primary font-medium hover:underline group"
                 >
-                  View all projects <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  View all products <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </AnimatedSection>

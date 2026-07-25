@@ -147,7 +147,7 @@ const Index = () => (
               <Link to="/contact" className="btn-glass-primary text-center">
                 Get Started
               </Link>
-              <Link to="/projects" className="btn-glass-secondary group text-center">
+              <Link to="/products" className="btn-glass-secondary group text-center">
                 View Our Work <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
