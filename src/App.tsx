@@ -1,12 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
-import Projects from "./pages/Projects";
+import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import Webinar from "./pages/Webinar";
 import ItrovaGuide from "./pages/ItrovaGuide";
@@ -30,7 +30,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/products" element={<Products />} />
+          {/* Renamed from Projects → Products; keep old links/bookmarks working. */}
+          <Route path="/projects" element={<Navigate to="/products" replace />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/webinar" element={<Webinar />} />
           <Route path="/docs/itrova" element={<ItrovaGuide />} />

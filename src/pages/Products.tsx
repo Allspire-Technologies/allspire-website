@@ -50,7 +50,7 @@ const gallery = [
   { image: itrovaReports, title: "Reports", caption: "Revenue, profit and stock health over any range." },
 ];
 
-const Projects = () => (
+const Products = () => (
   <PageLayout>
     {/* Header */}
     <section className="section-padding relative overflow-hidden">
@@ -184,4 +184,4 @@ const Projects = () => (
   </PageLayout>
 );
 
-export default Projects;
+export default Products;
