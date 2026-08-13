@@ -17,6 +17,7 @@ export const changelog: ChangelogEntry[] = [
       "Upgrade or renew from Settings → Billing: pay by bank transfer or card and your plan activates itself, with no messaging back and forth. A transfer gets a one-off account number for the exact amount, so there's nothing to reconcile by hand.",
       "Billing history with a receipt for every payment — view it on screen or download it as a PDF.",
       "Renew early without losing days: renewing the same plan before it expires starts the new period when the current one ends. You can also move down to Free yourself, keeping the plan you paid for until the end of the period.",
+      "Spend your referral credit on your own subscription: it comes off the price at checkout and you pay the difference — or nothing at all if it covers the whole plan. Whatever's left stays on your balance.",
       "Cleaner report PDFs, and cashiers can now download their own sales report.",
     ],
   },
