@@ -1,15 +1,15 @@
 // Cloudflare Pages Function — receives the Contact form POST and relays it to hello@allspire.tech
-// via Sender.net's transactional REST API. Runs server-side so the API token never reaches the
-// browser (Workers can't speak SMTP, so the HTTP API is the only option here).
+// via Resend's HTTP API (the same provider as the iTrova app and CRM since the Sender.net
+// retirement). Runs server-side so the API key never reaches the browser.
 //
 // Required environment variable (Cloudflare Pages → Settings → Environment variables, encrypted):
-//   SENDER_API_TOKEN   — a Sender.net API access token
+//   RESEND_API_KEY     — a Resend API key for the Allspire account
 // Optional overrides (plain vars, sensible defaults below):
-//   CONTACT_TO         — inbox that receives submissions   (default hello@allspire.tech)
-//   CONTACT_FROM_EMAIL — verified Sender.net sender on the domain (default noreply@allspire.tech)
-//   CONTACT_FROM_NAME  — display name for the sender       (default "Allspire Website")
+//   CONTACT_TO         — inbox that receives submissions        (default hello@allspire.tech)
+//   CONTACT_FROM_EMAIL — sender on the Resend-verified domain   (default no-reply@mail.allspire.tech)
+//   CONTACT_FROM_NAME  — display name for the sender            (default "Allspire Website")
 
-const SENDER_ENDPOINT = "https://api.sender.net/v2/message/send";
+const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
@@ -43,13 +43,13 @@ export async function onRequestPost({ request, env }) {
     return json({ ok: false, error: "One of the fields is too long." }, 400);
   }
 
-  const token = env.SENDER_API_TOKEN;
-  if (!token) {
+  const key = env.RESEND_API_KEY;
+  if (!key) {
     return json({ ok: false, error: "The contact form isn't configured yet. Please email us directly." }, 500);
   }
 
   const to = env.CONTACT_TO || "hello@allspire.tech";
-  const fromEmail = env.CONTACT_FROM_EMAIL || "noreply@allspire.tech";
+  const fromEmail = env.CONTACT_FROM_EMAIL || "no-reply@mail.allspire.tech";
   const fromName = env.CONTACT_FROM_NAME || "Allspire Website";
 
   const html =
@@ -60,25 +60,27 @@ export async function onRequestPost({ request, env }) {
 
   let res;
   try {
-    res = await fetch(SENDER_ENDPOINT, {
+    res = await fetch(RESEND_ENDPOINT, {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
       body: JSON.stringify({
-        from: { email: fromEmail, name: fromName },
-        to: { email: to, name: "Allspire" },
+        from: `${fromName} <${fromEmail}>`,
+        to: [to],
+        // Replying in the inbox goes straight to the person who wrote in.
+        reply_to: email,
         subject: `New contact message from ${name}`,
         html,
       }),
+      // A stalled provider connection must not hold the request until the platform kills it.
+      signal: AbortSignal.timeout(15000),
     });
   } catch {
     return json({ ok: false, error: "Couldn't reach the mail service. Please try again." }, 502);
   }
 
-  if (!res.ok) {
+  const payload = await res.json().catch(() => ({}));
+  // A 2xx without a message id is not a confirmed send.
+  if (!res.ok || typeof payload?.id !== "string" || payload.id === "") {
     return json({ ok: false, error: "We couldn't send your message. Please email us directly." }, 502);
   }
   return json({ ok: true });
