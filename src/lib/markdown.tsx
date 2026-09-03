@@ -22,8 +22,8 @@ marked.use({
 DOMPurify.addHook("afterSanitizeAttributes", (node) => {
   if (node.tagName === "A") {
     const href = node.getAttribute("href") || "";
-    // A link whose URL was rejected is rendered as plain text, not as an empty anchor.
-    if (!href) {
+    // A link whose URL was rejected (or is protocol-relative) is rendered as plain text, not as an empty anchor.
+    if (!href || href.startsWith("//")) {
       node.replaceWith(node.ownerDocument.createTextNode(node.textContent || ""));
       return;
     }
@@ -40,7 +40,9 @@ const PURIFY_OPTIONS = {
   ADD_ATTR: ["start"],
   FORBID_TAGS: ["style", "form", "input", "button", "iframe", "object", "embed", "svg", "math", "script"],
   FORBID_ATTR: ["style"],
-  ALLOWED_URI_REGEXP: /^(?:https?:|mailto:|\/(?!\/)|#)/i,
+  // DOMPurify checks every attribute value against this: allow http(s)/mailto schemes, or any
+  // value with no scheme at all (relative paths, anchors, plain numbers such as <ol start="3">).
+  ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|[^a-z]|[a-z+.-]+(?:[^a-z+.:-]|$))/i,
 };
 
 export function Markdown({ source, className = "" }: { source: string; className?: string }) {

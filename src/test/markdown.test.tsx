@@ -16,7 +16,7 @@ describe("Markdown", () => {
 
   it("escapes raw HTML and drops unsafe links", () => {
     const { container } = render(
-      <Markdown source={'<img src=x onerror="alert(1)">\n\n[bad](javascript:alert(1)) [good](https://allspire.tech) [rel](/work)'} />,
+      <Markdown source={'<img src=x onerror="alert(1)">\n\n[bad](javascript:alert(1)) [data](data:text/html,x) [proto](//evil.example) [good](https://allspire.tech) [rel](/work)'} />,
     );
     expect(container.querySelector("img")).toBeNull();
     expect(container.textContent).toContain("<img");
