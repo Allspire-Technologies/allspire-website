@@ -1,90 +1,62 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
+// OS preference first, remembered choice after. The pre-paint script in index.html applies
+// the same rule before React mounts, so there is no flash.
+const readStored = (): boolean | null => {
+  try {
+    const s = localStorage.getItem("theme");
+    return s === "dark" ? true : s === "light" ? false : null;
+  } catch {
+    return null;
+  }
+};
+
 const ThemeToggle = () => {
-  const [dark, setDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("theme");
-      if (stored) return stored === "dark";
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    }
-    return false;
+  const [dark, setDark] = useState<boolean>(() => {
+    const stored = readStored();
+    if (stored !== null) return stored;
+    return typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
+  const [explicit, setExplicit] = useState<boolean>(() => readStored() !== null);
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (dark) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
+    document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
-  return (
-    <motion.button
-      onClick={() => setDark(!dark)}
-      className="relative w-14 h-7 rounded-full p-0.5 transition-colors duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-      style={{
-        background: dark
-          ? "linear-gradient(135deg, hsl(234 89% 30%), hsl(270 70% 25%))"
-          : "linear-gradient(135deg, hsl(40 95% 65%), hsl(30 95% 55%))",
-        boxShadow: dark
-          ? "0 0 12px hsl(234 89% 54% / 0.3), inset 0 1px 2px hsl(0 0% 0% / 0.3)"
-          : "0 0 12px hsl(40 95% 65% / 0.3), inset 0 1px 2px hsl(0 0% 100% / 0.3)",
-      }}
-      whileTap={{ scale: 0.95 }}
-      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-    >
-      {/* Stars in dark mode */}
-      {dark && (
-        <>
-          <motion.div
-            className="absolute w-1 h-1 rounded-full bg-white/70"
-            style={{ top: 6, left: 8 }}
-            animate={{ opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute w-0.5 h-0.5 rounded-full bg-white/50"
-            style={{ top: 16, left: 14 }}
-            animate={{ opacity: [0.3, 0.8, 0.3] }}
-            transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-          />
-        </>
-      )}
+  useEffect(() => {
+    if (explicit) return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const follow = (e: MediaQueryListEvent) => {
+      setDark(e.matches);
+    };
+    mq.addEventListener("change", follow);
+    return () => {
+      mq.removeEventListener("change", follow);
+    };
+  }, [explicit]);
 
-      {/* Thumb */}
-      <motion.div
-        className="w-6 h-6 rounded-full flex items-center justify-center shadow-md"
-        style={{
-          background: dark
-            ? "linear-gradient(135deg, hsl(220 20% 20%), hsl(220 15% 30%))"
-            : "linear-gradient(135deg, hsl(45 100% 95%), hsl(0 0% 100%))",
-          boxShadow: dark
-            ? "0 2px 8px hsl(0 0% 0% / 0.4)"
-            : "0 2px 8px hsl(0 0% 0% / 0.15)",
-        }}
-        animate={{ x: dark ? 26 : 0 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-      >
-        <motion.div
-          key={dark ? "moon" : "sun"}
-          initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
-          animate={{ rotate: 0, opacity: 1, scale: 1 }}
-          exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.3 }}
-        >
-          {dark ? (
-            <Moon className="w-3.5 h-3.5 text-blue-300" />
-          ) : (
-            <Sun className="w-3.5 h-3.5 text-amber-500" />
-          )}
-        </motion.div>
-      </motion.div>
-    </motion.button>
+  const toggle = () => {
+    const next = !dark;
+    setDark(next);
+    setExplicit(true);
+    try {
+      localStorage.setItem("theme", next ? "dark" : "light");
+    } catch {
+      /* private mode: the choice lasts for this page only */
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+      title={dark ? "Light mode" : "Dark mode"}
+    >
+      {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
   );
 };
 

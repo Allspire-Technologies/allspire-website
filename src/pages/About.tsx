@@ -1,88 +1,69 @@
-import { Target, Eye } from "lucide-react";
-import { motion } from "framer-motion";
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
+import CtaBand from "@/components/site/CtaBand";
+import { TeamGrid } from "@/components/site/Proof";
+import { useSeo } from "@/hooks/useSeo";
+import { useCopy, useTeam } from "@/hooks/useSiteContent";
+import heroImage from "@/assets/hero-bg.jpg";
 
-const About = () => (
-  <PageLayout>
-    {/* Hero */}
-    <section className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
-      <div className="container-tight relative">
-        <AnimatedSection className="max-w-3xl mx-auto text-center">
-          <span className="text-sm font-medium text-primary mb-4 block">About Us</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Building the future of{" "}
-            <span className="gradient-text">digital business</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Allspire was founded with a simple belief: technology should empower businesses, not complicate them.
-          </p>
-        </AnimatedSection>
-      </div>
-    </section>
+const About = () => {
+  useSeo("About", "Allspire Technologies Limited is a Lagos-based technology company. We design and engineer digital products for businesses across Nigeria and Africa, and we build our own, like iTrova.");
+  const copy = useCopy();
+  const team = useTeam();
 
-    {/* Story */}
-    <section className="section-padding surface-elevated">
-      <div className="container-tight">
-        <div className="max-w-3xl mx-auto">
+  return (
+    <PageLayout>
+      <section className="relative overflow-hidden">
+        <div className="grid-bg absolute inset-0" aria-hidden="true" />
+        <div className="container-tight relative grid items-center gap-10 py-16 md:py-20 lg:grid-cols-[1.1fr_1fr]">
           <AnimatedSection>
-            <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                Founded in 2025, Allspire emerged from the frustration of watching businesses struggle with outdated technology and disconnected systems. Our founders, seasoned engineers and product leaders, set out to create a technology partner that truly understands business.
-              </p>
-              <p>
-                Today, we work with organizations across real estate, finance, retail, logistics, and education, delivering intelligent digital products that drive measurable outcomes. From startups to enterprises, our clients trust us to turn complex challenges into elegant solutions.
-              </p>
-              <p>
-                We're a team of 10+ engineers, designers, and strategists distributed across three continents, united by a shared commitment to craftsmanship and impact.
-              </p>
+            <span className="eyebrow">About Allspire</span>
+            <h1 className="mt-4 text-4xl md:text-5xl">Inspiring digital possibilities</h1>
+            <p className="mt-4 text-lg text-body">{copy.about_intro}</p>
+          </AnimatedSection>
+          <AnimatedSection delay={0.1}>
+            <div className="shot rounded-3xl">
+              <img src={heroImage} alt="Allspire team at work" className="h-56 w-full object-cover md:h-72" loading="eager" />
             </div>
           </AnimatedSection>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Mission & Vision */}
-    <section className="section-padding">
-      <div className="container-tight">
-        <div className="grid md:grid-cols-2 gap-8">
-          <AnimatedSection>
-            <motion.div
-              className="glass-card p-8 h-full"
-              whileHover={{ y: -4 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            >
-              <div className="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5">
-                <Target className="w-6 h-6 text-primary-foreground" />
+      <section className="container-tight grid gap-4 pb-14 md:grid-cols-2 md:pb-16">
+        <AnimatedSection>
+          <div className="card-soft h-full p-7">
+            <span className="kicker">Mission</span>
+            <h2 className="mt-3 text-2xl">{copy.mission_headline}</h2>
+            <p className="mt-3 text-[15px] text-body">{copy.mission}</p>
+          </div>
+        </AnimatedSection>
+        <AnimatedSection delay={0.08}>
+          <div className="card-soft h-full p-7">
+            <span className="kicker">Vision</span>
+            <h2 className="mt-3 text-2xl">{copy.vision_headline}</h2>
+            <p className="mt-3 text-[15px] text-body">{copy.vision}</p>
+          </div>
+        </AnimatedSection>
+      </section>
+
+      <section className="container-tight pb-16 md:pb-24">
+        <span className="kicker">Our story</span>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          {copy.story_milestones.map((m, i) => (
+            <AnimatedSection key={m.title} delay={i * 0.06}>
+              <div className="card-soft h-full p-6">
+                <div className="text-[13px] font-bold text-primary">{m.title}</div>
+                <p className="mt-2 text-sm text-body">{m.text}</p>
               </div>
-              <h3 className="text-2xl font-bold mb-3">Our Mission</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                To empower businesses with technology that simplifies operations, accelerates growth, and creates lasting competitive advantage.
-              </p>
-            </motion.div>
-          </AnimatedSection>
-          <AnimatedSection delay={0.1}>
-            <motion.div
-              className="glass-card p-8 h-full"
-              whileHover={{ y: -4 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            >
-              <div className="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5">
-                <Eye className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">Our Vision</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                A world where every business, regardless of size, has access to world-class technology that helps them compete and thrive on a global stage.
-              </p>
-            </motion.div>
-          </AnimatedSection>
+            </AnimatedSection>
+          ))}
         </div>
-      </div>
-    </section>
+      </section>
 
-  </PageLayout>
-);
+      <TeamGrid members={team} />
+      <CtaBand headline="Want to work with us?" sub="Whether you are hiring a team or joining one, we would like to hear from you." />
+    </PageLayout>
+  );
+};
 
 export default About;

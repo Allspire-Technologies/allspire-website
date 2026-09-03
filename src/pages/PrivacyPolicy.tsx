@@ -1,7 +1,10 @@
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
+import { useSeo } from "@/hooks/useSeo";
 
-const PrivacyPolicy = () => (
+const PrivacyPolicy = () => {
+  useSeo("Privacy policy", "How Allspire Technologies collects, uses and protects personal data.");
+  return (
   <PageLayout>
     <section className="section-padding">
       <div className="container-tight">
@@ -196,6 +199,7 @@ const PrivacyPolicy = () => (
       </div>
     </section>
   </PageLayout>
-);
+  );
+};
 
 export default PrivacyPolicy;

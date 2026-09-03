@@ -1,7 +1,10 @@
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
+import { useSeo } from "@/hooks/useSeo";
 
-const TermsOfService = () => (
+const TermsOfService = () => {
+  useSeo("Terms of service", "The terms that govern use of Allspire websites and services.");
+  return (
   <PageLayout>
     <section className="section-padding">
       <div className="container-tight">
@@ -190,6 +193,7 @@ const TermsOfService = () => (
       </div>
     </section>
   </PageLayout>
-);
+  );
+};
 
 export default TermsOfService;

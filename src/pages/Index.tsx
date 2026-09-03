@@ -1,348 +1,192 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  Rocket, Globe, RefreshCw, Bot,
-  Building2, Landmark, ShoppingCart, Truck, GraduationCap,
-  Zap, Lightbulb, Shield, TrendingUp,
-  ArrowRight, CheckCircle2,
-} from "lucide-react";
+import { Rocket, Globe, RefreshCw, Bot, ArrowRight, Zap, Lightbulb, Shield, TrendingUp } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
-
-const services = [
-  { icon: Rocket, title: "Product Development", desc: "End-to-end product design and engineering from concept to launch." },
-  { icon: Globe, title: "Web & Mobile Apps", desc: "Beautiful, performant applications across every platform." },
-  { icon: RefreshCw, title: "Digital Transformation", desc: "Modernize legacy systems and streamline operations." },
-  { icon: Bot, title: "AI & Automation", desc: "Intelligent workflows that reduce cost and increase speed." },
-];
-
-const industries = [
-  { icon: Building2, title: "Real Estate", color: "from-blue-500 to-cyan-400", slug: "real-estate" },
-  { icon: Landmark, title: "Finance", color: "from-indigo-500 to-blue-400", slug: "finance" },
-  { icon: ShoppingCart, title: "Retail", color: "from-purple-500 to-pink-400", slug: "retail" },
-  { icon: Truck, title: "Logistics", color: "from-violet-500 to-indigo-400", slug: "logistics" },
-  { icon: GraduationCap, title: "Education", color: "from-emerald-500 to-teal-400", slug: "education" },
-];
+import Shot from "@/components/site/Shot";
+import SectionHead from "@/components/site/SectionHead";
+import CtaBand from "@/components/site/CtaBand";
+import WebinarPromo from "@/components/site/WebinarPromo";
+import { LogoStrip, StatsStrip, CaseStudyGrid, TestimonialGrid } from "@/components/site/Proof";
+import { industryList } from "@/data/industries";
+import { ITROVA_LINKS } from "@/config/itrova";
+import { useSeo } from "@/hooks/useSeo";
+import { useCaseStudies, useCopy, useLogos, useStats, useTestimonials } from "@/hooks/useSiteContent";
+import itrovaDashboard from "@/assets/itrova-dashboard.png";
 
 const whyUs = [
   { icon: Zap, title: "Speed", desc: "Rapid delivery without compromising quality." },
   { icon: Lightbulb, title: "Innovation", desc: "Cutting-edge technology and creative thinking." },
   { icon: Shield, title: "Reliability", desc: "Enterprise-grade stability you can count on." },
-  { icon: TrendingUp, title: "Scalable Solutions", desc: "Built to grow with your business." },
+  { icon: TrendingUp, title: "Scalable solutions", desc: "Built to grow with your business." },
 ];
 
-const heroStats = [
-  { value: "iTrova", label: "Flagship Product" },
-  { value: "10+", label: "Engineers & Designers" },
-  { value: "98%", label: "Client Satisfaction" },
-];
+const anchorChips = ["Discovery", "UX and UI", "Engineering", "Launch and run"];
 
-const trustedPoints = [
-  "End-to-end product delivery",
-  "AI-powered solutions",
-  "Enterprise-grade security",
-];
+const Index = () => {
+  useSeo("", "We design, build and run the digital products that help businesses scale faster and operate smarter. Product development, web and mobile apps, AI and automation, digital transformation. Lagos, Nigeria.");
+  const copy = useCopy();
+  const logos = useLogos();
+  const stats = useStats();
+  const testimonials = useTestimonials();
+  const { items: stories } = useCaseStudies();
+  const workHref = stories.length > 0 ? "/work" : "/products";
 
-const Index = () => (
-  <PageLayout>
-    {/* Webinar announcement */}
-    <Link to="/webinar" className="block gradient-bg group">
-      <motion.div
-        className="container-tight flex flex-wrap items-center justify-center gap-x-3 gap-y-1 py-3 text-center text-sm text-primary-foreground"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <span className="font-semibold">🎙 Free SME Masterclass:</span>
-        <span className="text-primary-foreground/90">
-          From Notebook to Smart Business · Every Saturday in 2026, 7PM WAT
-        </span>
-        <span className="font-semibold inline-flex items-center gap-1 underline underline-offset-4">
-          Register free <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-        </span>
-      </motion.div>
-    </Link>
-
-    {/* Hero */}
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Animated gradient orbs */}
-      <motion.div
-        className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full opacity-20"
-        style={{ background: "radial-gradient(circle, hsl(234 89% 54% / 0.4), transparent 70%)" }}
-        animate={{ scale: [1, 1.15, 1], x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full opacity-15"
-        style={{ background: "radial-gradient(circle, hsl(270 70% 55% / 0.5), transparent 70%)" }}
-        animate={{ scale: [1, 1.2, 1], x: [0, -20, 0], y: [0, 30, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute top-[30%] left-[40%] w-[300px] h-[300px] rounded-full opacity-10"
-        style={{ background: "radial-gradient(circle, hsl(234 89% 64% / 0.3), transparent 70%)" }}
-        animate={{ scale: [1, 1.3, 1] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
-
-      <div className="container-tight relative z-10 py-20 md:py-28">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left — Text */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <motion.span
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary mb-6 px-4 py-2 rounded-full border border-primary/20 bg-primary/5"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <span className="w-2 h-2 rounded-full gradient-bg animate-pulse" />
-              Technology Solutions Partner
-            </motion.span>
-
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] mb-6 tracking-tight">
-              From Idea
-              <br />
-              to <span className="gradient-text">Impact</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-lg leading-relaxed">
-              We build intelligent digital products that help businesses scale faster and operate smarter.
-            </p>
-
-            {/* Trust points */}
-            <div className="flex flex-col gap-2.5 mb-10">
-              {trustedPoints.map((point, i) => (
-                <motion.div
-                  key={point}
-                  className="flex items-center gap-2.5 text-sm text-muted-foreground"
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 + i * 0.1 }}
-                >
-                  <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-                  {point}
-                </motion.div>
-              ))}
+  return (
+    <PageLayout>
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="grid-bg absolute inset-0" aria-hidden="true" />
+        <div className="container-tight relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.15fr_1fr]">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <span className="eyebrow">{copy.hero_eyebrow}</span>
+            <h1 className="mt-5 text-[40px] font-extrabold leading-[1.05] sm:text-5xl md:text-6xl lg:text-[66px]">{copy.hero_headline}</h1>
+            <p className="mt-5 max-w-lg text-lg text-body md:text-xl">{copy.hero_sub}</p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link to="/contact" className="btn-brand btn-lg">Talk to us</Link>
+              <Link to={workHref} className="btn-line btn-lg group">
+                See our work <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
-
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-            >
-              <Link to="/contact" className="btn-glass-primary text-center">
-                Get Started
-              </Link>
-              <Link to="/products" className="btn-glass-secondary group text-center">
-                View Our Work <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </motion.div>
+            <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3">
+              <div className="tick">Product strategy to launch</div>
+              <div className="tick">Web, mobile and AI</div>
+              <div className="tick">Built for African markets</div>
+            </div>
           </motion.div>
 
-          {/* Right — Stats + visual card */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-          >
-            <div className="relative">
-              {/* Main glass card */}
-              <div className="glass-card p-6 md:p-10 shadow-2xl">
-                <div className="flex items-center gap-3 mb-6 md:mb-8">
-                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-400" />
-                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-400" />
-                  <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-400" />
-                  <span className="ml-auto text-xs text-muted-foreground font-mono">allspire.tech</span>
-                </div>
+          <motion.div className="relative" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }}>
+            <Shot src={itrovaDashboard} alt="The iTrova dashboard, a product built and run by Allspire" label="itrova.co" eager />
+            <div className="card-soft absolute -bottom-6 left-0 hidden w-64 p-4 md:block lg:-left-8">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Shipped and live</div>
+              <div className="mt-1 font-display text-lg font-bold">iTrova</div>
+              <p className="mt-1 text-[13px] text-body">POS, inventory and accounting for Nigerian SMBs. Our own product, in production.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-                {/* Stats grid */}
-                <div className="grid grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
-                  {heroStats.map((stat, i) => (
-                    <motion.div
-                      key={stat.label}
-                      className="text-center"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + i * 0.15 }}
-                    >
-                      <p className="text-2xl md:text-3xl font-bold gradient-text">{stat.value}</p>
-                      <p className="text-[10px] md:text-xs text-muted-foreground mt-1">{stat.label}</p>
-                    </motion.div>
-                  ))}
-                </div>
+      <LogoStrip logos={logos} />
+      <StatsStrip stats={stats} />
 
-                {/* Faux chart bars */}
-                <div className="space-y-2 md:space-y-3">
-                  {[85, 92, 78, 95].map((width, i) => (
-                    <div key={i} className="flex items-center gap-2 md:gap-3">
-                      <span className="text-xs text-muted-foreground w-6 md:w-8 text-right font-mono">Q{i + 1}</span>
-                      <div className="flex-1 h-2.5 md:h-3 rounded-full bg-secondary overflow-hidden">
-                        <motion.div
-                          className="h-full rounded-full gradient-bg"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${width}%` }}
-                          transition={{ duration: 1, delay: 0.8 + i * 0.15, ease: "easeOut" }}
-                        />
-                      </div>
-                    </div>
+      {/* Services bento */}
+      <section className="container-tight section-padding">
+        <SectionHead
+          kicker="What we do"
+          title="Four ways we move a business forward"
+          action={<Link to="/services" className="btn-line">All services</Link>}
+        />
+        <div className="mt-8 grid gap-4 md:auto-rows-[190px] md:grid-cols-3">
+          <AnimatedSection className="md:col-span-2 md:row-span-2">
+            <Link to="/services" className="band card-hover relative block h-full overflow-hidden rounded-2xl p-7 md:p-8">
+              <div className="grid-bg absolute inset-0 opacity-60" aria-hidden="true" />
+              <div className="relative">
+                <div className="ico bg-white/10 text-white"><Rocket className="h-5 w-5" /></div>
+                <h3 className="mt-5 text-2xl md:text-3xl">Product development</h3>
+                <p className="mt-3 max-w-lg text-[15px] md:text-base">
+                  End-to-end product design and engineering, from concept to launch. Strategy, UX, build, release and the operations after go-live.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {anchorChips.map((c) => (
+                    <span key={c} className="chip border-white/20 bg-white/10 text-white">{c}</span>
                   ))}
                 </div>
               </div>
-
-              {/* Floating badge */}
-              <motion.div
-                className="absolute -bottom-4 -left-2 md:-bottom-6 md:-left-6 glass-card px-3 py-2.5 md:px-5 md:py-4 !rounded-xl md:!rounded-2xl"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <div className="flex items-center gap-2 md:gap-3">
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl gradient-bg flex items-center justify-center">
-                    <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <p className="text-xs md:text-sm font-semibold">Growth Rate</p>
-                    <p className="text-[10px] md:text-xs text-muted-foreground">+127% YoY</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Floating badge top-right */}
-              <motion.div
-                className="absolute -top-3 -right-1 md:-top-4 md:-right-4 glass-card px-3 py-2 md:px-4 md:py-3 !rounded-xl md:!rounded-2xl"
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              >
-                <div className="flex items-center gap-1.5 md:gap-2">
-                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-[10px] md:text-xs font-medium">All systems operational</span>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+            </Link>
+          </AnimatedSection>
+          <AnimatedSection delay={0.08}>
+            <Link to="/services" className="card-soft card-hover block h-full p-6">
+              <div className="ico"><Globe className="h-5 w-5" /></div>
+              <h3 className="mt-4 text-lg">Web and mobile apps</h3>
+              <p className="mt-1.5 text-sm text-body">Beautiful, performant applications across every platform.</p>
+            </Link>
+          </AnimatedSection>
+          <AnimatedSection delay={0.12}>
+            <Link to="/services" className="card-soft card-hover block h-full p-6">
+              <div className="ico"><Bot className="h-5 w-5" /></div>
+              <h3 className="mt-4 text-lg">AI and automation</h3>
+              <p className="mt-1.5 text-sm text-body">Intelligent workflows that reduce cost and increase speed.</p>
+            </Link>
+          </AnimatedSection>
+          <AnimatedSection delay={0.16} className="md:col-span-3">
+            <Link to="/services" className="card-soft card-hover flex h-full flex-col gap-4 p-6 md:flex-row md:items-center">
+              <div className="ico"><RefreshCw className="h-5 w-5" /></div>
+              <div className="flex-1">
+                <h3 className="text-lg">Digital transformation</h3>
+                <p className="mt-1 text-sm text-body">Modernise legacy systems and streamline operations, without stopping the business while we do it.</p>
+              </div>
+              <span className="btn-line">How we approach it</span>
+            </Link>
+          </AnimatedSection>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Services */}
-    <section className="section-padding surface-elevated">
-      <div className="container-tight">
-        <AnimatedSection className="text-center mb-16">
-          <span className="text-sm font-medium text-primary mb-2 block">What We Do</span>
-          <h2 className="text-3xl md:text-4xl font-bold">Our Services</h2>
-        </AnimatedSection>
-        <div className="grid md:grid-cols-2 gap-6">
-          {services.map((s, i) => (
-            <AnimatedSection key={s.title} delay={i * 0.1}>
-              <motion.div
-                className="glass-card p-8 group cursor-default h-[200px] flex flex-col justify-start"
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              >
-                <div className="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                  <s.icon className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{s.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{s.desc}</p>
-              </motion.div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* Industries */}
-    <section className="section-padding">
-      <div className="container-tight">
-        <AnimatedSection className="text-center mb-16">
-          <span className="text-sm font-medium text-primary mb-2 block">Who We Serve</span>
-          <h2 className="text-3xl md:text-4xl font-bold">Industries</h2>
-        </AnimatedSection>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-          {industries.map((ind, i) => (
-            <AnimatedSection key={ind.title} delay={i * 0.1}>
-              <Link to={`/industries/${ind.slug}`}>
-                <motion.div
-                  className="glass-card p-8 text-center group cursor-pointer"
-                  whileHover={{ y: -6, scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                >
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ind.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <ind.icon className="w-7 h-7 text-primary-foreground" />
-                  </div>
-                  <h3 className="font-semibold">{ind.title}</h3>
-                </motion.div>
-              </Link>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* Why Us */}
-    <section className="section-padding surface-elevated">
-      <div className="container-tight">
-        <AnimatedSection className="text-center mb-16">
-          <span className="text-sm font-medium text-primary mb-2 block">Our Edge</span>
-          <h2 className="text-3xl md:text-4xl font-bold">Why Choose Allspire</h2>
-        </AnimatedSection>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {whyUs.map((w, i) => (
-            <AnimatedSection key={w.title} delay={i * 0.1}>
-              <motion.div
-                className="text-center p-6 rounded-2xl cursor-default"
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <w.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-semibold mb-2">{w.title}</h3>
-                <p className="text-sm text-muted-foreground">{w.desc}</p>
-              </motion.div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* CTA */}
-    <section className="section-padding">
-      <div className="container-tight">
+      {/* Product spotlight */}
+      <section className="container-tight pb-16 md:pb-24">
         <AnimatedSection>
-          <div className="gradient-bg rounded-3xl p-12 md:p-16 text-center relative overflow-hidden">
-            {/* Glass overlay for depth */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none" />
-            <div className="relative">
-              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to build something great?
-              </h2>
-              <p className="text-primary-foreground/80 mb-8 max-w-xl mx-auto text-lg">
-                Let's turn your vision into a product that drives real results.
+          <div className="card-soft grid items-center gap-8 p-6 md:grid-cols-[1fr_1.1fr] md:p-9">
+            <div>
+              <span className="eyebrow">Our product</span>
+              <h2 className="mt-4 text-3xl md:text-[34px]">We use what we build. Meet iTrova.</h2>
+              <p className="mt-3 text-body">
+                The point of sale, inventory and accounting app we built for shops, traders and small manufacturers across Nigeria. Live in production, on its own site.
               </p>
-              <Link to="/contact" className="btn-glass-inverse group">
-                Start a Conversation <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a href={ITROVA_LINKS.home} className="btn-brand">Explore iTrova</a>
+                <a href={ITROVA_LINKS.pricing} className="btn-line">See pricing</a>
+              </div>
             </div>
+            <Shot src={itrovaDashboard} alt="iTrova dashboard" label="itrova.co" />
           </div>
         </AnimatedSection>
+      </section>
+
+      {/* Industries */}
+      <section className="container-tight pb-16 md:pb-24">
+        <SectionHead kicker="Who we serve" title="Built for the sectors that run Nigeria" />
+        <div className="mt-8 grid grid-cols-2 gap-3.5 md:grid-cols-5">
+          {industryList.map((ind, i) => (
+            <AnimatedSection key={ind.slug} delay={i * 0.05} className={i === industryList.length - 1 ? "col-span-2 md:col-span-1" : ""}>
+              <Link to={`/industries/${ind.slug}`} className="card-soft card-hover group block h-full p-5">
+                <div className="ico h-10 w-10"><ind.icon className="h-5 w-5" /></div>
+                <h3 className="mt-3 text-base transition-colors group-hover:text-primary">{ind.title}</h3>
+                <p className="mt-1 text-[13px] text-body">{ind.tagline}</p>
+              </Link>
+            </AnimatedSection>
+          ))}
+        </div>
+      </section>
+
+      {/* Why Allspire */}
+      <section className="band">
+        <div className="container-tight section-padding">
+          <span className="kicker text-[#8b93ff]">Why Allspire</span>
+          <div className="mt-3 grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+            <h2 className="text-3xl md:text-4xl">Speed without shortcuts. Innovation you can rely on.</h2>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {whyUs.map((w) => (
+                <div key={w.title}>
+                  <div className="flex items-center gap-3">
+                    <w.icon className="h-5 w-5 text-[#8b93ff]" />
+                    <h3 className="text-lg">{w.title}</h3>
+                  </div>
+                  <p className="mt-2 text-sm text-navy-foreground">{w.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <CaseStudyGrid stories={stories} limit={3} showAll />
+      <TestimonialGrid items={testimonials} />
+
+      <div className="pt-14 md:pt-20">
+        <WebinarPromo />
       </div>
-    </section>
-  </PageLayout>
-);
+      <CtaBand />
+    </PageLayout>
+  );
+};
 
 export default Index;

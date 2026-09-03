@@ -9,15 +9,10 @@ export const industriesData = {
     title: "Real Estate",
     slug: "real-estate",
     icon: Building2,
-    color: "from-blue-500 to-cyan-400",
-    headline: "Digitizing the future of property",
+    tagline: "Portfolios, leases, tenant portals",
+    headline: "Property businesses that close faster and keep tenants happy",
     description:
       "We help real estate companies modernize operations, from property management platforms to AI-powered valuation engines, so they can close deals faster and deliver exceptional tenant experiences.",
-    stats: [
-      { value: "40%", label: "Faster deal closings" },
-      { value: "3x", label: "Lead conversion improvement" },
-      { value: "60%", label: "Reduction in manual tasks" },
-    ],
     capabilities: [
       { icon: Layers, title: "Property Management Platforms", desc: "Centralized dashboards for portfolios, leases, and maintenance workflows." },
       { icon: LineChart, title: "Market Analytics & Valuation", desc: "AI-driven pricing models and market trend analysis for smarter investments." },
@@ -29,15 +24,10 @@ export const industriesData = {
     title: "Finance",
     slug: "finance",
     icon: Landmark,
-    color: "from-indigo-500 to-blue-400",
-    headline: "Smarter financial technology",
+    tagline: "Compliance, payments, risk",
+    headline: "Financial technology that is secure, compliant and fast",
     description:
       "From neobanking platforms to compliance automation, we build secure, scalable fintech solutions that help financial institutions innovate while maintaining regulatory trust.",
-    stats: [
-      { value: "99.99%", label: "Uptime guarantee" },
-      { value: "5x", label: "Faster compliance reporting" },
-      { value: "50%", label: "Cost reduction in operations" },
-    ],
     capabilities: [
       { icon: ShieldCheck, title: "Regulatory Compliance Tools", desc: "Automated KYC/AML workflows and audit-ready reporting systems." },
       { icon: BarChart3, title: "Trading & Analytics Platforms", desc: "Real-time dashboards with algorithmic insights for informed decision-making." },
@@ -49,39 +39,25 @@ export const industriesData = {
     title: "Retail",
     slug: "retail",
     icon: ShoppingCart,
-    color: "from-purple-500 to-pink-400",
-    headline: "Commerce, reimagined",
+    tagline: "Commerce, inventory, POS",
+    headline: "Retail that sells on every channel and never runs out of stock",
     description:
       "We empower retailers with technology that bridges online and offline, from headless e-commerce to AI-personalized shopping experiences that maximize revenue per visitor.",
-    stats: [
-      { value: "35%", label: "Increase in AOV" },
-      { value: "2x", label: "Faster page load times" },
-      { value: "45%", label: "Boost in retention" },
-    ],
     capabilities: [
       { icon: Globe, title: "Headless Commerce Platforms", desc: "Flexible, API-first storefronts that scale globally with blazing performance." },
       { icon: Users, title: "Personalization Engines", desc: "AI-driven product recommendations and dynamic content tailored to each shopper." },
       { icon: BarChart3, title: "Inventory & Supply Chain", desc: "Real-time inventory tracking and demand forecasting to eliminate stockouts." },
       { icon: Clock, title: "Omnichannel Solutions", desc: "Unified experiences across web, mobile, in-store kiosks, and social commerce." },
     ],
-    caseStudy: {
-      title: "iTrova — Business Management Platform",
-      desc: "Built iTrova, an end-to-end platform for retailers and distributors that unifies inventory, point of sale, suppliers, invoicing and reporting; with automatic stock deduction on every sale and role-based access for the whole team.",
-    },
   },
   logistics: {
     title: "Logistics",
     slug: "logistics",
     icon: Truck,
-    color: "from-violet-500 to-indigo-400",
-    headline: "Intelligent supply chains",
+    tagline: "Fleet, routing, tracking",
+    headline: "Supply chains with visibility on every mile",
     description:
       "We build logistics technology that brings visibility, automation, and intelligence to every mile; helping companies move goods faster, cheaper, and more sustainably.",
-    stats: [
-      { value: "30%", label: "Reduction in delivery times" },
-      { value: "20%", label: "Fuel cost savings" },
-      { value: "95%", label: "On-time delivery rate" },
-    ],
     capabilities: [
       { icon: Globe, title: "Fleet Management Systems", desc: "GPS tracking, route optimization, and driver management in one platform." },
       { icon: Workflow, title: "Warehouse Automation", desc: "Smart warehouse management with barcode scanning, pick-pack-ship, and robotics integration." },
@@ -93,15 +69,10 @@ export const industriesData = {
     title: "Education",
     slug: "education",
     icon: GraduationCap,
-    color: "from-emerald-500 to-teal-400",
-    headline: "Empowering the next generation of learners",
+    tagline: "Learning platforms, admin",
+    headline: "Learning platforms that make teaching and administration lighter",
     description:
       "We build edtech platforms that make learning more accessible, engaging, and effective; from K-12 school management to enterprise training and online course marketplaces.",
-    stats: [
-      { value: "3x", label: "Student engagement increase" },
-      { value: "50%", label: "Administrative time saved" },
-      { value: "10M+", label: "Learners served" },
-    ],
     capabilities: [
       { icon: Layers, title: "Learning Management Systems", desc: "Feature-rich LMS platforms with course creation, progress tracking, and certification." },
       { icon: Users, title: "Student Information Systems", desc: "End-to-end school management covering enrollment, attendance, grading, and parent communication." },
@@ -112,3 +83,4 @@ export const industriesData = {
 } as const;
 
 export type IndustrySlug = keyof typeof industriesData;
+export const industryList = Object.values(industriesData);
