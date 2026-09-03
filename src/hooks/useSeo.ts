@@ -26,6 +26,16 @@ export function useSeo(title: string, description: string, options: { noindex?: 
     upsertMeta("property", "og:description", description);
     upsertMeta("name", "twitter:title", full);
     upsertMeta("name", "twitter:description", description);
+    // Canonical and og:url follow client-side navigation (the prerendered value is for the first load).
+    const href = `${window.location.origin}${window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/$/, "")}`;
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", href);
+    upsertMeta("property", "og:url", href);
     if (noindex) upsertMeta("name", "robots", "noindex, nofollow");
     else document.head.querySelector('meta[name="robots"]')?.remove();
   }, [title, description, noindex]);
