@@ -9,6 +9,8 @@ import Services from "./pages/Services";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import Webinar from "./pages/Webinar";
+import Work from "./pages/Work";
+import WorkDetail from "./pages/WorkDetail";
 import ExternalRedirect from "./components/ExternalRedirect";
 import { ITROVA_LINKS } from "./config/itrova";
 import IndustryDetail from "./pages/IndustryDetail";
@@ -32,12 +34,15 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/products" element={<Products />} />
-          {/* Renamed from Projects → Products; keep old links/bookmarks working. */}
+          {/* Renamed from Projects to Products; keep old links/bookmarks working. */}
           <Route path="/projects" element={<Navigate to="/products" replace />} />
+          <Route path="/work" element={<Work />} />
+          <Route path="/work/:slug" element={<WorkDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/webinar" element={<Webinar />} />
           {/* The iTrova guide lives on itrova.co now; public/_redirects 301s this before the SPA. */}
           <Route path="/docs/itrova" element={<ExternalRedirect to={ITROVA_LINKS.guide} />} />
+          <Route path="/industries" element={<Navigate to="/industries/retail" replace />} />
           <Route path="/industries/:slug" element={<IndustryDetail />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />

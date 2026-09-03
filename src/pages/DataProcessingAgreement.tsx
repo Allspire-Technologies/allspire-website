@@ -1,7 +1,10 @@
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
+import { useSeo } from "@/hooks/useSeo";
 
-const DataProcessingAgreement = () => (
+const DataProcessingAgreement = () => {
+  useSeo("Data processing agreement", "How Allspire processes personal data on behalf of its customers.");
+  return (
   <PageLayout>
     <section className="section-padding">
       <div className="container-tight">
@@ -274,6 +277,7 @@ const DataProcessingAgreement = () => (
       </div>
     </section>
   </PageLayout>
-);
+  );
+};
 
 export default DataProcessingAgreement;

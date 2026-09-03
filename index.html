@@ -3,24 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#2136f2" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#030711" media="(prefers-color-scheme: dark)" />
-    <title>Allspire — Inspiring Digital Possibilities</title>
-    <meta name="description" content="Allspire builds intelligent digital products that help businesses scale faster and operate smarter.">
-    <meta name="author" content="Allspire" />
+    <meta name="theme-color" content="#2f3cf0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)" />
+    <title>Allspire Technologies | From idea to impact</title>
+    <meta name="description" content="Allspire designs, builds and runs digital products that help businesses scale faster and operate smarter. Product development, web and mobile apps, AI and automation, digital transformation. Lagos, Nigeria.">
+    <meta name="author" content="Allspire Technologies Limited" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Allspire — Inspiring Digital Possibilities">
-    <meta property="og:description" content="Allspire builds intelligent digital products that help businesses scale faster and operate smarter.">
+    <meta property="og:site_name" content="Allspire Technologies" />
+    <meta property="og:title" content="Allspire Technologies | From idea to impact">
+    <meta property="og:description" content="We design, build and run the digital products that help businesses scale faster and operate smarter.">
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@allspirehq" />
-    <meta name="twitter:title" content="Allspire — Inspiring Digital Possibilities">
-    <meta name="twitter:description" content="Allspire builds intelligent digital products that help businesses scale faster and operate smarter.">
+    <meta name="twitter:title" content="Allspire Technologies | From idea to impact">
+    <meta name="twitter:description" content="We design, build and run the digital products that help businesses scale faster and operate smarter.">
+
+    <!-- Paint the right theme before React mounts: remembered choice first, then the OS. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
   <body>

@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+# wrangler pages dev state
+.wrangler/

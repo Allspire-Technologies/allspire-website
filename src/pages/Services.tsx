@@ -1,91 +1,99 @@
-import { Rocket, Globe, RefreshCw, Bot, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Rocket, Globe, RefreshCw, Bot } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
+import CtaBand from "@/components/site/CtaBand";
+import { useSeo } from "@/hooks/useSeo";
 
 const services = [
   {
+    id: "product-development",
     icon: Rocket,
-    title: "Product Development",
-    desc: "We take your idea from concept to a fully realized product. Our process covers discovery, design, engineering, QA, and launch, giving you a product that's ready to compete.",
-    features: ["Product strategy & roadmapping", "UI/UX design", "Full-stack engineering", "Launch & iteration support"],
+    title: "Product development",
+    desc: "End-to-end product design and engineering from concept to launch.",
+    points: ["Discovery and product strategy", "UX research, design system, prototypes", "Engineering, QA, release", "Run and improve after launch"],
   },
   {
+    id: "web-and-mobile",
     icon: Globe,
-    title: "Web & Mobile Applications",
-    desc: "We build high-performance web and mobile applications that delight users. From responsive web apps to native iOS and Android experiences, we deliver quality at every pixel.",
-    features: ["Responsive web applications", "iOS & Android development", "Progressive Web Apps", "Cross-platform solutions"],
+    title: "Web and mobile apps",
+    desc: "Beautiful, performant applications across every platform.",
+    points: ["Web apps and portals", "iOS, Android, installable PWAs", "Offline-first where networks are unreliable", "Performance budgets, accessibility built in"],
   },
   {
+    id: "digital-transformation",
     icon: RefreshCw,
-    title: "Digital Transformation Consulting",
-    desc: "We help enterprises modernize their technology stack, migrate legacy systems, and adopt cloud-native architectures that reduce cost and increase agility.",
-    features: ["Legacy system modernization", "Cloud migration", "Process automation", "Technology audits"],
+    title: "Digital transformation",
+    desc: "Modernise legacy systems and streamline operations.",
+    points: ["Process mapping and automation", "Migration without downtime", "Integrations and data pipelines", "Training and change support"],
   },
   {
+    id: "ai-and-automation",
     icon: Bot,
-    title: "AI & Automation Solutions",
-    desc: "We design and deploy AI-powered workflows that automate repetitive tasks, extract insights from data, and enable intelligent decision-making across your organization.",
-    features: ["Machine learning models", "Natural language processing", "Robotic process automation", "Predictive analytics"],
+    title: "AI and automation",
+    desc: "Intelligent workflows that reduce cost and increase speed.",
+    points: ["Assistants and document intelligence", "Forecasting and recommendations", "Workflow automation across your tools", "Responsible, measurable rollout"],
   },
 ];
 
-const Services = () => (
-  <PageLayout>
-    <section className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
-      <div className="container-tight relative">
-        <AnimatedSection className="max-w-3xl mx-auto text-center mb-16">
-          <span className="text-sm font-medium text-primary mb-4 block">Services</span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Solutions that <span className="gradient-text">drive growth</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From strategy to execution, we provide end-to-end technology services tailored to your business goals.
-          </p>
-        </AnimatedSection>
+const process = [
+  { n: "01", title: "Discover", desc: "Goals, users, constraints, a plan you can hold us to." },
+  { n: "02", title: "Design", desc: "Prototypes you can click before we write production code." },
+  { n: "03", title: "Build", desc: "Short cycles, weekly demos, tested as we go." },
+  { n: "04", title: "Run", desc: "Launch, monitor, improve. We stay on after go-live." },
+];
 
-        <div className="space-y-8">
-          {services.map((s, i) => (
-            <AnimatedSection key={s.title} delay={i * 0.1}>
-              <motion.div
-                className="glass-card p-8 md:p-10"
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              >
-                <div className="flex flex-col md:flex-row gap-8">
-                  <div className="flex-shrink-0">
-                    <div className="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center">
-                      <s.icon className="w-7 h-7 text-primary-foreground" />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold mb-3">{s.title}</h2>
-                    <p className="text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
-                    <ul className="grid sm:grid-cols-2 gap-2">
-                      {s.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <span className="w-1.5 h-1.5 rounded-full gradient-bg flex-shrink-0" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
+const Services = () => {
+  useSeo("Services", "Product development, web and mobile apps, digital transformation and AI automation. Four services, one team, from the first sketch to a system your team runs on.");
+  return (
+    <PageLayout>
+      <section className="relative overflow-hidden">
+        <div className="grid-bg absolute inset-0" aria-hidden="true" />
+        <div className="container-tight relative py-16 md:py-20">
+          <AnimatedSection className="max-w-3xl">
+            <span className="eyebrow">Services</span>
+            <h1 className="mt-4 text-4xl md:text-5xl lg:text-[52px]">Everything from the first sketch to a system your team runs on</h1>
+            <p className="mt-4 text-lg text-body">Four services, one team. Pick one, or let us carry a product end to end.</p>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      <section className="container-tight flex flex-col gap-4 pb-16 md:pb-20">
+        {services.map((s, i) => (
+          <AnimatedSection key={s.id} delay={i * 0.06}>
+            <article id={s.id} className="card-soft grid gap-6 p-6 md:grid-cols-[52px_1fr_1fr] md:p-7">
+              <div className="ico"><s.icon className="h-5 w-5" /></div>
+              <div>
+                <h2 className="text-2xl">{s.title}</h2>
+                <p className="mt-2 text-[15px] text-body">{s.desc}</p>
+              </div>
+              <div className="grid gap-2.5">
+                {s.points.map((p) => (
+                  <div key={p} className="tick">{p}</div>
+                ))}
+              </div>
+            </article>
+          </AnimatedSection>
+        ))}
+      </section>
+
+      <section className="container-tight pb-16 md:pb-24">
+        <span className="kicker">How we work</span>
+        <div className="mt-4 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+          {process.map((p, i) => (
+            <AnimatedSection key={p.n} delay={i * 0.06}>
+              <div className="card-soft h-full p-5">
+                <div className="text-[13px] font-bold text-primary">{p.n}</div>
+                <h3 className="mt-2 text-lg">{p.title}</h3>
+                <p className="mt-1 text-sm text-body">{p.desc}</p>
+              </div>
             </AnimatedSection>
           ))}
         </div>
+      </section>
 
-        <AnimatedSection className="text-center mt-16">
-          <Link to="/contact" className="btn-glass-primary group">
-            Discuss Your Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </AnimatedSection>
-      </div>
-    </section>
-  </PageLayout>
-);
+      <CtaBand />
+    </PageLayout>
+  );
+};
 
 export default Services;

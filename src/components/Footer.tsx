@@ -1,78 +1,67 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/allspire-logo.png";
-import { docsProducts } from "@/data/docs";
+import { industryList } from "@/data/industries";
+import { ITROVA_LINKS } from "@/config/itrova";
+import { COMPANY, WHATSAPP_DISPLAY, whatsappLink } from "@/config/company";
 
-const industries = [
-  { name: "Real Estate", slug: "real-estate" },
-  { name: "Finance", slug: "finance" },
-  { name: "Retail", slug: "retail" },
-  { name: "Logistics", slug: "logistics" },
-  { name: "Education", slug: "education" },
-];
+const col = "flex flex-col gap-2.5 text-sm";
+const link = "text-navy-foreground/80 transition-colors hover:text-white";
 
 const Footer = () => (
-  <footer className="border-t border-border/50 bg-secondary/30 backdrop-blur-sm">
-    <div className="container-tight section-padding">
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-        <div className="col-span-2 md:col-span-1">
-          <img src={logo} alt="Allspire" className="h-8 w-auto mb-3" />
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Building intelligent digital products that help businesses scale faster.
+  <footer className="band">
+    <div className="container-tight pb-8 pt-14 md:pt-16">
+      <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
+        <div className="col-span-2">
+          <img src={logo} alt="Allspire" className="h-8 w-auto brightness-0 invert" />
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-navy-foreground/80">
+            Intelligent digital products that help businesses scale faster and operate smarter.
           </p>
+          <p className="mt-4 text-xs text-navy-foreground/60">{COMPANY.address}</p>
         </div>
         <div>
-          <h4 className="font-semibold text-sm mb-4">Company</h4>
-          <div className="flex flex-col gap-3">
-            <Link to="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</Link>
-            <Link to="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Services</Link>
-            <Link to="/products" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Products</Link>
+          <h4 className="mb-4 text-sm font-semibold text-white">Company</h4>
+          <div className={col}>
+            <Link to="/about" className={link}>About</Link>
+            <Link to="/services" className={link}>Services</Link>
+            <Link to="/work" className={link}>Work</Link>
+            <Link to="/webinar" className={link}>Webinar</Link>
           </div>
         </div>
         <div>
-          <h4 className="font-semibold text-sm mb-4">Industries</h4>
-          <div className="flex flex-col gap-3">
-            {industries.map((i) => (
-              <Link
-                key={i.slug}
-                to={`/industries/${i.slug}`}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {i.name}
-              </Link>
+          <h4 className="mb-4 text-sm font-semibold text-white">Industries</h4>
+          <div className={col}>
+            {industryList.map((i) => (
+              <Link key={i.slug} to={`/industries/${i.slug}`} className={link}>{i.title}</Link>
             ))}
           </div>
         </div>
         <div>
-          <h4 className="font-semibold text-sm mb-4">Docs</h4>
-          <div className="flex flex-col gap-3">
-            {docsProducts.map((p) => (
-              <Link
-                key={p.slug}
-                to={`/docs/${p.slug}`}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {p.title}
-              </Link>
-            ))}
+          <h4 className="mb-4 text-sm font-semibold text-white">Products</h4>
+          <div className={col}>
+            <Link to="/products" className={link}>iTrova</Link>
+            <a href={ITROVA_LINKS.pricing} className={link}>iTrova pricing</a>
+            <a href={ITROVA_LINKS.guide} className={link}>iTrova guide</a>
+            <a href={ITROVA_LINKS.affiliates} className={link}>Affiliate program</a>
           </div>
         </div>
         <div>
-          <h4 className="font-semibold text-sm mb-4">Connect</h4>
-          <div className="flex flex-col gap-3">
-            <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
-            <a href="mailto:hello@allspire.tech" className="text-sm text-muted-foreground hover:text-foreground transition-colors">hello@allspire.tech</a>
-            <a href="https://linkedin.com/company/allspiretech/" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a>
-            <a href="https://linktr.ee/allspirehq" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Social Links</a>
-            <a href="https://github.com/Allspire-Technologies" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
+          <h4 className="mb-4 text-sm font-semibold text-white">Connect</h4>
+          <div className={col}>
+            <Link to="/contact" className={link}>Contact</Link>
+            <a href={`mailto:${COMPANY.email}`} className={link}>{COMPANY.email}</a>
+            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className={link}>WhatsApp {WHATSAPP_DISPLAY}</a>
+            <a href={COMPANY.linkedin} target="_blank" rel="noopener noreferrer" className={link}>LinkedIn</a>
+            <a href={COMPANY.linktree} target="_blank" rel="noopener noreferrer" className={link}>Social links</a>
+            <a href={COMPANY.github} target="_blank" rel="noopener noreferrer" className={link}>GitHub</a>
           </div>
         </div>
       </div>
-      <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-sm text-muted-foreground">© 2026 Allspire. All rights reserved.</p>
-        <div className="flex gap-6">
-          <Link to="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
-          <Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
-          <Link to="/dpa" className="text-sm text-muted-foreground hover:text-foreground transition-colors">DPA</Link>
+      <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-navy-foreground/70 md:flex-row md:items-center md:justify-between">
+        <p>© {new Date().getFullYear()} {COMPANY.legalName} · RC {COMPANY.rc}. All rights reserved.</p>
+        <div className="flex gap-5">
+          <Link to="/privacy" className={link}>Privacy</Link>
+          <Link to="/terms" className={link}>Terms</Link>
+          <Link to="/dpa" className={link}>DPA</Link>
         </div>
       </div>
     </div>
