@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/allspire-logo.png";
+import logo from "@/assets/allspire-logo.webp";
 import ThemeToggle from "@/components/ThemeToggle";
 import { industryList } from "@/data/industries";
 import { useCaseStudies } from "@/hooks/useSiteContent";
@@ -48,7 +47,7 @@ const Navbar = () => {
     <nav className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
       <div className="container-tight flex h-16 items-center justify-between md:h-[72px]">
         <Link to="/" className="flex items-center" aria-label="Allspire home">
-          <img src={logo} alt="Allspire" className="h-9 md:h-10 dark:brightness-0 dark:invert" />
+          <img src={logo} alt="Allspire" width={619} height={182} className="h-9 w-auto md:h-10 dark:brightness-0 dark:invert" />
         </Link>
 
         <div className="hidden items-center gap-7 lg:flex">
@@ -100,15 +99,10 @@ const Navbar = () => {
         </div>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
+      {open && (
+          <div
             id="mobile-nav"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden border-b border-border bg-background lg:hidden"
+            className="animate-in fade-in slide-in-from-top-2 overflow-hidden border-b border-border bg-background duration-200 lg:hidden"
           >
             <div className="container-tight max-h-[calc(100vh-4rem)] overflow-y-auto pb-6 pt-2">
               {links.map((link) =>
@@ -141,9 +135,8 @@ const Navbar = () => {
                 Talk to us
               </Link>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </nav>
   );
 };

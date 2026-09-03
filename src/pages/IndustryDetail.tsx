@@ -9,7 +9,7 @@ import { industriesData, industryList, type IndustrySlug } from "@/data/industri
 import { ITROVA_LINKS } from "@/config/itrova";
 import { useSeo } from "@/hooks/useSeo";
 import { useCaseStudies } from "@/hooks/useSiteContent";
-import itrovaDashboard from "@/assets/itrova-dashboard.png";
+import itrovaDashboard from "@/assets/itrova-dashboard.webp";
 
 const IndustryDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -74,7 +74,7 @@ const IndustryDetail = () => {
         </section>
       )}
 
-      <CaseStudyGrid stories={sector} title={`Work in ${lower}`} />
+      <CaseStudyGrid stories={sector} limit={6} showAll title={`Work in ${lower}`} />
 
       <section className="container-tight py-14 md:py-16">
         <span className="kicker">Other industries</span>

@@ -20,27 +20,14 @@
     <meta name="twitter:description" content="We design, build and run the digital products that help businesses scale faster and operate smarter." />
     <!--/seo-->
     <meta name="author" content="Allspire Technologies Limited" />
+    <link rel="preload" href="/fonts/sora-variable-v1.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/work-sans-latin-v1.woff2" as="font" type="font/woff2" crossorigin />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <!-- Paint the right theme before React mounts: remembered choice first, then the OS. -->
-    <script>
-      (function () {
-        try {
-          var stored = localStorage.getItem("theme");
-          var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-          if (dark) document.documentElement.classList.add("dark");
-          var meta = document.querySelector('meta[name="theme-color"]');
-          if (meta) meta.setAttribute("content", dark ? "#0b1220" : "#2f3cf0");
-        } catch (e) {}
-      })();
-    </script>
+    <!-- Theme before first paint (external so the CSP needs no unsafe-inline). -->
+    <script src="/theme-init.js"></script>
   </head>
 
   <body>

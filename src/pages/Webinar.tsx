@@ -10,7 +10,7 @@ import { useSeo } from "@/hooks/useSeo";
 import { useWebinar } from "@/hooks/useSiteContent";
 import { REGISTRATION_FORM_URL, WEBINAR_FALLBACK } from "@/data/allspire";
 import { googleFormUrl, safeHttpsUrl } from "@/lib/safeUrl";
-import facilitatorPhoto from "@/assets/samuel-tosinpaul.jpeg";
+import facilitatorPhoto from "@/assets/samuel-tosinpaul.webp";
 
 const painPoints = [
   "Their real profit",
@@ -81,7 +81,7 @@ const Webinar = () => {
           </AnimatedSection>
           <AnimatedSection delay={0.1}>
             <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-navy-2 p-5">
-              <img src={photo} alt={name} className="h-20 w-20 rounded-2xl object-cover object-top" loading="eager" />
+              <img src={photo} alt={name} width={480} height={670} className="h-20 w-20 rounded-2xl object-cover object-top" loading="eager" />
               <div>
                 <div className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[#8b93ff]">Facilitator</div>
                 <div className="mt-1 font-display text-lg font-bold text-white">{name}</div>
