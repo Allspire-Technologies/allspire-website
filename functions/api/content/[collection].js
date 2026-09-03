@@ -6,15 +6,16 @@
 // Required environment variables on the Pages project: SUPABASE_URL, SUPABASE_ANON_KEY.
 
 const COLLECTIONS = {
-  logos: { table: "as_logo", select: "id,name,logo_url,website,sort", order: "sort.asc,created_at.asc" },
-  stats: { table: "as_stat", select: "id,label,value,sort", order: "sort.asc,created_at.asc" },
+  logos: { table: "as_logo", select: "id,name,logo_url,website,sort", order: "sort.asc,created_at.asc", limit: 24 },
+  stats: { table: "as_stat", select: "id,label,value,sort", order: "sort.asc,created_at.asc", limit: 8 },
   "case-studies": {
     table: "as_case_study",
     select: "id,slug,title,client,industry,summary,challenge,solution,outcome,cover_url,body_md,sort,updated_at",
     order: "sort.asc,created_at.desc",
+    limit: 200,
   },
-  testimonials: { table: "as_testimonial", select: "id,quote,name,role,company,photo_url,sort", order: "sort.asc,created_at.asc" },
-  team: { table: "as_team_member", select: "id,name,role,bio,photo_url,linkedin,sort", order: "sort.asc,created_at.asc" },
+  testimonials: { table: "as_testimonial", select: "id,quote,name,role,company,photo_url,sort", order: "sort.asc,created_at.asc", limit: 24 },
+  team: { table: "as_team_member", select: "id,name,role,bio,photo_url,linkedin,sort", order: "sort.asc,created_at.asc", limit: 48 },
   copy: { table: "as_copy", select: "key,value", order: "key.asc" },
   // The current webinar is the most recently updated published row, and only that one.
   webinar: {

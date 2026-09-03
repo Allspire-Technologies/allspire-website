@@ -11,13 +11,18 @@ import { useSeo } from "@/hooks/useSeo";
 import { useCaseStudies } from "@/hooks/useSiteContent";
 import itrovaDashboard from "@/assets/itrova-dashboard.webp";
 
+// Stories are shown nine at a time; the content function returns up to 200.
+const PAGE = 9;
+
 const Work = () => {
   useSeo("Work", "Case studies from Allspire: the problem, what we designed and built, and what changed for the business.");
   const { items, loaded } = useCaseStudies();
   const [filter, setFilter] = useState<string>("all");
+  const [count, setCount] = useState(PAGE);
 
   const industries = Array.from(new Set(items.map((s) => s.industry).filter((i): i is string => !!i && !!INDUSTRY_LABELS[i])));
-  const shown = filter === "all" ? items : items.filter((s) => s.industry === filter);
+  const matching = filter === "all" ? items : items.filter((s) => s.industry === filter);
+  const shown = matching.slice(0, count);
 
   return (
     <PageLayout>
@@ -36,7 +41,10 @@ const Work = () => {
                   <button
                     key={f}
                     type="button"
-                    onClick={() => setFilter(f)}
+                    onClick={() => {
+                      setFilter(f);
+                      setCount(PAGE);
+                    }}
                     aria-pressed={filter === f}
                     className={`chip transition-colors ${filter === f ? "border-primary bg-accent text-accent-foreground" : "hover:border-primary/40"}`}
                   >
@@ -47,11 +55,18 @@ const Work = () => {
             )}
             <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {shown.map((s, i) => (
-                <AnimatedSection key={s.id} delay={i * 0.05} className="h-full">
+                <AnimatedSection key={s.id} delay={(i % PAGE) * 0.05} className="h-full">
                   <CaseStudyCard story={s} />
                 </AnimatedSection>
               ))}
             </div>
+            {matching.length > count && (
+              <div className="mt-8 text-center">
+                <button type="button" onClick={() => setCount((n) => n + PAGE)} className="btn-line">
+                  Show more ({matching.length - count} more)
+                </button>
+              </div>
+            )}
           </>
         ) : (
           <div className="card-soft mt-10 p-6 text-center md:p-8">

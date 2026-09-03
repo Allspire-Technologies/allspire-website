@@ -74,7 +74,7 @@ const IndustryDetail = () => {
         </section>
       )}
 
-      <CaseStudyGrid stories={sector} title={`Work in ${lower}`} />
+      <CaseStudyGrid stories={sector} limit={6} showAll title={`Work in ${lower}`} />
 
       <section className="container-tight py-14 md:py-16">
         <span className="kicker">Other industries</span>

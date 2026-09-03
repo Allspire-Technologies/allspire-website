@@ -48,10 +48,11 @@ export const LogoStrip = ({ logos }: { logos: Logo[] }) => {
 
 export const StatsStrip = ({ stats }: { stats: Stat[] }) => {
   if (stats.length === 0) return null;
+  // The strip is one row of four; extra published stats are simply not shown.
   return (
     <section className="container-tight pt-12">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        {stats.map((s, i) => (
+        {stats.slice(0, 4).map((s, i) => (
           <AnimatedSection key={s.id} delay={i * 0.06}>
             <div className="card-soft p-5 md:p-6">
               <div className="font-display text-3xl font-bold tracking-tight">{s.value}</div>
@@ -107,13 +108,13 @@ export const CaseStudyGrid = ({ stories, limit, title = "Work that shipped", sho
   );
 };
 
-export const TestimonialGrid = ({ items }: { items: Testimonial[] }) => {
+export const TestimonialGrid = ({ items, limit = 6 }: { items: Testimonial[]; limit?: number }) => {
   if (items.length === 0) return null;
   return (
     <section className="container-tight section-padding pt-0">
       <SectionHead kicker="What clients say" title="In their words" />
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {items.map((t, i) => (
+        {items.slice(0, limit).map((t, i) => (
           <AnimatedSection key={t.id} delay={i * 0.06} className="h-full">
             <figure className="card-soft flex h-full flex-col p-6">
               <Quote className="h-6 w-6 text-primary" aria-hidden="true" />
