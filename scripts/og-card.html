@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face { font-family: "Sora"; src: url("../src/assets/fonts/Sora-Variable.woff2") format("woff2"); font-weight: 100 800; }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1200px; height: 630px; background: #0b1220; color: #fff; font-family: "Sora", system-ui, sans-serif; position: relative; overflow: hidden; }
+  .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(108,118,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(108,118,255,.12) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(ellipse at 30% 40%, black 30%, transparent 75%); }
+  .wrap { position: relative; padding: 72px 80px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+  .logo { height: 44px; width: auto; align-self: flex-start; filter: brightness(0) invert(1); }
+  h1 { font-size: 76px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; max-width: 820px; }
+  h1 span { color: #a5abff; }
+  p { font-size: 28px; color: #aab3c7; max-width: 760px; margin-top: 22px; line-height: 1.35; font-weight: 400; }
+  .foot { display: flex; align-items: center; justify-content: space-between; font-size: 22px; color: #8b94a8; }
+  .pill { background: #2f3cf0; color: #fff; padding: 12px 22px; border-radius: 999px; font-weight: 600; font-size: 22px; }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="wrap">
+    <img class="logo" src="../src/assets/allspire-logo.png" alt="Allspire" />
+    <div>
+      <h1>From idea<br/>to <span>impact.</span></h1>
+      <p>We design, build and run the digital products that help businesses scale faster and operate smarter.</p>
+    </div>
+    <div class="foot"><span>allspire.tech · Lagos, Nigeria</span><span class="pill">Talk to us</span></div>
+  </div>
+</body>
+</html>
