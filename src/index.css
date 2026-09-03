@@ -270,4 +270,22 @@
   .prose-site code {
     @apply rounded bg-muted px-1.5 py-0.5 text-[0.9em];
   }
+  .prose-site pre {
+    @apply mt-4 overflow-x-auto rounded-xl border border-border bg-muted p-4 text-[0.9em];
+  }
+  .prose-site pre code {
+    @apply bg-transparent p-0;
+  }
+  .prose-site table {
+    @apply mt-6 w-full border-collapse text-sm;
+  }
+  .prose-site th, .prose-site td {
+    @apply border border-border px-3 py-2 text-left align-top;
+  }
+  .prose-site th {
+    @apply bg-muted font-semibold text-foreground;
+  }
+  .prose-site hr {
+    @apply my-8 border-border;
+  }
 }

@@ -5,7 +5,7 @@ import { useSeo } from "@/hooks/useSeo";
 
 const NotFound = () => {
   const location = useLocation();
-  useSeo("Page not found", "That page does not exist.");
+  useSeo("Page not found", "That page does not exist.", { noindex: true });
 
   useEffect(() => {
     console.error("404: no route for", location.pathname);
