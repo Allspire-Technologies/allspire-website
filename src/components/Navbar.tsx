@@ -7,6 +7,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { industriesData } from "@/data/industries";
 import { docsProducts } from "@/data/docs";
 import { products } from "@/data/products";
+import { ITROVA_LINKS } from "@/config/itrova";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,11 +24,13 @@ const industryItems: DropdownItem[] = Object.values(industriesData).map((i) => (
   icon: i.icon,
 }));
 
+// The iTrova guide lives on itrova.co now; the Docs menu hands over instead of duplicating it.
 const docsItems: DropdownItem[] = docsProducts.map((p) => ({
   label: p.title,
-  path: `/docs/${p.slug}`,
+  path: p.slug === "itrova" ? ITROVA_LINKS.guide : `/docs/${p.slug}`,
   icon: p.icon,
 }));
+const isExternal = (path: string) => path.startsWith("http");
 
 const productItems: DropdownItem[] = products.map((p) => ({
   label: p.title,
@@ -83,10 +86,17 @@ const Navbar = () => {
                 <DropdownMenuContent align="center" className="w-48">
                   {link.items?.map((item) => (
                     <DropdownMenuItem key={item.path} asChild>
-                      <Link to={item.path} className="flex items-center gap-2 cursor-pointer">
-                        <item.icon className="h-4 w-4" />
-                        {item.label}
-                      </Link>
+                      {isExternal(item.path) ? (
+                        <a href={item.path} className="flex items-center gap-2 cursor-pointer">
+                          <item.icon className="h-4 w-4" />
+                          {item.label}
+                        </a>
+                      ) : (
+                        <Link to={item.path} className="flex items-center gap-2 cursor-pointer">
+                          <item.icon className="h-4 w-4" />
+                          {item.label}
+                        </Link>
+                      )}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -156,21 +166,33 @@ const Navbar = () => {
                         {link.label}
                       </span>
                       <div className="pl-4 space-y-1">
-                        {link.items?.map((item) => (
-                          <Link
-                            key={item.path}
-                            to={item.path}
-                            onClick={() => setOpen(false)}
-                            className={`flex items-center gap-2 py-2 text-sm ${
-                              location.pathname === item.path
-                                ? "text-primary"
-                                : "text-muted-foreground"
-                            }`}
-                          >
-                            <item.icon className="h-4 w-4" />
-                            {item.label}
-                          </Link>
-                        ))}
+                        {link.items?.map((item) =>
+                          isExternal(item.path) ? (
+                            <a
+                              key={item.path}
+                              href={item.path}
+                              onClick={() => setOpen(false)}
+                              className="flex items-center gap-2 py-2 text-sm text-muted-foreground"
+                            >
+                              <item.icon className="h-4 w-4" />
+                              {item.label}
+                            </a>
+                          ) : (
+                            <Link
+                              key={item.path}
+                              to={item.path}
+                              onClick={() => setOpen(false)}
+                              className={`flex items-center gap-2 py-2 text-sm ${
+                                location.pathname === item.path
+                                  ? "text-primary"
+                                  : "text-muted-foreground"
+                              }`}
+                            >
+                              <item.icon className="h-4 w-4" />
+                              {item.label}
+                            </Link>
+                          ),
+                        )}
                       </div>
                     </>
                   ) : (
