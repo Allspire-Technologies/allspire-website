@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazyWithRetry } from "@/lib/lazyWithRetry";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import ExternalRedirect from "./components/ExternalRedirect";
 import { ITROVA_LINKS } from "./config/itrova";
@@ -33,6 +34,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        {/* The boundary wraps Suspense: a chunk that still fails after the reload-once retry renders a message, not a blank tree. */}
+        <ErrorBoundary>
         <Suspense fallback={<div className="min-h-screen bg-background" aria-busy="true" />}>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -55,6 +58,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </ErrorBoundary>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
