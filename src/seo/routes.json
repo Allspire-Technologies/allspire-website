@@ -1,0 +1,145 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "title": "Allspire Technologies | From idea to impact",
+      "description": "Allspire designs, builds and runs digital products that help businesses scale faster and operate smarter. Product development, web and mobile apps, AI and automation, digital transformation. Lagos, Nigeria.",
+      "jsonLd": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "@id": "https://allspire.tech/#organization",
+          "name": "Allspire Technologies Limited",
+          "alternateName": "Allspire",
+          "url": "https://allspire.tech",
+          "logo": "https://allspire.tech/apple-touch-icon.png",
+          "description": "A Lagos-based technology company that designs, builds and runs digital products for businesses across Nigeria and Africa, and builds its own, like iTrova.",
+          "foundingDate": "2025",
+          "identifier": { "@type": "PropertyValue", "propertyID": "CAC RC number", "value": "9702176" },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "No 15, Oladayo Alokan Street, Ewu Elepe",
+            "addressLocality": "Ikorodu",
+            "addressRegion": "Lagos",
+            "addressCountry": "NG"
+          },
+          "contactPoint": [
+            { "@type": "ContactPoint", "contactType": "sales", "email": "hello@allspire.tech", "telephone": "+2348137000305", "availableLanguage": "en" }
+          ],
+          "sameAs": [
+            "https://www.linkedin.com/company/allspiretech/",
+            "https://github.com/Allspire-Technologies",
+            "https://linktr.ee/allspirehq",
+            "https://itrova.co"
+          ],
+          "owns": { "@type": "SoftwareApplication", "name": "iTrova", "url": "https://itrova.co", "applicationCategory": "BusinessApplication" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": "https://allspire.tech",
+          "name": "Allspire Technologies",
+          "publisher": { "@id": "https://allspire.tech/#organization" }
+        }
+      ]
+    },
+    {
+      "path": "/services",
+      "title": "Services | Allspire Technologies",
+      "description": "Product development, web and mobile apps, digital transformation and AI automation. Four services, one team, from the first sketch to a system your team runs on."
+    },
+    {
+      "path": "/about",
+      "title": "About | Allspire Technologies",
+      "description": "Allspire Technologies Limited is a Lagos-based technology company. We design and engineer digital products for businesses across Nigeria and Africa, and we build our own, like iTrova."
+    },
+    {
+      "path": "/products",
+      "title": "Products | Allspire Technologies",
+      "description": "Meet iTrova, the point of sale, inventory and accounting app Allspire built for shops, traders and small manufacturers across Nigeria."
+    },
+    {
+      "path": "/work",
+      "title": "Work | Allspire Technologies",
+      "description": "Case studies from Allspire: the problem, what we designed and built, and what changed for the business."
+    },
+    {
+      "path": "/contact",
+      "title": "Contact | Allspire Technologies",
+      "description": "Talk to Allspire about your project. WhatsApp, email or the form; we reply within one business day."
+    },
+    {
+      "path": "/webinar",
+      "title": "From Notebook to Smart Business: free SME masterclass | Allspire Technologies",
+      "description": "A free weekly online masterclass for business owners moving from paper records to systems that run the business. Every Saturday in 2026, 7:00 PM WAT.",
+      "jsonLd": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Event",
+          "name": "From Notebook to Smart Business: free SME masterclass",
+          "description": "How to use digital tools to increase sales, track inventory and grow your business. A free weekly online session for Nigerian business owners.",
+          "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+          "eventStatus": "https://schema.org/EventScheduled",
+          "startDate": "2026-01-03T19:00:00+01:00",
+          "endDate": "2026-12-26T20:30:00+01:00",
+          "eventSchedule": {
+            "@type": "Schedule",
+            "repeatFrequency": "P1W",
+            "byDay": "https://schema.org/Saturday",
+            "startDate": "2026-01-03",
+            "endDate": "2026-12-26",
+            "startTime": "19:00",
+            "endTime": "20:30",
+            "scheduleTimezone": "Africa/Lagos"
+          },
+          "location": { "@type": "VirtualLocation", "url": "https://allspire.tech/webinar" },
+          "image": "https://allspire.tech/og.png",
+          "isAccessibleForFree": true,
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "NGN", "availability": "https://schema.org/InStock", "url": "https://allspire.tech/webinar" },
+          "organizer": { "@id": "https://allspire.tech/#organization" },
+          "performer": { "@type": "Person", "name": "Samuel TosinPaul", "jobTitle": "Digital Transformation Strategist and Co-Founder, Allspire Technologies" }
+        }
+      ]
+    },
+    {
+      "path": "/industries/real-estate",
+      "title": "Real Estate software | Allspire Technologies",
+      "description": "Property management platforms, market analytics, tenant portals and listings. Software for real estate businesses that close faster and keep tenants happy."
+    },
+    {
+      "path": "/industries/finance",
+      "title": "Finance software | Allspire Technologies",
+      "description": "Compliance tools, payment infrastructure, trading and analytics platforms, risk management. Secure, compliant financial technology built in Lagos."
+    },
+    {
+      "path": "/industries/retail",
+      "title": "Retail software | Allspire Technologies",
+      "description": "Commerce platforms, personalisation, inventory and supply chain, omnichannel experiences. Retail software we run ourselves: iTrova."
+    },
+    {
+      "path": "/industries/logistics",
+      "title": "Logistics software | Allspire Technologies",
+      "description": "Fleet management, warehouse automation, demand forecasting and last-mile delivery. Supply chains with visibility on every mile."
+    },
+    {
+      "path": "/industries/education",
+      "title": "Education software | Allspire Technologies",
+      "description": "Learning management, student information systems, adaptive learning and analytics. Platforms that make teaching and administration lighter."
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy Policy | Allspire Technologies",
+      "description": "How Allspire Technologies Limited collects, uses and protects personal data."
+    },
+    {
+      "path": "/terms",
+      "title": "Terms of Service | Allspire Technologies",
+      "description": "The terms under which Allspire Technologies Limited provides its services and products."
+    },
+    {
+      "path": "/dpa",
+      "title": "Data Processing Agreement | Allspire Technologies",
+      "description": "Allspire's data processing agreement for customers whose data we process on their behalf."
+    }
+  ]
+}

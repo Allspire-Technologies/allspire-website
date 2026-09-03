@@ -1,13 +1,13 @@
-// Cloudflare Pages Function — receives the Contact form POST and relays it to hello@allspire.tech
+// Cloudflare Pages Function: receives the Contact form POST and relays it to hello@allspire.tech
 // via Resend's HTTP API (the same provider as the iTrova app and CRM since the Sender.net
 // retirement). Runs server-side so the API key never reaches the browser.
 //
 // Required environment variable (Cloudflare Pages → Settings → Environment variables, encrypted):
-//   RESEND_API_KEY     — a Resend API key for the Allspire account
+//   RESEND_API_KEY    : a Resend API key for the Allspire account
 // Optional overrides (plain vars, sensible defaults below):
-//   CONTACT_TO         — inbox that receives submissions        (default hello@allspire.tech)
-//   CONTACT_FROM_EMAIL — sender on the Resend-verified domain   (default no-reply@mail.allspire.tech)
-//   CONTACT_FROM_NAME  — display name for the sender            (default "Allspire Website")
+//   CONTACT_TO        : inbox that receives submissions        (default hello@allspire.tech)
+//   CONTACT_FROM_EMAIL: sender on the Resend-verified domain   (default no-reply@mail.allspire.tech)
+//   CONTACT_FROM_NAME : display name for the sender            (default "Allspire Website")
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
@@ -27,7 +27,7 @@ export async function onRequestPost({ request, env }) {
     return json({ ok: false, error: "Invalid request." }, 400);
   }
 
-  // Honeypot — bots fill hidden fields. Pretend success so they don't retry, but send nothing.
+  // Honeypot: bots fill hidden fields. Pretend success so they don't retry, but send nothing.
   if (data && typeof data.company === "string" && data.company.trim() !== "") {
     return json({ ok: true });
   }
