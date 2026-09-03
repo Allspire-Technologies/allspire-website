@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "description": "Functions run for pages, the content API, the sitemap and case-study routes; static files are served directly.",
+  "include": ["/*"],
+  "exclude": ["/assets/*", "/fonts/*", "/*.png", "/*.ico", "/*.js", "/robots.txt", "/og.png"]
+}
