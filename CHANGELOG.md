@@ -2,6 +2,24 @@
 
 Notable changes to allspire.tech. Entries are grouped by ship date, newest first.
 
+## 2026-09-03: Faster first load, self-hosted fonts, security headers
+
+### Changed
+
+- **Smaller bundles.** Every page except Home is its own chunk, and React and Radix sit in
+  long-lived vendor chunks, so a repeat visit after a deploy re-downloads only what changed.
+  Main bundle drops from 675 kB to 148 kB (plus a 163 kB React chunk cached across deploys).
+- **No animation library.** Scroll reveals, the hero entrance and the mobile menu now use CSS
+  transitions and keyframes; framer-motion is gone from the dependencies.
+- **WebP images with dimensions.** The dashboard shot, facilitator photo, hero image and logo
+  are WebP at their display size (313 kB to 34 kB for the dashboard) with width and height set,
+  so nothing shifts while they load.
+- **Self-hosted fonts.** Sora and Work Sans load from /fonts with a preload for the two files the
+  first paint needs; the Google Fonts connection is gone.
+- **Headers.** Immutable caching for /assets and /fonts, plus a Content-Security-Policy,
+  nosniff, referrer and frame-ancestors headers. The theme script moved to /theme-init.js so
+  the policy needs no inline scripts.
+
 ## 2026-09-03 — Site refresh: evolved identity, CMS-fed proof, dark mode
 
 ### Changed

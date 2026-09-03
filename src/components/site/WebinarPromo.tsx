@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 import { useWebinar } from "@/hooks/useSiteContent";
-import facilitatorPhoto from "@/assets/samuel-tosinpaul.jpeg";
+import facilitatorPhoto from "@/assets/samuel-tosinpaul.webp";
 
 /** Home page promo for the masterclass. Fed by the same CMS record as /webinar; hidden when unpublished. */
 const WebinarPromo = () => {
@@ -14,7 +14,7 @@ const WebinarPromo = () => {
     <section className="container-tight pb-6">
       <AnimatedSection>
         <div className="grid items-center gap-5 rounded-3xl border border-border bg-accent px-6 py-6 md:grid-cols-[auto_1fr_auto] md:px-8">
-          <img src={photo} alt={name} className="h-16 w-16 rounded-2xl object-cover object-top md:h-[72px] md:w-[72px]" loading="lazy" />
+          <img src={photo} alt={name} width={480} height={670} className="h-16 w-16 rounded-2xl object-cover object-top md:h-[72px] md:w-[72px]" loading="lazy" />
           <div>
             <span className="kicker">Free SME masterclass · {webinar.schedule}, {webinar.time_label}</span>
             <h3 className="mt-1.5 text-xl md:text-2xl">{webinar.title}</h3>

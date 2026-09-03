@@ -9,7 +9,7 @@ import { INDUSTRY_LABELS } from "@/data/allspire";
 import { ITROVA_LINKS } from "@/config/itrova";
 import { useSeo } from "@/hooks/useSeo";
 import { useCaseStudies } from "@/hooks/useSiteContent";
-import itrovaDashboard from "@/assets/itrova-dashboard.png";
+import itrovaDashboard from "@/assets/itrova-dashboard.webp";
 
 const Work = () => {
   useSeo("Work", "Case studies from Allspire: the problem, what we designed and built, and what changed for the business.");

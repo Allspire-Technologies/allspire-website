@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Rocket, Globe, RefreshCw, Bot, ArrowRight, Zap, Lightbulb, Shield, TrendingUp } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -12,7 +11,7 @@ import { industryList } from "@/data/industries";
 import { ITROVA_LINKS } from "@/config/itrova";
 import { useSeo } from "@/hooks/useSeo";
 import { useCaseStudies, useCopy, useLogos, useStats, useTestimonials } from "@/hooks/useSiteContent";
-import itrovaDashboard from "@/assets/itrova-dashboard.png";
+import itrovaDashboard from "@/assets/itrova-dashboard.webp";
 
 const whyUs = [
   { icon: Zap, title: "Speed", desc: "Rapid delivery without compromising quality." },
@@ -38,7 +37,7 @@ const Index = () => {
       <section className="relative overflow-hidden">
         <div className="grid-bg absolute inset-0" aria-hidden="true" />
         <div className="container-tight relative grid items-center gap-12 py-16 md:py-24 lg:grid-cols-[1.15fr_1fr]">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 motion-reduce:animate-none">
             <span className="eyebrow">{copy.hero_eyebrow}</span>
             <h1 className="mt-5 text-[40px] font-extrabold leading-[1.05] sm:text-5xl md:text-6xl lg:text-[66px]">{copy.hero_headline}</h1>
             <p className="mt-5 max-w-lg text-lg text-body md:text-xl">{copy.hero_sub}</p>
@@ -53,16 +52,16 @@ const Index = () => {
               <div className="tick">Web, mobile and AI</div>
               <div className="tick">Built for African markets</div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div className="relative" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }}>
+          <div className="relative animate-in fade-in zoom-in-95 fill-mode-both delay-150 duration-700 motion-reduce:animate-none">
             <Shot src={itrovaDashboard} alt="The iTrova dashboard, a product built and run by Allspire" label="itrova.co" eager />
             <div className="card-soft absolute -bottom-6 left-0 hidden w-64 p-4 md:block lg:-left-8">
               <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">Shipped and live</div>
               <div className="mt-1 font-display text-lg font-bold">iTrova</div>
               <p className="mt-1 text-[13px] text-body">POS, inventory and accounting for Nigerian SMBs. Our own product, in production.</p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

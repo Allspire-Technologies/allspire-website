@@ -25,4 +25,15 @@ export default defineConfig({
       "@tanstack/query-core",
     ],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Framework code changes rarely; keeping it in its own chunk lets it stay cached across deploys.
+        manualChunks(id) {
+          if (/node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/.test(id)) return "react";
+          if (/node_modules[\\/]@radix-ui[\\/]/.test(id)) return "radix";
+        },
+      },
+    },
+  },
 });

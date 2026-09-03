@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "@/assets/allspire-logo.png";
+import logo from "@/assets/allspire-logo.webp";
 import { industryList } from "@/data/industries";
 import { ITROVA_LINKS } from "@/config/itrova";
 import { COMPANY, WHATSAPP_DISPLAY, whatsappLink } from "@/config/company";
@@ -12,7 +12,7 @@ const Footer = () => (
     <div className="container-tight pb-8 pt-14 md:pt-16">
       <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
         <div className="col-span-2">
-          <img src={logo} alt="Allspire" className="h-8 w-auto brightness-0 invert" />
+          <img src={logo} alt="Allspire" width={619} height={182} className="h-8 w-auto brightness-0 invert" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-navy-foreground/80">
             Intelligent digital products that help businesses scale faster and operate smarter.
           </p>

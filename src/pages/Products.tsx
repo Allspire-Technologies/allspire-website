@@ -5,7 +5,7 @@ import Shot from "@/components/site/Shot";
 import CtaBand from "@/components/site/CtaBand";
 import { ITROVA_LINKS } from "@/config/itrova";
 import { useSeo } from "@/hooks/useSeo";
-import itrovaDashboard from "@/assets/itrova-dashboard.png";
+import itrovaDashboard from "@/assets/itrova-dashboard.webp";
 
 // iTrova has its own site (itrova.co). This page is the product card that hands visitors over.
 

@@ -4,7 +4,7 @@ import CtaBand from "@/components/site/CtaBand";
 import { TeamGrid } from "@/components/site/Proof";
 import { useSeo } from "@/hooks/useSeo";
 import { useCopy, useTeam } from "@/hooks/useSiteContent";
-import heroImage from "@/assets/hero-bg.jpg";
+import heroImage from "@/assets/hero-bg.webp";
 
 const About = () => {
   useSeo("About", "Allspire Technologies Limited is a Lagos-based technology company. We design and engineer digital products for businesses across Nigeria and Africa, and we build our own, like iTrova.");
@@ -23,7 +23,7 @@ const About = () => {
           </AnimatedSection>
           <AnimatedSection delay={0.1}>
             <div className="shot rounded-3xl">
-              <img src={heroImage} alt="Allspire team at work" className="h-56 w-full object-cover md:h-72" loading="eager" />
+              <img src={heroImage} alt="Allspire team at work" width={1600} height={900} className="h-56 w-full object-cover md:h-72" loading="eager" />
             </div>
           </AnimatedSection>
         </div>
