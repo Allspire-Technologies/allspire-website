@@ -1,186 +1,92 @@
 import { motion } from "framer-motion";
-import {
-  Package, ShoppingCart, Boxes, ReceiptText, Users, BarChart3, ArrowRight,
-} from "lucide-react";
+import { ArrowRight, BookOpen, Handshake, ShoppingCart, WifiOff, Calculator } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
-import ItrovaPricing from "@/components/ItrovaPricing";
-import AffiliateSignup from "@/components/AffiliateSignup";
+import { ITROVA_LINKS } from "@/config/itrova";
 import itrovaDashboard from "@/assets/itrova-dashboard.png";
-import itrovaPos from "@/assets/itrova-pos.png";
-import itrovaInventory from "@/assets/itrova-inventory.png";
-import itrovaReports from "@/assets/itrova-reports.png";
 
-const capabilities = [
+// iTrova has its own site now (itrova.co). This page is the product card that hands visitors
+// over: what it is, three reasons to care, and the links. Pricing, the guide and the affiliate
+// program live on itrova.co and are no longer duplicated here.
+
+const highlights = [
   {
-    icon: Package,
-    title: "Inventory & Stock Control",
-    desc: "Track finished products, stock levels and categories with low-stock alerts, stock adjustments and CSV import/export.",
+    icon: WifiOff,
+    title: "Sells even without network",
+    desc: "The point of sale keeps working when the connection drops; sales save on the device and sync when it returns.",
   },
   {
     icon: ShoppingCart,
-    title: "Point of Sale",
-    desc: "Fast walk-in sales with cash, transfer and POS-terminal payments, automatic stock deduction and instant receipts.",
+    title: "Sales, stock and invoices in one place",
+    desc: "Every sale deducts stock, raises the receipt and lands in the books. Invoices, suppliers and purchase orders included.",
   },
   {
-    icon: Boxes,
-    title: "Suppliers & Raw Materials",
-    desc: "A supplier directory and separate raw-material inventory, with a bill-of-materials that deducts inputs on every sale.",
+    icon: Calculator,
+    title: "Accounting that writes itself",
+    desc: "Double-entry books, profit and loss, VAT, payroll and assets, built from everyday activity without an accountant.",
   },
-  {
-    icon: ReceiptText,
-    title: "Invoices & Purchase Orders",
-    desc: "Generate invoices and supplier purchase orders, track payment status and send them over WhatsApp or email.",
-  },
-  {
-    icon: Users,
-    title: "Team & Roles",
-    desc: "Invite staff with owner, manager and cashier roles, enforced end-to-end with row-level security.",
-  },
-  {
-    icon: BarChart3,
-    title: "Reports & Analytics",
-    desc: "Revenue, gross profit, top-selling products, sales by staff, inventory turnover and supplier spend.",
-  },
-];
-
-const gallery = [
-  { image: itrovaPos, title: "Point of Sale", caption: "Ring up walk-in sales in seconds." },
-  { image: itrovaInventory, title: "Inventory", caption: "Every product, stock level and status at a glance." },
-  { image: itrovaReports, title: "Reports", caption: "Revenue, profit and stock health over any range." },
 ];
 
 const Products = () => (
   <PageLayout>
-    {/* Header */}
     <section className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
       <div className="container-tight relative">
-        <AnimatedSection className="max-w-3xl mx-auto text-center mb-16">
-          <span className="text-sm font-medium text-primary mb-4 block">Flagship Product</span>
+        <AnimatedSection className="max-w-3xl mx-auto text-center mb-14">
+          <span className="text-sm font-medium text-primary mb-4 block">Products</span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Work that <span className="gradient-text">speaks</span>
+            Meet <span className="gradient-text">iTrova</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We pour everything we know into the products we build. Here's the one we built end-to-end, live in production today.
+          <p className="text-lg text-muted-foreground">
+            The point of sale, inventory and accounting app we built for shops, traders and small
+            manufacturers across Nigeria. Live in production and now on its own site.
           </p>
         </AnimatedSection>
 
-        {/* Featured project */}
-        <AnimatedSection>
-          <div className="glass-card overflow-hidden">
-            {/* Browser-chrome + screenshot */}
-            <div className="border-b border-border/60">
-              <div className="flex items-center gap-2 px-5 py-3">
-                <div className="w-3 h-3 rounded-full bg-red-400" />
-                <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                <div className="w-3 h-3 rounded-full bg-green-400" />
-                <span className="ml-auto text-xs text-muted-foreground font-mono">itrova.app</span>
-              </div>
-              <img
-                src={itrovaDashboard}
-                alt="iTrova dashboard showing daily sales, inventory and stock alerts"
-                width={1440}
-                height={900}
-                className="w-full"
-              />
+        <AnimatedSection delay={0.1}>
+          <div className="glass-card overflow-hidden p-0 max-w-5xl mx-auto">
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-border/50 bg-muted/40">
+              <span className="w-2.5 h-2.5 rounded-full bg-border" />
+              <span className="w-2.5 h-2.5 rounded-full bg-border" />
+              <span className="w-2.5 h-2.5 rounded-full bg-border" />
+              <span className="ml-3 text-xs font-mono text-muted-foreground">itrova.co</span>
             </div>
-
-            {/* Intro */}
-            <div className="p-8 md:p-12">
-              <span className="text-xs font-medium text-primary uppercase tracking-wider">
-                Retail &amp; Distribution · SaaS Platform
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">iTrova</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                A comprehensive business management platform purpose-built for small and medium-sized
-                businesses across Nigeria and Africa. iTrova connects every part of a business, from the
-                raw materials coming in to the finished products going out; bringing inventory, point of
-                sale, suppliers, invoicing, team management and reporting into one seamless platform.
-              </p>
-              <a
-                href="https://itrova.allspire.tech"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-glass-primary group mt-8 inline-flex"
-              >
-                Get iTrova
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+            <img src={itrovaDashboard} alt="The iTrova dashboard" className="w-full" loading="eager" />
+            <div className="p-6 md:p-10">
+              <div className="grid md:grid-cols-3 gap-8">
+                {highlights.map((h) => (
+                  <div key={h.title}>
+                    <div className="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+                      <h.icon className="w-5 h-5" />
+                    </div>
+                    <h2 className="font-semibold text-lg mb-2">{h.title}</h2>
+                    <p className="text-sm text-muted-foreground">{h.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-3">
+                <motion.a
+                  href={ITROVA_LINKS.home}
+                  className="btn-glass-primary group text-center"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Explore iTrova <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </motion.a>
+                <a href={ITROVA_LINKS.pricing} className="btn-glass-secondary text-center">
+                  See pricing
+                </a>
+                <a href={ITROVA_LINKS.affiliates} className="btn-glass-secondary text-center">
+                  <Handshake className="w-4 h-4" /> Become an affiliate
+                </a>
+                <a href={ITROVA_LINKS.guide} className="btn-glass-secondary text-center">
+                  <BookOpen className="w-4 h-4" /> User guide
+                </a>
+              </div>
             </div>
           </div>
         </AnimatedSection>
       </div>
     </section>
-
-    {/* Capabilities */}
-    <section className="section-padding surface-elevated">
-      <div className="container-tight">
-        <AnimatedSection className="text-center mb-16">
-          <span className="text-sm font-medium text-primary mb-2 block">What's Inside</span>
-          <h2 className="text-3xl md:text-4xl font-bold">Built for every part of the business</h2>
-        </AnimatedSection>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {capabilities.map((c, i) => (
-            <AnimatedSection key={c.title} delay={i * 0.1}>
-              <motion.div
-                className="glass-card p-8 h-full group cursor-default"
-                whileHover={{ y: -4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              >
-                <div className="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-                  <c.icon className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{c.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-sm">{c.desc}</p>
-              </motion.div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* Gallery */}
-    <section className="section-padding">
-      <div className="container-tight">
-        <AnimatedSection className="text-center mb-16">
-          <span className="text-sm font-medium text-primary mb-2 block">A Closer Look</span>
-          <h2 className="text-3xl md:text-4xl font-bold">Inside the product</h2>
-        </AnimatedSection>
-        <div className="grid md:grid-cols-3 gap-8">
-          {gallery.map((g, i) => (
-            <AnimatedSection key={g.title} delay={i * 0.1}>
-              <motion.div
-                className="glass-card overflow-hidden group h-full"
-                whileHover={{ y: -6 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              >
-                <div className="overflow-hidden border-b border-border/60">
-                  <img
-                    src={g.image}
-                    alt={`iTrova ${g.title} screen`}
-                    width={1440}
-                    height={900}
-                    loading="lazy"
-                    className="w-full group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold mb-1">{g.title}</h3>
-                  <p className="text-sm text-muted-foreground">{g.caption}</p>
-                </div>
-              </motion.div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* Pricing */}
-    <ItrovaPricing />
-
-    {/* Affiliate program */}
-    <AffiliateSignup />
   </PageLayout>
 );
 

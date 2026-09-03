@@ -9,7 +9,8 @@ import Services from "./pages/Services";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import Webinar from "./pages/Webinar";
-import ItrovaGuide from "./pages/ItrovaGuide";
+import ExternalRedirect from "./components/ExternalRedirect";
+import { ITROVA_LINKS } from "./config/itrova";
 import IndustryDetail from "./pages/IndustryDetail";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -35,7 +36,8 @@ const App = () => (
           <Route path="/projects" element={<Navigate to="/products" replace />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/webinar" element={<Webinar />} />
-          <Route path="/docs/itrova" element={<ItrovaGuide />} />
+          {/* The iTrova guide lives on itrova.co now; public/_redirects 301s this before the SPA. */}
+          <Route path="/docs/itrova" element={<ExternalRedirect to={ITROVA_LINKS.guide} />} />
           <Route path="/industries/:slug" element={<IndustryDetail />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />

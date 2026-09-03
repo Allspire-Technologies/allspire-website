@@ -1,1 +1,4 @@
+# The iTrova guide and affiliate program moved to itrova.co (301s run before the SPA fallback).
+/docs/itrova        https://itrova.co/guide       301
+/docs/itrova/*      https://itrova.co/guide       301
 /*    /index.html   200
