@@ -8,7 +8,8 @@ import AnimatedSection from "@/components/AnimatedSection";
 import SectionHead from "@/components/site/SectionHead";
 import { useSeo } from "@/hooks/useSeo";
 import { useWebinar } from "@/hooks/useSiteContent";
-import { WEBINAR_FALLBACK } from "@/data/allspire";
+import { REGISTRATION_FORM_URL, WEBINAR_FALLBACK } from "@/data/allspire";
+import { googleFormUrl, safeHttpsUrl } from "@/lib/safeUrl";
 import facilitatorPhoto from "@/assets/samuel-tosinpaul.jpeg";
 
 const painPoints = [
@@ -55,9 +56,10 @@ const Webinar = () => {
   const photo = webinar.facilitator_photo_url || facilitatorPhoto;
   const name = webinar.facilitator_name || WEBINAR_FALLBACK.facilitator_name!;
   const role = webinar.facilitator_role || WEBINAR_FALLBACK.facilitator_role!;
-  const url = webinar.registration_url || WEBINAR_FALLBACK.registration_url!;
-  const embeddable = /docs\.google\.com\/forms/.test(url);
-  const embedUrl = `${url}${url.includes("?") ? "&" : "?"}embedded=true`;
+  const url = safeHttpsUrl(webinar.registration_url) ?? REGISTRATION_FORM_URL;
+  // Only a Google Form is ever embedded; any other registration link opens in a new tab.
+  const formUrl = googleFormUrl(url);
+  const embedUrl = formUrl ? `${formUrl}${formUrl.includes("?") ? "&" : "?"}embedded=true` : null;
 
   return (
     <PageLayout>
@@ -161,10 +163,17 @@ const Webinar = () => {
           <h2 className="mt-2 text-3xl md:text-4xl">Register now. It is free.</h2>
           <p className="mx-auto mt-3 max-w-xl text-body">Fill the form below to secure your slot. Your access link will be sent to registered participants only.</p>
         </AnimatedSection>
-        {embeddable ? (
+        {embedUrl ? (
           <AnimatedSection delay={0.08} className="mx-auto max-w-3xl">
             <div className="card-soft overflow-hidden p-2 md:p-4">
-              <iframe src={embedUrl} title="Masterclass registration" className="h-[1200px] w-full rounded-xl" loading="lazy">
+              <iframe
+                src={embedUrl}
+                title="Masterclass registration"
+                className="h-[1200px] w-full rounded-xl"
+                loading="lazy"
+                sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                referrerPolicy="strict-origin-when-cross-origin"
+              >
                 Loading
               </iframe>
             </div>

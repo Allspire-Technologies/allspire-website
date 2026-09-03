@@ -16,10 +16,12 @@ const COLLECTIONS = {
   testimonials: { table: "as_testimonial", select: "id,quote,name,role,company,photo_url,sort", order: "sort.asc,created_at.asc" },
   team: { table: "as_team_member", select: "id,name,role,bio,photo_url,linkedin,sort", order: "sort.asc,created_at.asc" },
   copy: { table: "as_copy", select: "key,value", order: "key.asc" },
+  // The current webinar is the most recently updated published row, and only that one.
   webinar: {
     table: "as_webinar",
     select: "title,schedule,time_label,registration_url,facilitator_name,facilitator_role,facilitator_photo_url,topics",
-    order: "",
+    order: "updated_at.desc",
+    limit: 1,
   },
 };
 
@@ -35,15 +37,18 @@ export async function onRequestGet(context) {
   if (!spec) return json({ error: "Unknown collection." }, 404);
   if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) return json({ error: "Content source not configured." }, 503);
 
+  // Query strings are ignored by this endpoint, so they must not fragment the cache.
+  const requestUrl = new URL(request.url);
   const cache = caches.default;
-  const cacheKey = new Request(new URL(request.url).toString(), { method: "GET" });
+  const cacheKey = new Request(`${requestUrl.origin}${requestUrl.pathname}`, { method: "GET" });
   const hit = await cache.match(cacheKey);
   if (hit) return hit;
 
   const base = env.SUPABASE_URL.replace(/\/+$/, "");
   const url =
     `${base}/rest/v1/${spec.table}?select=${encodeURIComponent(spec.select)}&published=eq.true` +
-    (spec.order ? `&order=${encodeURIComponent(spec.order)}` : "");
+    (spec.order ? `&order=${encodeURIComponent(spec.order)}` : "") +
+    (spec.limit ? `&limit=${spec.limit}` : "");
 
   let upstream;
   try {

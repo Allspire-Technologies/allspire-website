@@ -22,6 +22,8 @@ const ThemeToggle = () => {
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
+    // Keep the browser chrome colour in step with the explicit choice, not just the OS.
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", dark ? "#0b1220" : "#2f3cf0");
   }, [dark]);
 
   useEffect(() => {

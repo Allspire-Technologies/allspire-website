@@ -12,7 +12,8 @@ const WorkDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { items, loaded } = useCaseStudies();
   const story = items.find((s) => s.slug === slug);
-  useSeo(story ? story.title : "Case study", story ? story.summary : "");
+  // The SPA fallback answers 200 for any slug, so a missing story must tell crawlers to drop it.
+  useSeo(story ? story.title : "Case study", story ? story.summary : "", { noindex: loaded && !story });
 
   if (!story) {
     return (

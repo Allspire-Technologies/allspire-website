@@ -1,3 +1,5 @@
+import { safeHttpsUrl } from "@/lib/safeUrl";
+
 // Content the Allspire CMS (as_* tables, edited in the iTrova CRM) feeds into this site.
 // Every proof collection ships with an EMPTY fallback on purpose: the matching section stays
 // hidden until real content is published. Only the webinar and page copy have built-in
@@ -153,17 +155,102 @@ export function mapCopy(rows: unknown[]): SiteCopy {
   return out;
 }
 
+// Row normalisers. The content proxy only guarantees an array; every row is checked here so a
+// malformed or hostile CMS row is dropped instead of reaching a href, src or route.
+const isObj = (r: unknown): r is Record<string, unknown> => !!r && typeof r === "object" && !Array.isArray(r);
+const str = (v: unknown): string => (typeof v === "string" ? v.trim() : "");
+const optStr = (v: unknown): string | null => str(v) || null;
+const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+export function mapLogos(rows: unknown[]): Logo[] {
+  const out: Logo[] = [];
+  for (const r of rows) {
+    if (!isObj(r)) continue;
+    const name = str(r.name);
+    const logo_url = safeHttpsUrl(r.logo_url);
+    if (!name || !logo_url) continue;
+    out.push({ id: str(r.id) || name, name, logo_url, website: safeHttpsUrl(r.website) });
+  }
+  return out;
+}
+
+export function mapStats(rows: unknown[]): Stat[] {
+  const out: Stat[] = [];
+  for (const r of rows) {
+    if (!isObj(r)) continue;
+    const label = str(r.label);
+    const value = str(r.value);
+    if (!label || !value) continue;
+    out.push({ id: str(r.id) || label, label, value });
+  }
+  return out;
+}
+
+export function mapCaseStudies(rows: unknown[]): CaseStudy[] {
+  const out: CaseStudy[] = [];
+  for (const r of rows) {
+    if (!isObj(r)) continue;
+    const slug = str(r.slug);
+    const title = str(r.title);
+    if (!SLUG.test(slug) || !title) continue;
+    out.push({
+      id: str(r.id) || slug,
+      slug,
+      title,
+      client: optStr(r.client),
+      industry: optStr(r.industry),
+      summary: str(r.summary),
+      challenge: optStr(r.challenge),
+      solution: optStr(r.solution),
+      outcome: optStr(r.outcome),
+      cover_url: safeHttpsUrl(r.cover_url),
+      body_md: optStr(r.body_md),
+      updated_at: optStr(r.updated_at),
+    });
+  }
+  return out;
+}
+
+export function mapTestimonials(rows: unknown[]): Testimonial[] {
+  const out: Testimonial[] = [];
+  for (const r of rows) {
+    if (!isObj(r)) continue;
+    const quote = str(r.quote);
+    const name = str(r.name);
+    if (!quote || !name) continue;
+    out.push({ id: str(r.id) || name, quote, name, role: optStr(r.role), company: optStr(r.company), photo_url: safeHttpsUrl(r.photo_url) });
+  }
+  return out;
+}
+
+export function mapTeam(rows: unknown[]): TeamMember[] {
+  const out: TeamMember[] = [];
+  for (const r of rows) {
+    if (!isObj(r)) continue;
+    const name = str(r.name);
+    const role = str(r.role);
+    if (!name || !role) continue;
+    out.push({ id: str(r.id) || name, name, role, bio: optStr(r.bio), photo_url: safeHttpsUrl(r.photo_url), linkedin: safeHttpsUrl(r.linkedin) });
+  }
+  return out;
+}
+
 export function mapWebinar(rows: unknown[]): Webinar[] {
-  return (rows as Partial<Webinar>[]).map((r) => ({
-    title: r.title ?? WEBINAR_FALLBACK.title,
-    schedule: r.schedule ?? WEBINAR_FALLBACK.schedule,
-    time_label: r.time_label ?? WEBINAR_FALLBACK.time_label,
-    registration_url: r.registration_url || REGISTRATION_FORM_URL,
-    facilitator_name: r.facilitator_name ?? null,
-    facilitator_role: r.facilitator_role ?? null,
-    facilitator_photo_url: r.facilitator_photo_url ?? null,
-    topics: Array.isArray(r.topics) ? r.topics.filter((t): t is string => typeof t === "string") : [],
-  }));
+  const out: Webinar[] = [];
+  for (const r of rows) {
+    if (!isObj(r)) continue;
+    out.push({
+      title: str(r.title) || WEBINAR_FALLBACK.title,
+      schedule: str(r.schedule) || WEBINAR_FALLBACK.schedule,
+      time_label: str(r.time_label) || WEBINAR_FALLBACK.time_label,
+      registration_url: safeHttpsUrl(r.registration_url) ?? REGISTRATION_FORM_URL,
+      facilitator_name: optStr(r.facilitator_name),
+      facilitator_role: optStr(r.facilitator_role),
+      facilitator_photo_url: safeHttpsUrl(r.facilitator_photo_url),
+      topics: Array.isArray(r.topics) ? r.topics.filter((t): t is string => typeof t === "string" && t.trim() !== "") : [],
+    });
+  }
+  return out;
 }
 
 export const INDUSTRY_LABELS: Record<string, string> = {
