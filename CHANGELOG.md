@@ -2,6 +2,25 @@
 
 Notable changes to allspire.tech. Entries are grouped by ship date, newest first.
 
+## 2026-09-03: SEO foundation, prerendered routes, sitemap, structured data
+
+### Added
+
+- **Prerendered pages.** Every static route ships its own HTML with the right title, description,
+  canonical and Open Graph tags, so crawlers and link previews no longer see the home page meta
+  on every URL. Built by `scripts/prerender.mjs` from `src/seo/routes.json`.
+- **Sitemap and robots.** `/sitemap.xml` is generated at the edge from the static routes plus every
+  published case study (paged, so nothing is dropped as the list grows). `robots.txt` points at it.
+- **Structured data.** Organization and WebSite JSON-LD on the home page, and a recurring Event on
+  the webinar page for the Saturday masterclass.
+- **Case-study meta at the edge.** `/work/<slug>` gets the story title, summary and cover injected
+  before the app loads; unknown, unpublished or malformed slugs return a noindex shell.
+- **Share card.** A 1200x630 Open Graph image rendered from `scripts/og-card.html`.
+
+### Changed
+
+- Client-side navigation keeps the canonical URL and og:url in sync with the address bar.
+
 ## 2026-09-03 — Site refresh: evolved identity, CMS-fed proof, dark mode
 
 ### Changed
