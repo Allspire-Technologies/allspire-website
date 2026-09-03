@@ -12,11 +12,15 @@ const htmlResponse = (html) =>
     headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=0, must-revalidate" },
   });
 
+// Unknown, unpublished or malformed slug: same shell, but tell crawlers not to keep it.
+const noindexResponse = (html) => htmlResponse(html.replace("</head>", '<meta name="robots" content="noindex, nofollow" />\n  </head>'));
+
 export async function onRequestGet({ request, env, params }) {
   const shell = await env.ASSETS.fetch(new Request(new URL("/work", request.url).toString(), request));
   const html = await shell.text();
   const slug = String(params.slug ?? "");
-  if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY || !SLUG.test(slug)) return htmlResponse(html);
+  if (!SLUG.test(slug)) return noindexResponse(html);
+  if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) return htmlResponse(html);
 
   try {
     const res = await fetch(
@@ -29,10 +33,7 @@ export async function onRequestGet({ request, env, params }) {
     );
     const rows = res.ok ? await res.json() : [];
     const story = Array.isArray(rows) ? rows[0] : null;
-    if (!story || typeof story.title !== "string") {
-      // Unknown or unpublished: same shell, but tell crawlers not to keep it.
-      return htmlResponse(html.replace("</head>", '<meta name="robots" content="noindex, nofollow" />\n  </head>'));
-    }
+    if (!story || typeof story.title !== "string") return noindexResponse(html);
     const title = `${story.title} | Allspire case study`;
     const desc = typeof story.summary === "string" && story.summary.trim() ? story.summary : "A project story from Allspire Technologies.";
     const url = `${SITE_URL}/work/${slug}`;

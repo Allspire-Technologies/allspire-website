@@ -3,6 +3,8 @@
 import { routes } from "../src/seo/routes.json";
 
 const SITE_URL = "https://allspire.tech";
+const PAGE = 500;
+const MAX_PAGES = 100;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 export async function onRequestGet({ request, env, waitUntil }) {
@@ -17,19 +19,28 @@ export async function onRequestGet({ request, env, waitUntil }) {
     .map((r) => ({ loc: `${SITE_URL}${r.path === "/" ? "/" : r.path}`, lastmod: today }));
 
   if (env.SUPABASE_URL && env.SUPABASE_ANON_KEY) {
+    // Page through every published story (PostgREST caps a single response), bounded well above
+    // the 50,000-URL sitemap limit so a runaway table cannot hold the request open.
+    const base = env.SUPABASE_URL.replace(/\/+$/, "");
+    const headers = { apikey: env.SUPABASE_ANON_KEY, Authorization: `Bearer ${env.SUPABASE_ANON_KEY}` };
     try {
-      const res = await fetch(
-        `${env.SUPABASE_URL.replace(/\/+$/, "")}/rest/v1/as_case_study?select=slug,updated_at&published=eq.true&order=updated_at.desc&limit=500`,
-        { headers: { apikey: env.SUPABASE_ANON_KEY, Authorization: `Bearer ${env.SUPABASE_ANON_KEY}` }, signal: AbortSignal.timeout(8000) },
-      );
-      const rows = res.ok ? await res.json() : [];
-      for (const r of Array.isArray(rows) ? rows : []) {
-        if (typeof r?.slug === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(r.slug)) {
-          entries.push({ loc: `${SITE_URL}/work/${r.slug}`, lastmod: String(r.updated_at ?? today).slice(0, 10) });
+      for (let offset = 0; offset < PAGE * MAX_PAGES; offset += PAGE) {
+        const res = await fetch(
+          `${base}/rest/v1/as_case_study?select=slug,updated_at&published=eq.true&order=updated_at.desc,slug.asc&limit=${PAGE}&offset=${offset}`,
+          { headers, signal: AbortSignal.timeout(8000) },
+        );
+        if (!res.ok) break;
+        const rows = await res.json();
+        if (!Array.isArray(rows)) break;
+        for (const r of rows) {
+          if (typeof r?.slug === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(r.slug)) {
+            entries.push({ loc: `${SITE_URL}/work/${r.slug}`, lastmod: String(r.updated_at ?? today).slice(0, 10) });
+          }
         }
+        if (rows.length < PAGE) break;
       }
     } catch {
-      /* the static routes are still a valid sitemap */
+      /* the static routes (and any pages already fetched) are still a valid sitemap */
     }
   }
 
