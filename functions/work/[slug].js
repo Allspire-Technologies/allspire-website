@@ -60,3 +60,6 @@ export async function onRequestGet({ request, env, params }) {
     return htmlResponse(shell, html);
   }
 }
+
+// Pages routes HEAD only to a HEAD handler; without this, HEAD /work/<unknown> fell through to the 200 shell.
+export const onRequestHead = onRequestGet;
