@@ -8,17 +8,18 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 
 // Keep the headers the static shell carries (CSP and friends from public/_headers, which the
 // nonce middleware then extends); only the type and cache policy are set here.
-const htmlResponse = (shell, html) => {
+const htmlResponse = (shell, html, status = 200) => {
   const headers = new Headers(shell.headers);
   headers.set("Content-Type", "text/html; charset=utf-8");
   headers.set("Cache-Control", "public, max-age=0, must-revalidate");
   headers.delete("ETag");
   headers.delete("Content-Length");
-  return new Response(html, { status: 200, headers });
+  return new Response(html, { status, headers });
 };
 
-// Unknown, unpublished or malformed slug: same shell, but tell crawlers not to keep it.
-const noindexResponse = (shell, html) => htmlResponse(shell, html.replace("</head>", '<meta name="robots" content="noindex, nofollow" />\n  </head>'));
+// Unknown, unpublished or malformed slug: same shell (the client renders its not-found page), 404 status, noindex.
+const noindexResponse = (shell, html) =>
+  htmlResponse(shell, html.replace("</head>", '<meta name="robots" content="noindex, nofollow" />\n  </head>'), 404);
 
 export async function onRequestGet({ request, env, params }) {
   const shell = await env.ASSETS.fetch(new Request(new URL("/work", request.url).toString(), request));
