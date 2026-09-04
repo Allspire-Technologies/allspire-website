@@ -38,10 +38,13 @@ export async function onRequest({ request, next }) {
 
   const { pathname } = new URL(request.url);
   const looksLikeFile = /\.[a-z0-9]{1,5}$/i.test(pathname);
-  if (request.method === "GET" && res.status === 200 && !looksLikeFile && !isKnown(pathname)) {
-    const html = (await res.text()).replace("</head>", `${NOINDEX}\n  </head>`);
+  const isDocRequest = request.method === "GET" || request.method === "HEAD";
+  if (isDocRequest && res.status === 200 && !looksLikeFile && !isKnown(pathname)) {
     headers.delete("ETag");
     headers.delete("Content-Length");
+    // HEAD gets the same status and headers with no body.
+    if (request.method === "HEAD") return new Response(null, { status: 404, headers });
+    const html = (await res.text()).replace("</head>", `${NOINDEX}\n  </head>`);
     return new Response(html, { status: 404, headers });
   }
   return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
