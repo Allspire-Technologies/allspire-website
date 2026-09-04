@@ -6,21 +6,26 @@ const SITE_URL = "https://allspire.tech";
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const htmlResponse = (html) =>
-  new Response(html, {
-    status: 200,
-    headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=0, must-revalidate" },
-  });
+// Keep the headers the static shell carries (CSP and friends from public/_headers, which the
+// nonce middleware then extends); only the type and cache policy are set here.
+const htmlResponse = (shell, html) => {
+  const headers = new Headers(shell.headers);
+  headers.set("Content-Type", "text/html; charset=utf-8");
+  headers.set("Cache-Control", "public, max-age=0, must-revalidate");
+  headers.delete("ETag");
+  headers.delete("Content-Length");
+  return new Response(html, { status: 200, headers });
+};
 
 // Unknown, unpublished or malformed slug: same shell, but tell crawlers not to keep it.
-const noindexResponse = (html) => htmlResponse(html.replace("</head>", '<meta name="robots" content="noindex, nofollow" />\n  </head>'));
+const noindexResponse = (shell, html) => htmlResponse(shell, html.replace("</head>", '<meta name="robots" content="noindex, nofollow" />\n  </head>'));
 
 export async function onRequestGet({ request, env, params }) {
   const shell = await env.ASSETS.fetch(new Request(new URL("/work", request.url).toString(), request));
   const html = await shell.text();
   const slug = String(params.slug ?? "");
-  if (!SLUG.test(slug)) return noindexResponse(html);
-  if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) return htmlResponse(html);
+  if (!SLUG.test(slug)) return noindexResponse(shell, html);
+  if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY) return htmlResponse(shell, html);
 
   try {
     const res = await fetch(
@@ -33,7 +38,7 @@ export async function onRequestGet({ request, env, params }) {
     );
     const rows = res.ok ? await res.json() : [];
     const story = Array.isArray(rows) ? rows[0] : null;
-    if (!story || typeof story.title !== "string") return noindexResponse(html);
+    if (!story || typeof story.title !== "string") return noindexResponse(shell, html);
     const title = `${story.title} | Allspire case study`;
     const desc = typeof story.summary === "string" && story.summary.trim() ? story.summary : "A project story from Allspire Technologies.";
     const url = `${SITE_URL}/work/${slug}`;
@@ -49,8 +54,8 @@ export async function onRequestGet({ request, env, params }) {
       .replace(/(<meta property="og:image" content=")[^"]*(")/, cover ? `$1${esc(cover)}$2` : "$1$2")
       .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(title)}$2`)
       .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(desc)}$2`);
-    return htmlResponse(injected);
+    return htmlResponse(shell, injected);
   } catch {
-    return htmlResponse(html);
+    return htmlResponse(shell, html);
   }
 }
