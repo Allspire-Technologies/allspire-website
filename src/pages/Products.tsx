@@ -13,7 +13,7 @@ const highlights = [
   {
     icon: WifiOff,
     title: "Sells even without network",
-    desc: "The point of sale keeps working when the connection drops; sales save on the device and sync when it returns.",
+    desc: "The point of sale keeps working when the connection drops; sales save on the device and sync with one tap when it returns.",
   },
   {
     icon: ShoppingCart,
