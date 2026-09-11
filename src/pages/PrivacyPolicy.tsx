@@ -10,7 +10,7 @@ const PrivacyPolicy = () => {
       <div className="container-tight">
         <AnimatedSection className="max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Privacy Policy</h1>
-          <p className="text-muted-foreground mb-8">Effective June 6, 2026 · Last updated June 6, 2026</p>
+          <p className="text-muted-foreground mb-8">Effective June 6, 2026 · Last updated September 11, 2026</p>
 
           <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8">
             <p className="text-muted-foreground leading-relaxed">
@@ -100,6 +100,15 @@ const PrivacyPolicy = () => {
               </ul>
               <p className="text-muted-foreground leading-relaxed mt-2">
                 All third-party providers are required to maintain appropriate security standards.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mt-4">
+                <strong>Referral programme.</strong> If a business signs up through an affiliate's referral link or
+                code, we show that affiliate the business's name, the email address of its owner, whether the business
+                has signed up, is paying or has lapsed, and the reward it has earned them. This lets the affiliate
+                recognise the businesses they introduced and follow up with them. Affiliates agree to use this
+                information only for the referral programme, not to share or sell it, and to delete it on request, under
+                our Affiliate Programme Terms. If you signed up through a referral and do not want the affiliate to see
+                these details, contact us using the details below and we will remove your business from their view.
               </p>
             </div>
 
