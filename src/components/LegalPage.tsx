@@ -31,8 +31,11 @@ export default function LegalPage({
   useSeo(seoTitle, seoDescription);
   const { data } = useContent<LegalDoc[]>("legal", NONE, mapLegalRows);
   const { current, upcoming } = pickLegalVersion(data, slug, todayIso());
-  const [readingUpcoming, setReadingUpcoming] = useState(false);
-  const shown = readingUpcoming && upcoming ? upcoming : current;
+  // Keyed to the version it was opened for, so a changed version pair cannot leave the page
+  // showing an upcoming document the reader never asked for.
+  const [readingVersion, setReadingVersion] = useState<string | null>(null);
+  const readingUpcoming = upcoming != null && readingVersion === upcoming.effectiveAt;
+  const shown = readingUpcoming ? upcoming : current;
 
   return (
     <PageLayout>
@@ -47,14 +50,14 @@ export default function LegalPage({
                 {readingUpcoming ? (
                   <>
                     You are reading the version that takes effect on {formatEffective(upcoming.effectiveAt)}.{" "}
-                    <button type="button" onClick={() => setReadingUpcoming(false)} className="font-semibold underline underline-offset-2">
+                    <button type="button" onClick={() => setReadingVersion(null)} className="font-semibold underline underline-offset-2">
                       Back to the current version
                     </button>
                   </>
                 ) : (
                   <>
                     An updated version takes effect on {formatEffective(upcoming.effectiveAt)}.{" "}
-                    <button type="button" onClick={() => setReadingUpcoming(true)} className="font-semibold underline underline-offset-2">
+                    <button type="button" onClick={() => setReadingVersion(upcoming.effectiveAt)} className="font-semibold underline underline-offset-2">
                       Read it
                     </button>
                   </>

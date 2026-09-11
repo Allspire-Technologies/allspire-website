@@ -14,6 +14,16 @@ describe("legal documents from the CMS", () => {
     expect(mapLegalRows([])).toEqual([]);
   });
 
+  it("rejects dates that look right but are not real days", () => {
+    const rows = ["2026-02-31", "2026-13-01", "2026-00-10", "2026-04-31", "2025-02-29"].map((effective_at) => ({
+      slug: "terms", title: "Terms", body_md: "x", effective_at,
+    }));
+    expect(mapLegalRows(rows)).toEqual([]);
+    // A leap day in an actual leap year is a real date and stays.
+    expect(mapLegalRows([{ slug: "terms", title: "Terms", body_md: "x", effective_at: "2028-02-29" }])).toHaveLength(1);
+    expect(formatEffective("2026-02-31")).toBe("2026-02-31");
+  });
+
   it("serves the latest version in force and names the next scheduled one", () => {
     const docs = mapLegalRows([
       { slug: "privacy", title: "v1", body_md: "one", effective_at: "2026-06-06" },

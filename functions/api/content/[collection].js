@@ -17,8 +17,10 @@ const COLLECTIONS = {
   testimonials: { table: "as_testimonial", select: "id,quote,name,role,company,photo_url,sort", order: "sort.asc,created_at.asc", limit: 24 },
   team: { table: "as_team_member", select: "id,name,role,bio,photo_url,linkedin,sort", order: "sort.asc,created_at.asc", limit: 48 },
   copy: { table: "as_copy", select: "key,value", order: "key.asc" },
-  // Every published version of every legal document; the page picks the one in force.
-  legal: { table: "as_legal_doc", select: "slug,title,body_md,effective_at", order: "slug.asc,effective_at.desc", limit: 40 },
+  // Every published version of every legal document; the page picks the one in force. Ordered
+  // newest first (not by slug) and generously bounded, so no single document's history can push
+  // another document out of the response and silently drop the site back to bundled text.
+  legal: { table: "as_legal_doc", select: "slug,title,body_md,effective_at", order: "effective_at.desc", limit: 200 },
   // The current webinar is the most recently updated published row, and only that one.
   webinar: {
     table: "as_webinar",

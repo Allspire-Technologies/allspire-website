@@ -15,13 +15,22 @@ export interface LegalDoc {
 const SLUGS: LegalSlug[] = ["terms", "privacy", "dpa"];
 const DATE = /^\d{4}-\d{2}-\d{2}/;
 
+/** A real calendar date: 2026-02-31 has the right shape but does not exist, and comparing or
+ *  formatting it would put the document in force on a day it never takes effect. */
+function isCalendarDate(iso: string): boolean {
+  if (!DATE.test(iso)) return false;
+  const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
+  const dt = new Date(y, m - 1, d);
+  return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d;
+}
+
 export function mapLegalRows(rows: unknown[]): LegalDoc[] {
   const docs: LegalDoc[] = [];
   for (const raw of rows) {
     const r = (raw ?? {}) as Record<string, unknown>;
     const slug = r.slug as LegalSlug;
     const effectiveAt = typeof r.effective_at === "string" ? r.effective_at.slice(0, 10) : "";
-    if (!SLUGS.includes(slug) || typeof r.body_md !== "string" || !r.body_md.trim() || !DATE.test(effectiveAt)) continue;
+    if (!SLUGS.includes(slug) || typeof r.body_md !== "string" || !r.body_md.trim() || !isCalendarDate(effectiveAt)) continue;
     docs.push({ slug, title: typeof r.title === "string" && r.title.trim() ? r.title : slug, bodyMd: r.body_md, effectiveAt });
   }
   return docs;
@@ -43,7 +52,7 @@ export function pickLegalVersion(docs: LegalDoc[], slug: LegalSlug, today: strin
 
 /** "September 11, 2026" from YYYY-MM-DD, parsed as a calendar date so no timezone shifts the day. */
 export function formatEffective(iso: string): string {
-  if (!DATE.test(iso)) return iso;
+  if (!isCalendarDate(iso)) return iso;
   const [y, mo, d] = iso.slice(0, 10).split("-").map(Number);
   return new Date(y, mo - 1, d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
